@@ -1,0 +1,72 @@
+{
+    "puppies": [
+        {
+            "name": "Buddy",
+            "id": "Puppy1",
+            "img": [
+                "img/puppy.png"
+            ]
+        },
+        {
+            "name": "Buddy2",
+            "id": "Puppy2",
+            "img": [
+                "img/puppy.png"
+            ]
+        }
+    ],
+    "parents": [
+        {
+            "name": "Syn",
+            "id": "Syn",
+            "img": [
+                "img/puppy.png"
+            ]
+        },
+        {
+            "name": "Kaya",
+            "id": "Kaya",
+            "img": [
+                "img/puppy.png"
+            ]
+        }
+    ],
+    "elders": [
+        {
+            "name": "Naturaly elegant",
+            "id": "NaturalyElegant",
+            "mom": true,
+            "parentOf": "Syn",
+            "link": "https://www.chiens-de-france.com/chien/1067964/archive",
+            "img": [
+                "img/puppy.png"
+            ]
+        },
+        {
+            "name": "Nils Qu'Ahuca",
+            "id": "Nils",
+            "mom": false,
+            "parentOf": "Syn",
+            "link": "https://www.chiens-de-france.com/chien/1067964/archive",
+            "img": [
+                "img/puppy.png"
+            ]
+        },
+        {
+            "name": "Ophélie",
+            "mom": true,
+            "parentOf": "Kaya",
+            "img": [
+                "img/puppy.png"
+            ]
+        },
+        {
+            "name": "Max",
+            "mom": false,
+            "parentOf": "Kaya",
+            "img": [
+                "img/puppy.png"
+            ]
+        }
+    ]
+}
