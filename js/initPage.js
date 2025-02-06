@@ -3,7 +3,7 @@ let doggyData = null;
 
 export async function loadDoggy() {
 
-    console.log("loadDoggy");
+    console.log("loadDoggy Ultimate Version!");
 
     if (!doggyBubble) {
         doggyBubble = await loadHTML("./templates/bubble.html");
@@ -25,8 +25,8 @@ export async function loadDoggy() {
         addBubble(elder, "elders");
     });
 
-    const linesModule = await import('./line.js');
-    linesModule.initDrawLines()
+    const linesModule = await import('./drawings.js');
+    linesModule.initCanvas()
 }
 
 function addBubble(dogInfo, dogType) {
@@ -43,7 +43,6 @@ function addBubble(dogInfo, dogType) {
     } else if (dogType === "elders") {
         document.querySelector("#generation-elders").appendChild(clone);
     }
-
 }
 
 async function loadJson(path) {

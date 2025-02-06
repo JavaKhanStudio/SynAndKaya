@@ -34,7 +34,7 @@
     "elders": [
         {
             "name": "Naturaly elegant",
-            "id": "NaturalyElegant",
+            "id": "Maman_syn",
             "mom": true,
             "parentOf": "Syn",
             "link": "https://www.chiens-de-france.com/chien/1067964/archive",
@@ -44,7 +44,7 @@
         },
         {
             "name": "Nils Qu'Ahuca",
-            "id": "Nils",
+            "id": "Papa_syn",
             "mom": false,
             "parentOf": "Syn",
             "link": "https://www.chiens-de-france.com/chien/1067964/archive",
