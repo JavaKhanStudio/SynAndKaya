@@ -47,18 +47,36 @@ export function initCanvas() {
 
             if (mouseNear) {
                 newFoundLine = line;
-                line.isBeingPulled = true;
 
-                // 🔥 Continuously update the target pull point
-                line.targetPullPoint = { x: mx, y: my };
+                if (!line.isBeingPulled) {
+                    // 🔥 Find the true closest point
+                    let { nearestX, nearestY } = getNearestPointOnLine(mx, my, line.x1, line.y1, line.x2, line.y2);
 
-                if (!line.pullPoint) {
-                    line.pullPoint = { x: mx, y: my };
+                    // 🛠 Fix: Ensure `pullPoint` is reset immediately to the nearest point, preventing teleporting
+                    line.pullPoint = { x: nearestX, y: nearestY };
+
+                    // Detect original side before grabbing
+                    line.grabDirection = (mx < nearestX) ? "left" : "right";
+                    line.startGrab = { x: mx, y: my };
+                }
+
+                // 🔥 Allow pulling when the mouse moves past the original side
+                let hasPassedSide = (line.grabDirection === "left" && mx >= line.startGrab.x) ||
+                    (line.grabDirection === "right" && mx <= line.startGrab.x);
+
+                if (hasPassedSide) {
+                    line.isBeingPulled = true;
+                    line.targetPullPoint = { x: mx, y: my };
+
+                    // 🔥 Apply smooth interpolation
+                    if (!line.pullPoint) {
+                        line.pullPoint = { x: line.targetPullPoint.x, y: line.targetPullPoint.y };
+                    }
                 }
             }
         }
 
-        // If the mouse moves away, stop pulling and start oscillation
+        // 🛠 If the mouse moves away, stop pulling and start oscillation
         if (foundLine && newFoundLine !== foundLine) {
             foundLine.isBeingPulled = false;
             startOscillation(foundLine);
@@ -66,7 +84,7 @@ export function initCanvas() {
 
         foundLine = newFoundLine;
     });
-
+    
     initConnections() ;
     resizeCanvas();
 }
@@ -111,10 +129,38 @@ function drawLine(line) {
     ctx.beginPath();
     ctx.moveTo(line.x1, line.y1);
 
-    // Smooth transition between current position and target pull point
     if (line.isBeingPulled) {
+        let springStrength = 0.05;  // How stretchy the string is
+        let dampingFactor = 0.85;   // Prevents infinite bouncing
+
+        let dx = line.targetPullPoint.x - line.pullPoint.x;
+        let dy = line.targetPullPoint.y - line.pullPoint.y;
+
+        // 🛠 Fix: Ensure velocity resets only on new grab
+        if (!line.hasBeenPulledBefore) {
+            line.velocityX = 0;
+            line.velocityY = 0;
+            line.hasBeenPulledBefore = true;
+        }
+
+        // 🛠 Use a lerp function for smooth movement
         line.pullPoint.x = lerp(line.pullPoint.x, line.targetPullPoint.x, 0.2);
         line.pullPoint.y = lerp(line.pullPoint.y, line.targetPullPoint.y, 0.2);
+
+        // Apply spring force
+        line.velocityX += dx * springStrength;
+        line.velocityY += dy * springStrength;
+
+        // Apply damping
+        line.velocityX *= dampingFactor;
+        line.velocityY *= dampingFactor;
+
+        // Update pullPoint smoothly
+        line.pullPoint.x += line.velocityX;
+        line.pullPoint.y += line.velocityY;
+    } else {
+        // 🛠 Reset for next grab
+        line.hasBeenPulledBefore = false;
     }
 
     let cx = line.isBeingPulled ? line.pullPoint.x : (line.x1 + line.x2) / 2;
@@ -256,6 +302,27 @@ function isMouseNearLine(mx, my, x1, y1, x2, y2, toGrab = false) {
     } else {
         return Math.hypot(mx - nearestX, my - nearestY) < lineDistanceBuffer_HoldingMode;
     }
+}
+
+function getNearestPointOnLine(mx, my, x1, y1, x2, y2) {
+    let dx = x2 - x1;
+    let dy = y2 - y1;
+
+    let px = mx - x1;
+    let py = my - y1;
+
+    let dot = px * dx + py * dy;
+    let lenSq = dx * dx + dy * dy; // Length squared of the line segment
+
+    let param = lenSq !== 0 ? dot / lenSq : -1;
+
+    // 🛠 Fix: Reduce extreme clamping to avoid teleportation near endpoints
+    param = Math.max(0.1, Math.min(0.9, param)); // Instead of 0 and 1, use 0.1 to 0.9
+
+    let nearestX = x1 + param * dx;
+    let nearestY = y1 + param * dy;
+
+    return { nearestX, nearestY };
 }
 
 
