@@ -2,14 +2,14 @@
     "puppies": [
         {
             "name": "Buddy",
-            "id": "Puppy1",
+            "id": "Puppy_1",
             "img": [
                 "img/puppy.png"
             ]
         },
         {
             "name": "Buddy2",
-            "id": "Puppy2",
+            "id": "Puppy_2",
             "img": [
                 "img/puppy.png"
             ]
@@ -24,8 +24,8 @@
             ]
         },
         {
-            "name": "Kaya",
-            "id": "Kaya",
+            "name": "Taia",
+            "id": "Taia",
             "img": [
                 "img/puppy.png"
             ]
@@ -34,7 +34,7 @@
     "elders": [
         {
             "name": "Naturaly elegant",
-            "id": "Maman_syn",
+            "id": "Maman_Syn",
             "mom": true,
             "parentOf": "Syn",
             "link": "https://www.chiens-de-france.com/chien/1067964/archive",
@@ -44,7 +44,7 @@
         },
         {
             "name": "Nils Qu'Ahuca",
-            "id": "Papa_syn",
+            "id": "Papa_Syn",
             "mom": false,
             "parentOf": "Syn",
             "link": "https://www.chiens-de-france.com/chien/1067964/archive",
@@ -54,16 +54,18 @@
         },
         {
             "name": "Ophélie",
+            "id": "Maman_Taia",
             "mom": true,
-            "parentOf": "Kaya",
+            "parentOf": "Taia",
             "img": [
                 "img/puppy.png"
             ]
         },
         {
             "name": "Max",
+            "id": "Papa_Taia",
             "mom": false,
-            "parentOf": "Kaya",
+            "parentOf": "Taia",
             "img": [
                 "img/puppy.png"
             ]

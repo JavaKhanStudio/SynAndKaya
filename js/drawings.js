@@ -1,179 +1,259 @@
-// Used to draw lines and hearts
+/* Used to draw lines and hearts */
 
 let canvas;
 let ctx;
+let animationFrameId;
 
+let foundLine = null;
+let currentRunningAnimationId;
+let linesListContainers = [];
+let lineList = [];
+let heartList = [];
 
 let syn;
-let kaya;
+let taia;
 let maman_syn;
 let papa_syn;
-let maman_kaya;
-let papa_kaya;
+let maman_taia;
+let papa_taia;
 
-let time = 0;
-
-//const hearts = new Map();
-const heartList = [];
+let puppy_1 ;
+let puppy_2 ;
+let puppy_3 ;
+let puppy_4 ;
+let puppy_5 ;
 
 const darkPink = "#E4565D";
 const pink = "#EDA6C6";
-const red = "#DB2725";
+const red = "#DC2624";
 
-let lines = [];
+const green_light = "#52C755" ;
+const green_basic = "#43B446" ;
+const green_dark = "#33A036" ;
+const green_darker = "#248D27" ;
 
-let lineDistanceBuffer_HoldingMode = 3 ;
-let lineDistanceBuffer_GrabbingMode = 40 ;
+const ConnectionPoint = Object.freeze({
+    TOP: "top",
+    BOTTOM: "bottom",
+    LEFT: "left",
+    RIGHT: "right"
+});
 
-let foundLine = null;
+
+let time = 0;
+
+const heartSize_base = 50;
+const heartSize_small = 40;
+
+const heartBaseColor = [darkPink, pink, red, darkPink, pink, red] ;
+const lineColorParent = [darkPink, pink, red, pink, darkPink] ;
+const lineColorChild = [green_light, green_basic, green_dark, green_darker] ;
+
+
+
+const heartGrowthSpeed= 0.08 ;
+const heartOpacityReductionSpeed = 0.01 ;
+const heartBrakeUpPoint = 0.80 ;
+
+const lineDistanceBuffer_HoldingMode = 3 ;
+const lineDistanceBuffer_GrabbingMode = 40 ;
+
+function addNewLineGroup(newGroup, update = true) {
+    linesListContainers.push(newGroup);
+    if(update) {
+        updateLineGroup();
+    }
+
+}
+
+function removeLineGroup(groupToRemove, update = true) {
+    linesListContainers = linesListContainers.filter(group => group !== groupToRemove);
+    if(update) {
+        updateLineGroup();
+    }
+}
+
+function updateLineGroup() {
+    lineList = linesListContainers.flat();
+}
+
+
 
 export function initCanvas() {
     canvas = document.getElementById("bgCanvas");
     ctx = canvas.getContext("2d");
 
-    //window.addEventListener("resize", resizeCanvas);
-    //window.addEventListener("scroll", drawConnections);
     document.addEventListener("DOMContentLoaded", resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     document.addEventListener("mousemove", (event) => {
-        const rect = canvas.getBoundingClientRect();
-        const mx = event.clientX - rect.left;
-        const my = event.clientY - rect.top;
+        manageLinesInteractions(event);
+    });
 
-        let newFoundLine = null;
+    initConnections();
+    updateLineGroup();
 
-        for (let line of lines) {
-            let mouseNear = isMouseNearLine(mx, my, line.x1, line.y1, line.x2, line.y2, line.isBeingPulled);
+    window.onload = () => {
+        setTimeout(() => {
+            requestAnimationFrame(() => resizeCanvas());
+        }, 1);
+    };
 
-            if (mouseNear) {
-                newFoundLine = line;
+}
 
-                if (!line.isBeingPulled) {
-                    // 🔥 Find the true closest point
-                    let { nearestX, nearestY } = getNearestPointOnLine(mx, my, line.x1, line.y1, line.x2, line.y2);
+function manageLinesInteractions(event) {
+    const rect = canvas.getBoundingClientRect();
+    const mx = event.clientX - rect.left;
+    const my = event.clientY - rect.top;
 
-                    // 🛠 Fix: Ensure `pullPoint` is reset immediately to the nearest point, preventing teleporting
-                    line.pullPoint = { x: nearestX, y: nearestY };
+    let newFoundLine = null;
 
-                    // Detect original side before grabbing
-                    line.grabDirection = (mx < nearestX) ? "left" : "right";
-                    line.startGrab = { x: mx, y: my };
-                }
+    for (let line of lineList) {
+        let mouseNear = isMouseNearLine(mx, my, line.x1, line.y1, line.x2, line.y2, line.isBeingPulled);
 
-                // 🔥 Allow pulling when the mouse moves past the original side
-                let hasPassedSide = (line.grabDirection === "left" && mx >= line.startGrab.x) ||
-                    (line.grabDirection === "right" && mx <= line.startGrab.x);
+        if (mouseNear) {
+            newFoundLine = line;
 
-                if (hasPassedSide) {
-                    line.isBeingPulled = true;
-                    line.targetPullPoint = { x: mx, y: my };
+            if (!line.isBeingPulled) {
+                // 🔥 Find the true closest point
+                let { nearestX, nearestY } = getNearestPointOnLine(mx, my, line.x1, line.y1, line.x2, line.y2);
 
-                    // 🔥 Apply smooth interpolation
-                    if (!line.pullPoint) {
-                        line.pullPoint = { x: line.targetPullPoint.x, y: line.targetPullPoint.y };
-                    }
+                // 🛠 Fix: Ensure `pullPoint` is reset immediately to the nearest point, preventing teleporting
+                line.pullPoint = { x: nearestX, y: nearestY };
+
+                // Detect original side before grabbing
+                line.grabDirection = (mx < nearestX) ? "left" : "right";
+                line.startGrab = { x: mx, y: my };
+            }
+
+            // 🔥 Allow pulling when the mouse moves past the original side
+            let hasPassedSide = (line.grabDirection === "left" && mx >= line.startGrab.x) ||
+                (line.grabDirection === "right" && mx <= line.startGrab.x);
+
+            if (hasPassedSide) {
+                line.isBeingPulled = true;
+                line.targetPullPoint = { x: mx, y: my };
+
+                // 🔥 Apply smooth interpolation
+                if (!line.pullPoint) {
+                    line.pullPoint = { x: line.targetPullPoint.x, y: line.targetPullPoint.y };
                 }
             }
         }
+    }
 
-        // 🛠 If the mouse moves away, stop pulling and start oscillation
-        if (foundLine && newFoundLine !== foundLine) {
-            foundLine.isBeingPulled = false;
-            startOscillation(foundLine);
-        }
+    // 🛠 If the mouse moves away, stop pulling and start oscillation
+    if (foundLine && newFoundLine !== foundLine) {
+        foundLine.isBeingPulled = false;
+        startOscillation(foundLine);
+    }
 
-        foundLine = newFoundLine;
-    });
-    
-    initConnections() ;
-    resizeCanvas();
+    foundLine = newFoundLine;
 }
+
 
 function initConnections() {
-    syn = document.getElementById("Syn");
-    kaya = document.getElementById("Kaya");
+    resizeCanvas();
+    heartList = [];
 
-    maman_syn = document.getElementById("Maman_Syn");
+    syn = extractReferenceElement("Syn");
+    taia = extractReferenceElement("Taia");
 
-    createHeart(kaya, syn);
+    maman_syn = extractReferenceElement("Maman_Syn");
+    papa_syn = extractReferenceElement("Papa_Syn");
 
+    maman_taia = extractReferenceElement("Maman_Taia");
+    papa_taia = extractReferenceElement("Papa_Taia");
+
+    puppy_1 = extractReferenceElement("Puppy_1");
+    puppy_2 = extractReferenceElement("Puppy_2");
+    //puppy_3 = extractReferenceElement("Puppy_3");
+    //puppy_4 = extractReferenceElement("Puppy_4");
+    //puppy_5 = extractReferenceElement("Puppy_5");
+
+    let couple_taia_syn = createHeart(taia, syn, heartSize_base);
+    couple_taia_syn.addChildren(puppy_1);
+    couple_taia_syn.addChildren(puppy_2);
+
+    let parents_syn = createHeart(maman_syn, papa_syn, heartSize_small);
+    parents_syn.addChildren(syn);
+
+    let parents_taia = createHeart(maman_taia, papa_taia, heartSize_small);
+    parents_taia.addChildren(taia);
+
+    heartList.push(couple_taia_syn);
+    heartList.push(parents_syn);
+    heartList.push(parents_taia);
 }
+
+function extractReferenceElement(elementID) {
+    let reference = document.getElementById(elementID).getElementsByTagName("img")[0];
+    if(!reference) {
+        throw new Error("Element " + elementID + " not found");
+    }
+
+    return reference ;
+}
+
+
 
 function drawConnections() {
     ctx.globalAlpha = 1;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    //drawParentConnections(kaya, syn);
+    lineList.forEach(line => {
+        line.draw(line);
+    });
 
     heartList.forEach(heart => {
         heart.draw();
     });
-    requestAnimationFrame(drawConnections);
+
+    animationFrameId = requestAnimationFrame(drawConnections);
 }
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    drawConnections();
-}
 
-function getElementCenter(element) {
-    const rect = element.getBoundingClientRect();
-    return {
-        x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2
-    };
-}
+    heartList.forEach(heart => {
+        heart.update() ;
+    })
 
-function drawLine(line) {
-    ctx.beginPath();
-    ctx.moveTo(line.x1, line.y1);
+    lineList.forEach(line => {
+        line.update() ;
+    });
 
-    if (line.isBeingPulled) {
-        let springStrength = 0.05;  // How stretchy the string is
-        let dampingFactor = 0.85;   // Prevents infinite bouncing
-
-        let dx = line.targetPullPoint.x - line.pullPoint.x;
-        let dy = line.targetPullPoint.y - line.pullPoint.y;
-
-        // 🛠 Fix: Ensure velocity resets only on new grab
-        if (!line.hasBeenPulledBefore) {
-            line.velocityX = 0;
-            line.velocityY = 0;
-            line.hasBeenPulledBefore = true;
-        }
-
-        // 🛠 Use a lerp function for smooth movement
-        line.pullPoint.x = lerp(line.pullPoint.x, line.targetPullPoint.x, 0.2);
-        line.pullPoint.y = lerp(line.pullPoint.y, line.targetPullPoint.y, 0.2);
-
-        // Apply spring force
-        line.velocityX += dx * springStrength;
-        line.velocityY += dy * springStrength;
-
-        // Apply damping
-        line.velocityX *= dampingFactor;
-        line.velocityY *= dampingFactor;
-
-        // Update pullPoint smoothly
-        line.pullPoint.x += line.velocityX;
-        line.pullPoint.y += line.velocityY;
-    } else {
-        // 🛠 Reset for next grab
-        line.hasBeenPulledBefore = false;
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
     }
 
-    let cx = line.isBeingPulled ? line.pullPoint.x : (line.x1 + line.x2) / 2;
-    let cy = line.isBeingPulled ? line.pullPoint.y : (line.y1 + line.y2) / 2 + line.offset;
-
-    ctx.quadraticCurveTo(cx, cy, line.x2, line.y2);
-    ctx.stroke();
+    drawConnections();
 }
+function getElementConnection(element, connectionPoint = ConnectionPoint.TOP) {
+    const rect = element.getBoundingClientRect();
+
+    switch (connectionPoint) {
+        case ConnectionPoint.TOP:
+            return { x: rect.left + rect.width / 2, y: rect.top };
+        case ConnectionPoint.BOTTOM:
+            return { x: rect.left + rect.width / 2, y: rect.bottom };
+        case ConnectionPoint.LEFT:
+            return { x: rect.left, y: rect.top + rect.height / 2 };
+        case ConnectionPoint.RIGHT:
+            return { x: rect.right, y: rect.top + rect.height / 2 };
+        default:
+            console.warn("Invalid connection point:", connectionPoint);
+            return { x: rect.left + rect.width / 2, y: rect.top }; // Default to top
+    }
+}
+
+
 
 
 const maxSize = 60;
 
-function drawHeart(x, y, size = 60, color = "red") {
+function drawHeart(x, y, size = 60, color) {
     ctx.strokeStyle = "#000000";
     ctx.shadowOffsetX = 2.0;
     ctx.shadowOffsetY = 2.0;
@@ -185,45 +265,53 @@ function drawHeart(x, y, size = 60, color = "red") {
 
     let decalY = y - size / 2;
 
+    // 🔥 Subtle deformation factors
+    let expandX = size * 0.12; // Widens horizontally
+    let expandY = size * 0.12; // Expands height smoothly
+    let bottomStretch = size * 0.0001; // Soft bottom tip stretch
+
     ctx.beginPath();
-    ctx.moveTo(k, decalY + d / 4);
-    ctx.quadraticCurveTo(k, decalY, k + d / 4, decalY);
-    ctx.quadraticCurveTo(k + d / 2, decalY, k + d / 2, decalY + d / 4);
-    ctx.quadraticCurveTo(k + d / 2, decalY, k + d * 3 / 4, decalY);
-    ctx.quadraticCurveTo(k + d, decalY, k + d, decalY + d / 4);
-    ctx.quadraticCurveTo(k + d, decalY + d / 2, k + d * 3 / 4, decalY + d * 3 / 4);
-    ctx.lineTo(k + d / 2, decalY + d);
+
+    // 🔥 Adjusted to be perfectly symmetrical
+    ctx.moveTo(k - expandX, decalY + d / 4);
+    ctx.quadraticCurveTo(k - expandX, decalY - expandY, k + d / 4, decalY - expandY);
+    ctx.quadraticCurveTo(k + d / 2, decalY - expandY * 1.2, k + d / 2, decalY + d / 4);
+
+    ctx.quadraticCurveTo(k + d / 2, decalY - expandY * 1.2, k + d * 3 / 4, decalY - expandY);
+    ctx.quadraticCurveTo(k + d + expandX, decalY - expandY, k + d + expandX, decalY + d / 4);
+    ctx.quadraticCurveTo(k + d + expandX, decalY + d / 2, k + d * 3 / 4, decalY + d * 3 / 4);
+
+    // 🔥 Balanced bottom tip stretch
+    ctx.lineTo(k + d / 2, decalY + d + bottomStretch);
     ctx.lineTo(k + d / 4, decalY + d * 3 / 4);
-    ctx.quadraticCurveTo(k, decalY + d / 2, k, decalY + d / 4);
+
+    ctx.quadraticCurveTo(k - expandX, decalY + d / 2, k - expandX, decalY + d / 4);
 
     ctx.fill();
     ctx.globalAlpha = 1;
 }
 
 
-const jump = 10;
+// sizeJump is the size difference between the layers of the heart
+// Total size is calculated as sizeJump * 6
+function createHeart(mom, dad, sizeJump = 10) {
 
-function createHeart(mom, dad) {
-    let parentsID = createParentId(mom, dad);
-    const momPos = getElementCenter(mom);
-    const dadPos = getElementCenter(dad);
-    let heartLayers = [
-        new HeartLayer(jump * 5, red),
-        new HeartLayer(jump * 4, pink),
-        new HeartLayer(jump * 3, darkPink),
-        new HeartLayer(jump * 2, red),
-        new HeartLayer(jump * 1, pink),
-        new HeartLayer(jump * 0, darkPink),];
+    if(!mom || !dad) {
+        throw new Error("Missing parent(s) for heart creation : Is " + (!mom ? "mom" : "dad") + " is missing " );
+    }
 
-    const midX = (momPos.x + dadPos.x) / 2;
-    const midY = (momPos.y + dadPos.y) / 2;
-    // hearts.set(parentsID, heartLayers);
-    heartList.push(new Heart(heartLayers, midX, midY, mom, dad, parentsID));
+    return new Heart(sizeJump, heartBaseColor, mom, dad) ;
 }
 
-function createParentId(mom, dad) {
-    return `${mom.id}-${dad.id}`;
+function createHeartLayers(colors , sizeJump) {
+    let heartLayers = [];
+    for (let i = colors.length - 1; i >= 0; i--) {
+        heartLayers.push(new HeartLayer(i * sizeJump, colors[colors.length - 1 - i]));
+    }
+
+    return heartLayers;
 }
+
 
 function HeartLayer(size, color) {
     this.size = size;
@@ -231,56 +319,157 @@ function HeartLayer(size, color) {
     this.opacity = 1;
 }
 
-function Heart(layers, positionX, positionY, mom, dad) {
-    this.layers = layers;
-    this.positionX = positionX ;
-    this.positionY = positionY ;
+function Heart(heartSize, colors, mom, dad) {
+    this.layers = createHeartLayers(colors, heartSize / colors.length);
+    this.positionX = 0 ;
+    this.positionY = 0 ;
     this.parents = [mom, dad] ;
-
+    this.maxHeartSize = heartSize ;
     this.parentsLines = [] ;
+    this.childrens = [] ;
+    this.childrensLines = [] ;
+
+    this.update() ;
 
     this.parents.forEach(parent => {
-        let line = new Line(this.positionX, this.positionY, getElementCenter(parent).x, getElementCenter(parent).y)
-        lines.push(line);
+        let line = new Line(this, parent, ConnectionPoint.TOP, lineColorParent)
         this.parentsLines.push(line);
     });
 
+    addNewLineGroup(this.parentsLines, false);
+    addNewLineGroup(this.childrensLines, false);
+}
+
+Heart.prototype.update = function() {
+    const momPos = getElementConnection(this.parents[0],ConnectionPoint.TOP);
+    const dadPos = getElementConnection(this.parents[1],ConnectionPoint.TOP);
+    this.positionX = (momPos.x + dadPos.x) / 2;
+    this.positionY = (momPos.y + dadPos.y) / 2 - (this.maxHeartSize * 0.7);
+}
+
+Heart.prototype.addChildren = function(children) {
+    this.childrens.push(children) ;
+    let line = new Line(this, children, ConnectionPoint.BOTTOM, lineColorChild) ;
+    this.childrensLines.push(line) ;
 }
 
 Heart.prototype.draw = function() {
 
-    this.parentsLines.forEach(line => {
-        drawLine(line) ;
-    }) ;
-
     this.layers.forEach(layer => {
-        layer.size += 0.1;
-
-        if (layer.size > 45) {
-            layer.opacity -= 0.01;
+        layer.size += heartGrowthSpeed;
+        layer.opacity -= 0.0001;
+        if (layer.size > this.maxHeartSize * heartBrakeUpPoint) {
+            layer.opacity -= heartOpacityReductionSpeed;
             if (layer.opacity < 0) {
                 layer.opacity = 0;
             }
         }
+
         ctx.globalAlpha = layer.opacity;
         drawHeart(this.positionX, this.positionY, layer.size, layer.color);
     });
 
-    if (this.layers[0].size > maxSize) {
+    ctx.globalAlpha = 1;
+    if (this.layers[0].size > this.maxHeartSize) {
         this.layers[0].size = 0;
         this.layers[0].opacity = 1;
         this.layers.push(this.layers.shift());
     }
 }
 
-function Line(x1, y1, x2, y2) {
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
+function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource) {
     this.oscillate = false;
     this.offset = 0;
+    this.isBeingPulled = false;
+    this.targetPullPoint = { x: 0, y: 0 };
+    this.pullPoint = { x: 0, y: 0 };
+
+    this.from = from;
+    this.too = too ;
+    this.connectionPoint = connectionPoint ;
+    this.colorSource = colorSource ;
+
+    this.x1 = 0 ;
+    this.x2 = 0 ;
+    this.y1 = 0 ;
+    this.y2 = 0 ;
+    this.update();
+
+    this.color = generateColor(this, colorSource) ;
 }
+
+Line.prototype.update = function() {
+    this.x1 = this.from.positionX ;
+    this.y1 = this.from.positionY ;
+
+    let tooPos = getElementConnection(this.too, this.connectionPoint);
+
+    this.x2  = tooPos.x ;
+    this.y2 = tooPos.y ;
+
+    if (this.color instanceof CanvasGradient) {
+        this.color = generateColor(this, this.colorSource) ;
+    }
+}
+
+Line.prototype.draw = function(){
+    ctx.beginPath();
+    ctx.moveTo(this.x1, this.y1);
+
+    if (this.isBeingPulled) {
+        let springStrength = 0.05;  // How stretchy the string is
+        let dampingFactor = 0.85;   // Prevents infinite bouncing
+
+        let dx = this.targetPullPoint.x - this.pullPoint.x;
+        let dy = this.targetPullPoint.y - this.pullPoint.y;
+
+        // 🛠 Fix: Ensure velocity resets only on new grab
+        if (!this.hasBeenPulledBefore) {
+            this.velocityX = 0;
+            this.velocityY = 0;
+            this.hasBeenPulledBefore = true;
+        }
+
+        this.pullPoint.x = lerp(this.pullPoint.x, this.targetPullPoint.x, 0.2);
+        this.pullPoint.y = lerp(this.pullPoint.y, this.targetPullPoint.y, 0.2);
+
+        this.velocityX += dx * springStrength;
+        this.velocityY += dy * springStrength;
+
+        this.velocityX *= dampingFactor;
+        this.velocityY *= dampingFactor;
+
+        this.pullPoint.x += this.velocityX;
+        this.pullPoint.y += this.velocityY;
+    } else {
+        this.hasBeenPulledBefore = false;
+    }
+
+    if (this.color instanceof CanvasGradient) {
+        ctx.strokeStyle = this.color;
+    } else if (this.color) {
+        ctx.strokeStyle = this.color;
+    } else {
+        ctx.strokeStyle = "#000000";
+    }
+
+    let cx = this.isBeingPulled ? this.pullPoint.x : (this.x1 + this.x2) / 2;
+    let cy = this.isBeingPulled ? this.pullPoint.y : (this.y1 + this.y2) / 2 + this.offset;
+
+    ctx.quadraticCurveTo(cx, cy, this.x2, this.y2);
+    ctx.stroke();
+}
+
+
+function generateColor(line, numberStages) {
+    let color = ctx.createLinearGradient(line.x1, line.y1, line.x2, line.y2);
+    for (let i = 0; i < numberStages.length; i++) {
+        color.addColorStop(i / numberStages.length, numberStages[i]);
+    }
+
+    return color;
+}
+
 
 function isMouseNearLine(mx, my, x1, y1, x2, y2, toGrab = false) {
     let dx = x2 - x1;
@@ -323,15 +512,6 @@ function getNearestPointOnLine(mx, my, x1, y1, x2, y2) {
     let nearestY = y1 + param * dy;
 
     return { nearestX, nearestY };
-}
-
-
-
-function animateLine(line) {
-    function step() {
-        if (!line.oscillate) return;
-        line.offset += 0.3;
-    }
 }
 
 function lerp(start, end, amt) {
