@@ -230,18 +230,21 @@ function resizeCanvas() {
 
     drawConnections();
 }
+
+const decal = 5 ;
+
 function getElementConnection(element, connectionPoint = ConnectionPoint.TOP) {
     const rect = element.getBoundingClientRect();
 
     switch (connectionPoint) {
         case ConnectionPoint.TOP:
-            return { x: rect.left + rect.width / 2, y: rect.top };
+            return { x: rect.left + rect.width / 2, y: rect.top + decal };
         case ConnectionPoint.BOTTOM:
-            return { x: rect.left + rect.width / 2, y: rect.bottom };
+            return { x: rect.left + rect.width / 2, y: rect.bottom - decal };
         case ConnectionPoint.LEFT:
-            return { x: rect.left, y: rect.top + rect.height / 2 };
+            return { x: rect.left + decal, y: rect.top + rect.height / 2 };
         case ConnectionPoint.RIGHT:
-            return { x: rect.right, y: rect.top + rect.height / 2 };
+            return { x: rect.right - decal, y: rect.top + rect.height / 2 };
         default:
             console.warn("Invalid connection point:", connectionPoint);
             return { x: rect.left + rect.width / 2, y: rect.top }; // Default to top
