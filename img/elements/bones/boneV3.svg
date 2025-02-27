@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 15" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke="currentColor" xmlns:bx="https://boxy-svg.com">
+  <g transform="matrix(0.832724, 0.832724, -0.847675, 0.847675, 12.115215, -12.831682)" style="">
+    <path id="Bone" d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z"></path>
+    <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 28px;" transform="matrix(0.600439, -0.589849, 0.600439, 0.589849, 36.835838, 15.182155)"> </text>
+  </g>
+  <use href="#heart" fill="none" stroke="red"></use>
+  <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 1.2px; text-anchor: middle;" transform="matrix(1.809445, 0, 0, 1, -1.276603, -0.531518)" y="8.331" x="7.321" id="object-0">Name of the dog</text>
+</svg>

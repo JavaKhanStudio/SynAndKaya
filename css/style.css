@@ -4,7 +4,6 @@ html {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 }
 
 canvas {
@@ -19,20 +18,40 @@ canvas {
 
 .generation {
     display: flex;
+    gap: 2vw;
     flex-wrap: nowrap;
     justify-content: space-around;
 }
 
-
-
 #generation-puppies {
     height: 40vh;
+    padding-top: 5vh;
 }
 
 #generation-parents {
     height: 35vh;
+    padding-top: 10vh;
 }
 
 #generation-elders {
     height: 25vh;
+    padding-top: 15vh;
+    padding-bottom: 5vh;
+}
+
+.dog-tag {
+    display: inline-block;
+    width: 120px;
+    height: 60px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.dog-tag:hover {
+    transform: scale(1.1);
+}
+
+.dog-tag-svg {
+    width: 100%;
+    height: 100%;
 }

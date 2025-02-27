@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 24 15" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke="currentColor">
+  <!-- Background with metallic effect -->
+  <rect width="100%" height="100%" fill="#b0b0b0" />
+
+  <g transform="matrix(0.832724, 0.832724, -0.847675, 0.847675, 12.115215, -12.831682)">
+    <path id="Bone" d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z" fill="none" stroke="currentColor" />
+  </g>
+
+  <!-- Text without stroke -->
+  <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 6px; text-anchor: middle;" x="12" y="10">Name of the dog</text>
+</svg>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dog Tag with Parameters</title>
+    <style>
+        .controls {
+            margin: 20px 0;
+        }
+        label, input, button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="controls">
+    <label for="dogName">Dog Name:</label>
+    <input type="text" id="dogName" value="Name of the dog">
+
+    <label for="metalColor">Metal Color (hex):</label>
+    <input type="text" id="metalColor" value="#7D7668">
+    <iframe id="svgFrame" src="img/elements/bones/boneV6.svg"></iframe>
+    <script>
+        document.getElementById("svgFrame").onload = function() {
+            let svgDoc = this.contentDocument;
+            svgDoc.getElementById("dogNameText").textContent = "Charlie";
+
+        };
+    </script>
+    <button onclick="updateTag()">Update Tag</button>
+</div>
+
+<script>
+    function updateTag() {
+        let svgObject = document.querySelector("#svgObject");
+        let textElement = svgObject.querySelector("#dogNameText");
+        if (textElement) {
+            textElement.textContent = "Charlie"; // Set new name
+        }
+    }
+
+    // Initialize on page load
+    window.onload = updateTag;
+</script>
+</body>
+</html>

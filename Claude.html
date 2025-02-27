@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoomable Carousel with Circular Images</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/carrousel.css">
+</head>
+<body>
+<h1 style="text-align: center; margin-top: 20px;">Zoomable Carousel Demo</h1>
+
+<div class="generation" id="generation-puppies">
+
+</div>
+
+<!-- Zoom Modal -->
+<div id="zoomModal" class="zoom-modal">
+    <div class="zoom-container">
+        <button class="zoom-close">&times;</button>
+        <div class="zoom-image-container">
+            <img id="zoomImage" class="zoom-image" src="" alt="">
+            <div class="zoom-nav">
+                <div id="zoomPrev" class="zoom-arrow">
+                    <img src="img/elements/patte.svg" alt="Previous" style="transform :rotate(270deg)">
+                </div>
+                <div id="zoomNext" class="zoom-arrow">
+                    <img src="img/elements/patte.svg" alt="Next" style="transform :rotate(90deg)">
+                </div>
+            </div>
+        </div>
+        <div id="zoomCaption" class="zoom-caption"></div>
+    </div>
+</div>
+
+<div class="dog-tag">
+    <svg viewBox="0 0 250 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Metallic Gradient -->
+        <defs>
+            <radialGradient id="metal-gradient" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="40%" stop-color="#bbbbbb"/>
+                <stop offset="100%" stop-color="#888888"/>
+            </radialGradient>
+        </defs>
+
+        <!-- Slimmer Angled Bone Shape -->
+        <path d="M75,35
+             A20,20 0 1,1 100,15
+             L150,15
+             A20,20 0 1,1 175,35
+             Q190,55 175,75
+             A20,20 0 1,1 150,95
+             L100,95
+             A20,20 0 1,1 75,75
+             Q60,55 75,35 Z"
+              fill="url(#metal-gradient)" stroke="#555555" stroke-width="3" />
+    </svg>
+
+</div>
+
+<div>
+    <svg
+            viewBox="0 0 250 120"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+        <g
+                fill="grey"
+                transform="rotate(45 0 0)"
+                >
+            <path
+                    id="Bone"
+                    d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z" />
+        </g>
+
+        <use href="#heart" fill="none" stroke="red" />
+    </svg>
+</div>
+
+
+
+
+<script type="module">
+    // Sample data (can be replaced with actual data fetching)
+    const carouselsData = [
+        {
+            "name": "Buddy",
+            "id": "Puppy_1",
+            "img": [
+                { "name": "Age 1 mois", "src": "img/puppy.png" },
+                { "name": "Age 2 mois", "src": "img/puppy2.png" },
+                { "name": "Age 3 mois", "src": "img/puppy3.png" },
+                { "name": "Age 3 mois", "src": "img/puppy3.png" }
+            ]
+        },
+        {
+            "name": "Max",
+            "id": "Puppy_2",
+            "img": [
+                { "name": "Age 1 mois", "src": "img/puppy.png" },
+                { "name": "Age 3 mois", "src": "img/puppy3.png" }
+            ]
+        }
+    ];
+
+    import { createCarouselFromJSON } from "./js/carouselBuilder.js";
+    createCarouselFromJSON(carouselsData, document.getElementById('generation-puppies'));
+
+</script>
+</body>
+</html>
+

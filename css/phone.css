@@ -1,0 +1,39 @@
+#generation-parents .carousel-container {
+    width: 25%
+}
+
+@media screen and (max-width: 700px) {
+
+    .generation {
+        flex-wrap: wrap;
+        height: auto; !important
+    }
+
+    #generation-puppies{
+        height: auto;
+        padding-top: 0;
+    }
+
+    #generation-elders {
+        height: auto;
+        padding-top: 10vh;
+        padding-bottom: 5vh;
+    }
+
+    #generation-parents {
+        height: auto;
+
+        margin: 0px;
+    }
+
+    #generation-parents .carousel-container {
+        width: 40%
+    }
+
+    .carousel-container {
+        width: calc(40.33% - 10px);
+    }
+
+
+
+}

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 15">
+
+  <defs>
+    <linearGradient id="darkerMetallicGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:COLOR_DARK" />
+      <stop offset="20%" style="stop-color:COLOR_MID" />
+      <stop offset="50%" style="stop-color:COLOR_LIGHT" />
+      <stop offset="80%" style="stop-color:COLOR_MID" />
+      <stop offset="100%" style="stop-color:COLOR_DARK" />
+    </linearGradient>
+
+    <radialGradient id="highlightGradient" cx="40%" cy="30%" r="50%" fx="40%" fy="30%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.5)" />
+      <stop offset="30%" style="stop-color:rgba(255,255,255,0.2)" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0)" />
+    </radialGradient>
+
+    <filter id="engraved" x="-0.1" y="-0.1" width="1.2" height="1.2">
+      <feOffset dx="0.05" dy="0.05" result="offsetBlur"/>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.1" result="blur"/>
+      <feComponentTransfer in="blur" result="blackened">
+        <feFuncA type="linear" slope="5" intercept="-1.5"/>
+      </feComponentTransfer>
+      <feFlood flood-color="#000000" flood-opacity="0.2" result="color"/>
+      <feComposite in="color" in2="blackened" operator="in" result="shadow"/>
+      <feComposite in="SourceGraphic" in2="shadow" operator="over"/>
+    </filter>
+  </defs>
+
+  <g transform="matrix(0.832724, 0.832724, -0.847675, 0.847675, 12.115215, -12.831682)">
+    <path id="Bone" d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z" fill="url(#darkerMetallicGradient)" stroke="COLOR_BORDER" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <path id="BoneHighlight" d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z" fill="url(#highlightGradient)" stroke="none"/>
+  </g>
+
+  <text  style="fill: COLOR_TEXT; font-family: Arial, sans-serif; font-size: 2.2px; text-anchor: middle; font-weight: bold; filter: url(#engraved);" x="12" y="8.5" id="dogNameText">DOG_NAME</text>
+</svg>

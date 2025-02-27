@@ -57,6 +57,7 @@ const heartBrakeUpPoint = 0.80 ;
 
 const lineDistanceBuffer_HoldingMode = 3 ;
 const lineDistanceBuffer_GrabbingMode = 40 ;
+const vibrationSpeed = 0.2;
 
 function addNewLineGroup(newGroup, update = true) {
     linesListContainers.push(newGroup);
@@ -85,6 +86,7 @@ export function initCanvas() {
 
     document.addEventListener("DOMContentLoaded", resizeCanvas);
     window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("scroll", resizeCanvas);
 
     document.addEventListener("mousemove", (event) => {
         manageLinesInteractions(event);
@@ -96,60 +98,13 @@ export function initCanvas() {
     window.onload = () => {
         setTimeout(() => {
             requestAnimationFrame(() => resizeCanvas());
-        }, 1);
+        }, 100);
     };
 
+    resizeCanvas();
+
 }
 
-function manageLinesInteractions(event) {
-    const rect = canvas.getBoundingClientRect();
-    const mx = event.clientX - rect.left;
-    const my = event.clientY - rect.top;
-
-    let newFoundLine = null;
-
-    for (let line of lineList) {
-        let mouseNear = isMouseNearLine(mx, my, line.x1, line.y1, line.x2, line.y2, line.isBeingPulled);
-
-        if (mouseNear) {
-            newFoundLine = line;
-
-            if (!line.isBeingPulled) {
-                // 🔥 Find the true closest point
-                let { nearestX, nearestY } = getNearestPointOnLine(mx, my, line.x1, line.y1, line.x2, line.y2);
-
-                // 🛠 Fix: Ensure `pullPoint` is reset immediately to the nearest point, preventing teleporting
-                line.pullPoint = { x: nearestX, y: nearestY };
-
-                // Detect original side before grabbing
-                line.grabDirection = (mx < nearestX) ? "left" : "right";
-                line.startGrab = { x: mx, y: my };
-            }
-
-            // 🔥 Allow pulling when the mouse moves past the original side
-            let hasPassedSide = (line.grabDirection === "left" && mx >= line.startGrab.x) ||
-                (line.grabDirection === "right" && mx <= line.startGrab.x);
-
-            if (hasPassedSide) {
-                line.isBeingPulled = true;
-                line.targetPullPoint = { x: mx, y: my };
-
-                // 🔥 Apply smooth interpolation
-                if (!line.pullPoint) {
-                    line.pullPoint = { x: line.targetPullPoint.x, y: line.targetPullPoint.y };
-                }
-            }
-        }
-    }
-
-    // 🛠 If the mouse moves away, stop pulling and start oscillation
-    if (foundLine && newFoundLine !== foundLine) {
-        foundLine.isBeingPulled = false;
-        startOscillation(foundLine);
-    }
-
-    foundLine = newFoundLine;
-}
 
 
 function initConnections() {
@@ -167,14 +122,16 @@ function initConnections() {
 
     puppy_1 = extractReferenceElement("Puppy_1");
     puppy_2 = extractReferenceElement("Puppy_2");
-    //puppy_3 = extractReferenceElement("Puppy_3");
-    //puppy_4 = extractReferenceElement("Puppy_4");
-    //puppy_5 = extractReferenceElement("Puppy_5");
+    puppy_3 = extractReferenceElement("Puppy_3");
+    puppy_4 = extractReferenceElement("Puppy_4");
+    puppy_5 = extractReferenceElement("Puppy_5");
 
     let couple_taia_syn = createHeart(taia, syn, heartSize_base);
     couple_taia_syn.addChildren(puppy_1);
     couple_taia_syn.addChildren(puppy_2);
-
+    couple_taia_syn.addChildren(puppy_3);
+    couple_taia_syn.addChildren(puppy_4);
+    couple_taia_syn.addChildren(puppy_5);
     let parents_syn = createHeart(maman_syn, papa_syn, heartSize_small);
     parents_syn.addChildren(syn);
 
@@ -187,7 +144,7 @@ function initConnections() {
 }
 
 function extractReferenceElement(elementID) {
-    let reference = document.getElementById(elementID).getElementsByTagName("img")[0];
+    let reference = document.getElementById("carousel-container-" + elementID);
     if(!reference) {
         throw new Error("Element " + elementID + " not found");
     }
@@ -426,7 +383,6 @@ Line.prototype.draw = function(){
         let dx = this.targetPullPoint.x - this.pullPoint.x;
         let dy = this.targetPullPoint.y - this.pullPoint.y;
 
-        // 🛠 Fix: Ensure velocity resets only on new grab
         if (!this.hasBeenPulledBefore) {
             this.velocityX = 0;
             this.velocityY = 0;
@@ -456,7 +412,7 @@ Line.prototype.draw = function(){
         ctx.strokeStyle = "#000000";
     }
 
-    let cx = this.isBeingPulled ? this.pullPoint.x : (this.x1 + this.x2) / 2;
+    let cx = this.isBeingPulled ? this.pullPoint.x : (this.x1 + this.x2) / 2 + this.offset;
     let cy = this.isBeingPulled ? this.pullPoint.y : (this.y1 + this.y2) / 2 + this.offset;
 
     ctx.quadraticCurveTo(cx, cy, this.x2, this.y2);
@@ -482,9 +438,9 @@ function isMouseNearLine(mx, my, x1, y1, x2, y2, toGrab = false) {
     let py = my - y1;
 
     let dot = px * dx + py * dy;
-    let lenSq = dx * dx + dy * dy; // Length squared of the line segment
+    let lenSquared = dx * dx + dy * dy;
 
-    let param = lenSq !== 0 ? dot / lenSq : -1;
+    let param = lenSquared !== 0 ? dot / lenSquared : -1;
     param = Math.max(0, Math.min(1, param)); // Clamp between 0 (start) and 1 (end)
 
     let nearestX = x1 + param * dx;
@@ -508,8 +464,9 @@ function getNearestPointOnLine(mx, my, x1, y1, x2, y2) {
 
     let param = lenSq !== 0 ? dot / lenSq : -1;
 
-    // 🛠 Fix: Reduce extreme clamping to avoid teleportation near endpoints
-    param = Math.max(0.1, Math.min(0.9, param)); // Instead of 0 and 1, use 0.1 to 0.9
+    // Reduce extreme clamping to avoid teleportation near endpoints
+    // Clamp between 0.1 (start) and 0.9 (end)
+    param = Math.max(0.1, Math.min(0.9, param));
 
     let nearestX = x1 + param * dx;
     let nearestY = y1 + param * dy;
@@ -521,12 +478,13 @@ function lerp(start, end, amt) {
     return (1 - amt) * start + amt * end;
 }
 
+
 function startOscillation(line) {
     if (!line) return;
 
     line.oscillate = true;
     line.time = 0;
-    line.damping = 1; // Start with full strength
+    line.damping = 1; // Start with full strength (= 1)
 
     function step() {
         if (!line.oscillate) return;
@@ -534,13 +492,65 @@ function startOscillation(line) {
         line.offset = Math.sin(line.time) * 10 * line.damping; // 10px max swing
         line.damping *= 0.98; // Reduce amplitude over time (damping effect)
 
-        if (line.damping < 0.02) {
+        if (line.damping < 0.01) {
             line.oscillate = false; // Stop when the vibration is too small
             line.offset = 0;
         } else {
-            line.time += 0.2; // Adjust speed of vibration
+            line.time += vibrationSpeed;
             requestAnimationFrame(step);
         }
     }
     step();
+}
+
+
+function manageLinesInteractions(event) {
+    const rect = canvas.getBoundingClientRect();
+    const mx = event.clientX - rect.left;
+    const my = event.clientY - rect.top;
+
+    let newFoundLine = null;
+
+    for (let line of lineList) {
+        let mouseNear = isMouseNearLine(mx, my, line.x1, line.y1, line.x2, line.y2, line.isBeingPulled);
+
+        if (mouseNear) {
+            newFoundLine = line;
+
+            if (!line.isBeingPulled) {
+                // 🔥 Find the true closest point
+                let { nearestX, nearestY } = getNearestPointOnLine(mx, my, line.x1, line.y1, line.x2, line.y2);
+
+                // 🛠 Fix: Ensure `pullPoint` is reset immediately to the nearest point, preventing teleporting
+                line.pullPoint = { x: nearestX, y: nearestY };
+
+                // Detect original side before grabbing
+                line.grabDirection = (mx < nearestX) ? "left" : "right";
+                line.startGrab = { x: mx, y: my };
+            }
+
+            // 🔥 Allow pulling when the mouse moves past the original side
+            let hasPassedSide = (line.grabDirection === "left" && mx >= line.startGrab.x) ||
+                (line.grabDirection === "right" && mx <= line.startGrab.x);
+
+            if (hasPassedSide || line.isBeingPulled) {
+                line.isBeingPulled = true;
+                line.targetPullPoint = { x: mx, y: my };
+
+                // 🔥 Apply smooth interpolation
+                if (!line.pullPoint) {
+                    line.pullPoint = { x: line.targetPullPoint.x, y: line.targetPullPoint.y };
+                }
+            }
+        }
+    }
+
+    // 🛠 If the mouse moves away, stop pulling and start oscillation
+    if (foundLine && newFoundLine !== foundLine) {
+        console.log("Start oscillation")
+        foundLine.isBeingPulled = false;
+        startOscillation(foundLine);
+    }
+
+    foundLine = newFoundLine;
 }

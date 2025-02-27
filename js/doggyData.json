@@ -3,15 +3,72 @@
         {
             "name": "Buddy",
             "id": "Puppy_1",
+            "color" : "100,100,255",
             "img": [
-                "img/puppy.png"
+                {
+                    "name": "Age 1 mois",
+                    "src" : "img/puppy.png"
+                },
+                {
+                    "name": "Age 2 mois",
+                    "src" : "img/puppy2.png"
+                }
             ]
         },
         {
             "name": "Buddy2",
             "id": "Puppy_2",
             "img": [
-                "img/puppy.png"
+                {
+                    "name": "Age 1 mois",
+                    "src" : "img/puppy.png"
+                },
+                {
+                    "name": "Age 2 mois",
+                    "src" : "img/puppy2.png"
+                }
+            ]
+        },
+        {
+            "name": "Buddy3",
+            "id": "Puppy_3",
+            "img": [
+                {
+                    "name": "Age 1 mois",
+                    "src" : "img/puppy.png"
+                },
+                {
+                    "name": "Age 2 mois",
+                    "src" : "img/puppy2.png"
+                }
+            ]
+        },
+        {
+            "name": "Buddy4",
+            "id": "Puppy_4",
+            "img": [
+                {
+                    "name": "Age 1 mois",
+                    "src" : "img/puppy.png"
+                },
+                {
+                    "name": "Age 2 mois",
+                    "src" : "img/puppy2.png"
+                }
+            ]
+        },
+        {
+            "name": "Buddy5",
+            "id": "Puppy_5",
+            "img": [
+                {
+                    "name": "Age 1 mois",
+                    "src" : "img/puppy.png"
+                },
+                {
+                    "name": "Age 2 mois",
+                    "src" : "img/puppy2.png"
+                }
             ]
         }
     ],
@@ -20,14 +77,48 @@
             "name": "Syn",
             "id": "Syn",
             "img": [
-                "img/puppy.png"
+                {
+                    "name": "Adulte 1 an",
+                    "src" : "img/syn/4 - Adulte.jpg"
+                },
+                {
+                    "name": "Bébé",
+                    "src" : "img/syn/1 - Bebe.jpg"
+                },
+                {
+                    "name": "Jeune",
+                    "src" : "img/syn/2 - Jeune.jpg"
+                },
+                {
+                    "name": "Ado",
+                    "src" : "img/syn/3 - Ado.png"
+                },
+                {
+                    "name": "Adulte 2 ans",
+                    "src" : "img/syn/5 - Adulte 2 ans.jpg"
+                }
             ]
         },
         {
             "name": "Taia",
             "id": "Taia",
             "img": [
-                "img/puppy.png"
+                {
+                    "name": "Taya",
+                    "src" : "img/taya/Taya_2.jpg"
+                },
+                {
+                    "name": "Taya Jeune",
+                    "src" : "img/taya/Taya_Bebe_2.jpg"
+                },
+                {
+                    "name": "Taya Escalade",
+                    "src" : "img/taya/Taya_1.jpg"
+                },
+                {
+                    "name": "Bébé",
+                    "src" : "img/taya/Taya_Bebe.jpg"
+                }
             ]
         }
     ],
@@ -39,7 +130,10 @@
             "parentOf": "Syn",
             "link": "https://www.chiens-de-france.com/chien/1067964/archive",
             "img": [
-                "img/puppy.png"
+                {
+                    "name": "Maman Syn",
+                    "src" : "img/parents/Syn_Maman.jpg"
+                }
             ]
         },
         {
@@ -49,7 +143,10 @@
             "parentOf": "Syn",
             "link": "https://www.chiens-de-france.com/chien/1067964/archive",
             "img": [
-                "img/puppy.png"
+                {
+                    "name": "Papa Syn",
+                    "src" : "img/parents/Syn_Papa.webp"
+                }
             ]
         },
         {
@@ -58,7 +155,10 @@
             "mom": true,
             "parentOf": "Taia",
             "img": [
-                "img/puppy.png"
+                {
+                    "name": "Maman Taia",
+                    "src" : "img/parents/Taia_Maman.jpg"
+                }
             ]
         },
         {
@@ -67,7 +167,10 @@
             "mom": false,
             "parentOf": "Taia",
             "img": [
-                "img/puppy.png"
+                {
+                    "name": "Papa Taia",
+                    "src" : "img/parents/Taia_Papa.jpg"
+                }
             ]
         }
     ]

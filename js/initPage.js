@@ -1,32 +1,29 @@
 let doggyBubble = null;
 let doggyData = null;
-
+let carouselBuilder = null;
 export async function loadDoggy() {
 
     console.log("loadDoggy Ultimate Version!");
-
-    if (!doggyBubble) {
-        doggyBubble = await loadHTML("./templates/bubble.html");
-    }
 
     if (!doggyData) {
         doggyData = await loadJson("./js/doggyData.json");
     }
 
-    doggyData.puppies.forEach(puppy => {
-        addBubble(puppy, "puppies");
-    });
-
-    doggyData.parents.forEach(parent => {
-        addBubble(parent, "parents");
-    });
-
-    doggyData.elders.forEach(elder => {
-        addBubble(elder, "elders");
-    });
+    await addBubbles(doggyData.puppies, "puppies") ;
+    await addBubbles(doggyData.parents, "parents") ;
+    await addBubbles(doggyData.elders, "elders") ;
 
     const linesModule = await import('./drawings.js');
     linesModule.initCanvas()
+}
+
+async function addBubbles(dogInfos, dogType) {
+    if(!carouselBuilder) {
+        carouselBuilder = await import('./carouselBuilder.js');
+    }
+
+    carouselBuilder.createCarouselFromJSON(dogInfos, document.querySelector(`#generation-${dogType}`), dogType !== "elders");
+
 }
 
 function addBubble(dogInfo, dogType) {
