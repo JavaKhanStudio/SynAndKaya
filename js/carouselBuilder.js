@@ -27,17 +27,43 @@ export function createCarouselFromJSON(carouselJSON, container, complexDisplay =
 function generateCarousels(carouselsData, complexDisplay) {
     carouselsContainer.innerHTML = '';
 
+    let parser = new DOMParser();
+
     carouselsData.forEach(carouselData => {
         const carouselContainer = document.createElement('div');
         carouselContainer.className = 'carousel-container';
         carouselContainer.id = `carousel-container-${carouselData.id}`;
 
-        if(complexDisplay) {
-            const title = document.createElement('h2');
-            title.className = 'carousel-title';
-            title.textContent = carouselData.name;
-            carouselContainer.appendChild(title);
+        if (complexDisplay) {
+
+            const titleContainer = document.createElement('div');
+            titleContainer.className = 'carousel-title-container';
+
+
+            fetch("img/elements/bones/boneV6.svg")
+                .then(response => response.text())
+                .then(svgData => {
+                    let tempDiv = document.createElement("div");
+                    tempDiv.innerHTML = svgData.trim();
+                    let svgElement = tempDiv.querySelector("svg");
+
+                    if (!svgElement) {
+                        console.error("Error: No <svg> found in response");
+                        return;
+                    }
+
+                    let textElement = svgElement.querySelector("#dogNameText");
+                    if (textElement) {
+                        textElement.textContent = carouselData.name; // Set dynamic name
+                    }
+
+                    titleContainer.appendChild(svgElement);
+                })
+                .catch(error => console.error("Error loading SVG:", error));
+
+            carouselContainer.appendChild(titleContainer);
         }
+
 
         const carousel = document.createElement('div');
         carousel.className = 'carousel';

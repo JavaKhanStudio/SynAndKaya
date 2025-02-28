@@ -4,7 +4,7 @@ let canvas;
 let ctx;
 let animationFrameId;
 
-let foundLine = null;
+let pulledLines = [];
 let currentRunningAnimationId;
 let linesListContainers = [];
 let lineList = [];
@@ -509,13 +509,13 @@ function manageLinesInteractions(event) {
     const mx = event.clientX - rect.left;
     const my = event.clientY - rect.top;
 
-    let newFoundLine = null;
+    let inPullRangeLines = [];
 
     for (let line of lineList) {
         let mouseNear = isMouseNearLine(mx, my, line.x1, line.y1, line.x2, line.y2, line.isBeingPulled);
 
         if (mouseNear) {
-            newFoundLine = line;
+            inPullRangeLines.push(line);
 
             if (!line.isBeingPulled) {
                 // 🔥 Find the true closest point
@@ -545,12 +545,12 @@ function manageLinesInteractions(event) {
         }
     }
 
-    // 🛠 If the mouse moves away, stop pulling and start oscillation
-    if (foundLine && newFoundLine !== foundLine) {
-        console.log("Start oscillation")
-        foundLine.isBeingPulled = false;
-        startOscillation(foundLine);
-    }
-
-    foundLine = newFoundLine;
+    pulledLines.forEach(pulledLine => {
+        if (!inPullRangeLines.includes(pulledLine)) {
+            pulledLine.isBeingPulled = false;
+            startOscillation(pulledLine);
+        }
+    });
+    
+    pulledLines = inPullRangeLines;
 }
