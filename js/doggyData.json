@@ -1,9 +1,11 @@
+
 {
     "puppies": [
         {
-            "name": "Buddy",
+            "name": "Cayenne",
             "id": "Puppy_1",
-            "color" : "100,100,255",
+            "sex": "Femelle",
+            "color" : "0,35,102",
             "img": [
                 {
                     "name": "Age 1 mois",
@@ -16,8 +18,10 @@
             ]
         },
         {
-            "name": "Buddy2",
+            "name": "Abby",
+            "sex": "Femelle",
             "id": "Puppy_2",
+            "color" : "255,0,255",
             "img": [
                 {
                     "name": "Age 1 mois",
@@ -30,8 +34,10 @@
             ]
         },
         {
-            "name": "Buddy3",
+            "name": "Albert",
+            "sex": "Male",
             "id": "Puppy_3",
+            "color" : "195,176,145",
             "img": [
                 {
                     "name": "Age 1 mois",
@@ -44,8 +50,10 @@
             ]
         },
         {
-            "name": "Buddy4",
+            "name": "Chanel",
+            "sex": "Femelle",
             "id": "Puppy_4",
+            "color" : "255,215,0",
             "img": [
                 {
                     "name": "Age 1 mois",
@@ -58,8 +66,10 @@
             ]
         },
         {
-            "name": "Buddy5",
+            "name": "Daisy",
+            "sex": "Femelle",
             "id": "Puppy_5",
+            "color" : "64,224,208",
             "img": [
                 {
                     "name": "Age 1 mois",
@@ -76,6 +86,8 @@
         {
             "name": "Syn",
             "id": "Syn",
+
+            "color" : "255,110,0",
             "img": [
                 {
                     "name": "Adulte 1 an",
@@ -102,6 +114,7 @@
         {
             "name": "Taia",
             "id": "Taia",
+            "color" : "146,32,32",
             "img": [
                 {
                     "name": "Taya",
@@ -126,6 +139,7 @@
         {
             "name": "Naturaly elegant",
             "id": "Maman_Syn",
+            "color" : "38,25,81",
             "mom": true,
             "parentOf": "Syn",
             "link": "https://www.chiens-de-france.com/chien/1067964/archive",

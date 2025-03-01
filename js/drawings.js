@@ -551,6 +551,6 @@ function manageLinesInteractions(event) {
             startOscillation(pulledLine);
         }
     });
-    
+
     pulledLines = inPullRangeLines;
 }

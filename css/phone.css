@@ -1,8 +1,12 @@
 #generation-parents .carousel-container {
-    width: 25%
+    max-width: 25%
 }
 
-@media screen and (max-width: 700px) {
+#generation-elders .carousel-container {
+    max-width: 15%
+}
+
+@media screen and (max-width: 1100px) {
 
     .generation {
         flex-wrap: wrap;
@@ -12,6 +16,7 @@
     #generation-puppies{
         height: auto;
         padding-top: 0;
+        flex-flow: wrap-reverse;
     }
 
     #generation-elders {
@@ -27,7 +32,33 @@
     }
 
     #generation-parents .carousel-container {
-        width: 40%
+        width: 40%;
+        max-width: 40%
+    }
+
+
+    #generation-puppies .carousel-container {
+        max-width: 44%;
+    }
+
+    #carousel-container-Puppy_1 {
+        transform: translate(10%, 10%);
+    }
+
+    #carousel-container-Puppy_2 {
+        transform: translate(-10%, 10%);
+    }
+
+    #carousel-container-Puppy_3 {
+        transform: translate(-15%, 0%);
+    }
+
+    #carousel-container-Puppy_4 {
+        transform: translate(15%, 0%);
+    }
+
+    #carousel-container-Puppy_5 {
+        transform: translate(0, 15%);
     }
 
     .carousel-container {
@@ -35,5 +66,13 @@
     }
 
 
+    .carousel-title-container {
+        z-index: 2;
+        width: 80%;
+        left:10%;
+        position: relative;
+        top:70% ;
+        height:50%
+    }
 
 }

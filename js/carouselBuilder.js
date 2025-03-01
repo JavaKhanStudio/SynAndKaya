@@ -1,4 +1,5 @@
 let pattePath = "img/elements/patte.svg";
+import { generateColorPalette } from '/js/colorUtils.js';
 
 const zoomModal = document.getElementById('zoomModal');
 const zoomImage = document.getElementById('zoomImage');
@@ -9,6 +10,7 @@ const zoomNextBtn = document.getElementById('zoomNext');
 
 const shadow_offsetY = 5 ;
 const shadow_blurRadius = 5 ;
+const pathToNameTag= "img/elements/bones/boneV12.svg"
 
 let currentZoomedCarouselId = null;
 let currentZoomedIndex = 0;
@@ -30,38 +32,31 @@ function generateCarousels(carouselsData, complexDisplay) {
     let parser = new DOMParser();
 
     carouselsData.forEach(carouselData => {
+
+        let carouselColor = carouselData.color ? carouselData.color : "40,40,255" ;
+        let [r, g, b] = carouselColor.split(",").map(Number);
+
         const carouselContainer = document.createElement('div');
         carouselContainer.className = 'carousel-container';
         carouselContainer.id = `carousel-container-${carouselData.id}`;
 
-        if (complexDisplay) {
+        // Position in carousel
+        if(complexDisplay && false) {
+            const paginationContainer = document.createElement('div');
+            paginationContainer.className = 'carousel-pagination';
 
-            const titleContainer = document.createElement('div');
-            titleContainer.className = 'carousel-title-container';
+            carouselData.img.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = index === 0 ? 'carousel-dot active' : 'carousel-dot';
+                dot.dataset.index = index;
+                dot.onclick = (e) => {
+                    e.stopPropagation();
+                    navigateCarouselToIndex(carouselData.id, index);
+                };
+                paginationContainer.appendChild(dot);
+            });
 
-
-            fetch("img/elements/bones/boneV6.svg")
-                .then(response => response.text())
-                .then(svgData => {
-                    let tempDiv = document.createElement("div");
-                    tempDiv.innerHTML = svgData.trim();
-                    let svgElement = tempDiv.querySelector("svg");
-
-                    if (!svgElement) {
-                        console.error("Error: No <svg> found in response");
-                        return;
-                    }
-
-                    let textElement = svgElement.querySelector("#dogNameText");
-                    if (textElement) {
-                        textElement.textContent = carouselData.name; // Set dynamic name
-                    }
-
-                    titleContainer.appendChild(svgElement);
-                })
-                .catch(error => console.error("Error loading SVG:", error));
-
-            carouselContainer.appendChild(titleContainer);
+            carouselContainer.appendChild(paginationContainer);
         }
 
 
@@ -69,11 +64,8 @@ function generateCarousels(carouselsData, complexDisplay) {
         carousel.className = 'carousel';
         carousel.dataset.id = carouselData.id;
 
-        let shadowColor = carouselData.color ? `(${carouselData.color}, 0.3)` : "(0,0,0,0.3)";
-        console.log(shadowColor + " " + carouselData.color)
+        let shadowColor = `(${carouselColor}, 0.5)`
         carousel.style.boxShadow = `0 ${shadow_offsetY}px ${shadow_blurRadius}px rgba${shadowColor}`;
-
-        console.log(carousel) ;
 
         carousel.onclick = () => {
             const activeItem = carousel.querySelector('.carousel-item.active');
@@ -99,6 +91,72 @@ function generateCarousels(carouselsData, complexDisplay) {
 
             carousel.appendChild(carouselItem);
         });
+
+        // Section NAME
+        if (complexDisplay) {
+            const titleContainer = document.createElement('div');
+            titleContainer.className = 'carousel-title-container';
+            let palette = generateColorPalette(r, g, b);
+
+            const uniqueId = 'svg_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+
+            fetch(pathToNameTag)
+                .then(response => response.text())
+                .then(svgData => {
+                    // Replace color placeholders
+                    svgData = svgData
+                        .replace(/COLOR_METAL_S1/g, palette.COLOR_METAL_S1)
+                        .replace(/COLOR_METAL_S2/g, palette.COLOR_METAL_S2)
+                        .replace(/COLOR_METAL_S3/g, palette.COLOR_METAL_S3)
+                        .replace(/COLOR_METAL_S4/g, palette.COLOR_METAL_S4)
+                        .replace(/COLOR_METAL_S5/g, palette.COLOR_METAL_S5)
+                        .replace(/COLOR_METAL_S6/g, palette.COLOR_METAL_S6)
+                        .replace(/COLOR_METAL_S7/g, palette.COLOR_METAL_S7)
+                        .replace(/COLOR_BORDER/g, palette.COLOR_BORDER);
+
+                    // Create a namespace for this SVG instance
+                    const parser = new DOMParser();
+                    const svgDoc = parser.parseFromString(svgData, "image/svg+xml");
+                    const svgElement = svgDoc.documentElement;
+
+                    // Apply unique IDs to all elements with IDs
+                    const elementsWithIds = svgDoc.querySelectorAll('[id]');
+                    const idMap = {}; // Store original-to-new ID mapping
+
+                    elementsWithIds.forEach(element => {
+                        const originalId = element.getAttribute('id');
+                        const newId = `${originalId}_${uniqueId}`;
+                        idMap[originalId] = newId;
+                        element.setAttribute('id', newId);
+                    });
+
+                    // Update all URL references
+                    const elementsWithUrls = svgDoc.querySelectorAll('[*|href^="#"], [fill^="url(#"], [stroke^="url(#"], [filter^="url(#"]');
+
+                    elementsWithUrls.forEach(element => {
+                        Array.from(element.attributes).forEach(attr => {
+                            if (attr.value.includes('url(#')) {
+                                const originalId = attr.value.match(/url\(#([^)]+)\)/)[1];
+                                if (idMap[originalId]) {
+                                    element.setAttribute(attr.name, attr.value.replace(originalId, idMap[originalId]));
+                                }
+                            }
+                        });
+                    });
+
+                    // Update dog name in all text elements
+                    const textElements = svgDoc.querySelectorAll('text[id^="dogName"]');
+                    textElements.forEach(element => {
+                        element.textContent = carouselData.name;
+                    });
+
+                    titleContainer.appendChild(svgElement);
+                })
+                .catch(error => console.error("Error loading SVG:", error));
+
+            carousel.appendChild(titleContainer);
+        }
+
 
         const navContainer = document.createElement('div');
         navContainer.className = 'carousel-nav';
@@ -135,23 +193,8 @@ function generateCarousels(carouselsData, complexDisplay) {
 
         carouselContainer.appendChild(carousel);
 
-        if(complexDisplay) {
-            const paginationContainer = document.createElement('div');
-            paginationContainer.className = 'carousel-pagination';
 
-            carouselData.img.forEach((_, index) => {
-                const dot = document.createElement('div');
-                dot.className = index === 0 ? 'carousel-dot active' : 'carousel-dot';
-                dot.dataset.index = index;
-                dot.onclick = (e) => {
-                    e.stopPropagation();
-                    navigateCarouselToIndex(carouselData.id, index);
-                };
-                paginationContainer.appendChild(dot);
-            });
 
-            carouselContainer.appendChild(paginationContainer);
-        }
 
         carouselsContainer.appendChild(carouselContainer);
     });
@@ -286,3 +329,30 @@ document.addEventListener('keydown', function(e) {
         zoomNavigate('next');
     }
 });
+
+let cachedSVG = null; // Global variable to store the SVG
+
+function loadSVG() {
+    if (cachedSVG) return Promise.resolve(cachedSVG); // Use cached version if available
+
+    return fetch(pathToNameTag)
+        .then(response => response.text())
+        .then(svgData => {
+            let tempDiv = document.createElement("div");
+            tempDiv.innerHTML = svgData.trim();
+            let svgElement = tempDiv.querySelector("svg");
+
+            if (!svgElement) {
+                console.error("Error: No <svg> found in response");
+                return null;
+            }
+
+            cachedSVG = svgElement; // Cache the SVG
+            return cachedSVG;
+        })
+        .catch(error => {
+            console.error("Error loading SVG:", error);
+            return null;
+        });
+}
+

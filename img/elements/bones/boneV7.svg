@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 15">
+    <defs>
+        <!-- Improved Metallic Gradient -->
+        <linearGradient id="darkerMetallicGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:COLOR_DARK" />
+            <stop offset="15%" style="stop-color:COLOR_MID" />
+            <stop offset="35%" style="stop-color:COLOR_LIGHT" />
+            <stop offset="65%" style="stop-color:COLOR_MID" />
+            <stop offset="85%" style="stop-color:COLOR_DARK" />
+        </linearGradient>
+
+        <!-- New Radial Glow Effect -->
+        <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:COLOR_LIGHT; stop-opacity: 0.8" />
+            <stop offset="50%" style="stop-color:COLOR_MID; stop-opacity: 0.5" />
+            <stop offset="100%" style="stop-color:COLOR_DARK; stop-opacity: 0" />
+        </radialGradient>
+
+        <!-- Highlight for a Shinier Look -->
+        <radialGradient id="highlightGradient" cx="40%" cy="30%" r="50%" fx="40%" fy="30%">
+            <stop offset="0%" style="stop-color:rgba(255,255,255,0.8)" />
+            <stop offset="25%" style="stop-color:rgba(255,255,255,0.4)" />
+            <stop offset="100%" style="stop-color:rgba(255,255,255,0)" />
+        </radialGradient>
+
+        <!-- Enhanced Engraving Effect -->
+        <filter id="engraved" x="-0.1" y="-0.1" width="1.2" height="1.2">
+            <feOffset dx="0.1" dy="0.1" result="offsetBlur"/>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.2" result="blur"/>
+            <feComponentTransfer in="blur" result="blackened">
+                <feFuncA type="linear" slope="8" intercept="-2"/>
+            </feComponentTransfer>
+            <feFlood flood-color="#000000" flood-opacity="0.3" result="color"/>
+            <feComposite in="color" in2="blackened" operator="in" result="shadow"/>
+            <feComposite in="SourceGraphic" in2="shadow" operator="over"/>
+        </filter>
+    </defs>
+
+    <g transform="matrix(0.832724, 0.832724, -0.847675, 0.847675, 12.115215, -12.831682)">
+        <!-- Main Bone Shape -->
+        <path id="Bone"
+              d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z"
+              fill="url(#darkerMetallicGradient)"
+              stroke="COLOR_BORDER"
+              stroke-width="0.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+
+        <!-- Inner Glow to Simulate Depth -->
+        <path id="BoneInnerGlow"
+              d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z"
+              fill="url(#innerGlow)"
+              opacity="0.8"
+              stroke="none"/>
+
+        <!-- Highlight for Reflection -->
+        <path id="BoneHighlight"
+              d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z"
+              fill="url(#highlightGradient)"
+              opacity="0.6"
+              stroke="none"/>
+    </g>
+
+    <!-- Dog Name with Engraving Effect -->
+    <text
+            style="fill: COLOR_TEXT; font-family: Arial, sans-serif; font-size: 2.8px; text-anchor: middle; font-weight: bold; filter: url(#engraved);"
+            x="12"
+            y="8.3"
+            id="dogNameText">DOG_NAME</text>
+</svg>

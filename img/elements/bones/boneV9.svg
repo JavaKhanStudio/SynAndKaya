@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 15">
+    <defs>
+        <!-- Enhanced Metallic Gradient with more color steps -->
+        <linearGradient id="darkerMetallicGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:COLOR_DARK" />
+            <stop offset="10%" style="stop-color:COLOR_MID" />
+            <stop offset="25%" style="stop-color:COLOR_LIGHT" />
+            <stop offset="40%" style="stop-color:COLOR_MID" />
+            <stop offset="60%" style="stop-color:COLOR_LIGHT" />
+            <stop offset="75%" style="stop-color:COLOR_MID" />
+            <stop offset="90%" style="stop-color:COLOR_DARK" />
+            <stop offset="100%" style="stop-color:COLOR_MID" />
+        </linearGradient>
+
+        <!-- Smaller texture pattern -->
+        <pattern id="metalTexture" patternUnits="userSpaceOnUse" width="5" height="5" patternTransform="scale(0.2)">
+            <rect width="5" height="5" fill="url(#darkerMetallicGradient)"/>
+            <path d="M0,0 L5,5 M5,0 L0,5" stroke="COLOR_DARK" stroke-width="0.15" stroke-opacity="0.1"/>
+        </pattern>
+
+        <!-- Improved Radial Glow Effect -->
+        <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:COLOR_LIGHT; stop-opacity: 0.9" />
+            <stop offset="40%" style="stop-color:COLOR_MID; stop-opacity: 0.6" />
+            <stop offset="70%" style="stop-color:COLOR_DARK; stop-opacity: 0.3" />
+            <stop offset="100%" style="stop-color:COLOR_DARK; stop-opacity: 0" />
+        </radialGradient>
+
+        <!-- Enhanced Highlight for a Shinier Look -->
+        <radialGradient id="highlightGradient" cx="30%" cy="20%" r="70%" fx="25%" fy="15%">
+            <stop offset="0%" style="stop-color:rgba(255,255,255,0.95)" />
+            <stop offset="20%" style="stop-color:rgba(255,255,255,0.7)" />
+            <stop offset="40%" style="stop-color:rgba(255,255,255,0.3)" />
+            <stop offset="100%" style="stop-color:rgba(255,255,255,0)" />
+        </radialGradient>
+
+        <!-- Secondary Highlight (Edge Catchlight) -->
+        <linearGradient id="edgeHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:rgba(255,255,255,0.8)" />
+            <stop offset="20%" style="stop-color:rgba(255,255,255,0.3)" />
+            <stop offset="100%" style="stop-color:rgba(255,255,255,0)" />
+        </linearGradient>
+
+        <!-- White text with emboss effect filter -->
+        <filter id="whiteTextEmboss" x="-0.2" y="-0.2" width="1.4" height="1.4">
+            <!-- Black shadow for depth -->
+            <feOffset dx="0.15" dy="0.15" result="offsetBlack"/>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.1" result="blurBlack"/>
+            <feFlood flood-color="rgba(0,0,0,0.9)" result="shadowColorBlack"/>
+            <feComposite in="shadowColorBlack" in2="blurBlack" operator="in" result="shadowBlack"/>
+
+            <!-- Inner shadow for indentation effect -->
+            <feOffset dx="-0.05" dy="-0.05" result="offsetInner"/>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.05" result="blurInner"/>
+            <feComposite in="blurInner" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="innerShadow"/>
+            <feFlood flood-color="rgba(0,0,0,0.7)" result="innerShadowColor"/>
+            <feComposite in="innerShadowColor" in2="innerShadow" operator="in" result="innerShadowColored"/>
+
+            <!-- Outer glow for better contrast on any background -->
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.1" result="glow"/>
+            <feFlood flood-color="rgba(0,0,0,0.6)" result="glowColor"/>
+            <feComposite in="glowColor" in2="glow" operator="in" result="softGlow"/>
+
+            <!-- Combine effects with source graphic -->
+            <feMerge>
+                <feMergeNode in="softGlow"/>
+                <feMergeNode in="shadowBlack"/>
+                <feMergeNode in="innerShadowColored"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+
+        <!-- Significantly Improved Engraving Effect -->
+        <filter id="engraved" x="-0.2" y="-0.2" width="1.4" height="1.4">
+            <!-- Inner shadow -->
+            <feOffset dx="0.05" dy="0.05" result="offsetInner"/>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.05" result="blurInner"/>
+            <feComposite in="blurInner" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="innerShadow"/>
+            <feFlood flood-color="#000000" flood-opacity="0.7" result="innerShadowColor"/>
+            <feComposite in="innerShadowColor" in2="innerShadow" operator="in" result="innerShadowColored"/>
+
+            <!-- Outer shadow for depth -->
+            <feOffset dx="0.1" dy="0.1" result="offsetBlur"/>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.05" result="blurOuter"/>
+            <feFlood flood-color="#000000" flood-opacity="0.5" result="shadowColor"/>
+            <feComposite in="shadowColor" in2="blurOuter" operator="in" result="outerShadowColored"/>
+
+            <!-- Highlight to create 3D effect -->
+            <feOffset dx="-0.03" dy="-0.03" result="offsetHighlight"/>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.03" result="blurHighlight"/>
+            <feFlood flood-color="#FFFFFF" flood-opacity="0.3" result="highlightColor"/>
+            <feComposite in="highlightColor" in2="blurHighlight" operator="in" result="highlight"/>
+
+            <!-- Combine all effects -->
+            <feMerge>
+                <feMergeNode in="outerShadowColored"/>
+                <feMergeNode in="SourceGraphic"/>
+                <feMergeNode in="innerShadowColored"/>
+                <feMergeNode in="highlight"/>
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- Background shadow to create floating effect -->
+    <ellipse cx="12" cy="8" rx="8" ry="5" fill="rgba(0,0,0,0.2)" filter="blur(0.2)"/>
+
+    <g transform="matrix(0.832724, 0.832724, -0.847675, 0.847675, 12.115215, -12.831682)">
+        <!-- Base Bone Shape with texture -->
+        <path id="BoneBase"
+              d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z"
+              fill="url(#metalTexture)"
+              stroke="COLOR_BORDER"
+              stroke-width="0.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+
+        <!-- Edge highlight to create beveled look -->
+        <path id="BoneEdge"
+              d="M15 3a3 3 0 0 1 3 3a3 3 0 1 1 -2.12 5.122l-4.758 4.758a3 3 0 1 1 -5.117 2.297l0 -.177l-.176 0a3 3 0 1 1 2.298 -5.115l4.758 -4.758a3 3 0 0 1 2.12 -5.122z"
+              fill="none"
+              stroke="url(#edgeHighlight)"
+              stroke-width="0.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+
+
+
+    </g>
+
+
+
+    <text
+            style="fill: rgba(255,255,255,0.6); font-family: Cabin_Sketch, Arial, sans-serif; font-size: 4.0px; text-anchor: middle; font-weight: bold; filter: url(#whiteTextEmboss);"
+            x="11.96"
+            y="8.46"
+            id="dogNameText">DOG_NAME</text>
+    <text
+            style="fill: rgba(0,0,O,1.9); font-family: Cabin_Sketch, Arial, sans-serif; font-size: 4.0px; text-anchor: middle; font-weight: bold; filter: url(#whiteTextEmboss);"
+            x="12.0"
+            y="8.5"
+            id="dogNameMainBlackText">DOG_NAME</text>
+    <text
+            style="fill: rgba(255,255,255,1.9); font-family: Cabin_Sketch, Arial, sans-serif; font-size: 4.0px; text-anchor: middle; font-weight: bold; filter: url(#whiteTextEmboss);"
+            x="12.1"
+            y="8.7"
+            id="dogNameMainWhiteText">DOG_NAME</text>
+
+</svg>
