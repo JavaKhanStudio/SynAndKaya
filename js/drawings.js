@@ -188,7 +188,7 @@ function resizeCanvas() {
     drawConnections();
 }
 
-const decal = 5 ;
+const decal = 15 ;
 
 function getElementConnection(element, connectionPoint = ConnectionPoint.TOP) {
     const rect = element.getBoundingClientRect();

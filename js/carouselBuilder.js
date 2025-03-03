@@ -10,7 +10,9 @@ const zoomNextBtn = document.getElementById('zoomNext');
 
 const shadow_offsetY = 5 ;
 const shadow_blurRadius = 5 ;
-const pathToNameTag= "img/elements/bones/boneV12.svg"
+const shadow_force = 0.5 ;
+const background_force = 0.3 ;
+const pathToNameTag= "img/elements/bones/boneV13.svg"
 
 let currentZoomedCarouselId = null;
 let currentZoomedIndex = 0;
@@ -29,12 +31,20 @@ export function createCarouselFromJSON(carouselJSON, container, complexDisplay =
 function generateCarousels(carouselsData, complexDisplay) {
     carouselsContainer.innerHTML = '';
 
+
+
     let parser = new DOMParser();
 
     carouselsData.forEach(carouselData => {
 
         let carouselColor = carouselData.color ? carouselData.color : "40,40,255" ;
         let [r, g, b] = carouselColor.split(",").map(Number);
+
+        let outerBorderColor = `rgba(${carouselColor}, 0.5)`;
+        let outerBorder = `1px solid ${outerBorderColor}` ;
+
+        let innerBorderColor = `rgba(${carouselColor}, 0.8)`;
+        let innerBorder = `3px solid ${innerBorderColor}` ;
 
         const carouselContainer = document.createElement('div');
         carouselContainer.className = 'carousel-container';
@@ -60,18 +70,26 @@ function generateCarousels(carouselsData, complexDisplay) {
         }
 
 
+
         const carousel = document.createElement('div');
         carousel.className = 'carousel';
         carousel.dataset.id = carouselData.id;
 
-        let shadowColor = `(${carouselColor}, 0.5)`
+        let shadowColor = `(${carouselColor}, ${shadow_force})`;
         carousel.style.boxShadow = `0 ${shadow_offsetY}px ${shadow_blurRadius}px rgba${shadowColor}`;
+        carousel.style.border = outerBorder ;
+
+        let backgroundColor = `rgba(${carouselColor}, ${background_force})`;
+        carousel.style.backgroundColor = backgroundColor ;
+
+        console.log(backgroundColor)
 
         carousel.onclick = () => {
             const activeItem = carousel.querySelector('.carousel-item.active');
             const activeIndex = activeItem ? parseInt(activeItem.dataset.index) : 0;
             openZoomModal(carouselData.id, activeIndex);
         };
+
 
         carouselData.img.forEach((img, index) => {
             const carouselItem = document.createElement('div');
@@ -80,6 +98,7 @@ function generateCarousels(carouselsData, complexDisplay) {
 
             const imgContainer = document.createElement('div');
             imgContainer.className = 'carousel-img-container';
+            imgContainer.style.border = innerBorder  ;
 
             const image = document.createElement('img');
             image.className = 'carousel-img';

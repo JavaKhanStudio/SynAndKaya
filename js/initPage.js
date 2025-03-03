@@ -22,7 +22,8 @@ async function addBubbles(dogInfos, dogType) {
         carouselBuilder = await import('./carouselBuilder.js');
     }
 
-    carouselBuilder.createCarouselFromJSON(dogInfos, document.querySelector(`#generation-${dogType}`), dogType !== "elders");
+    // carouselBuilder.createCarouselFromJSON(dogInfos, document.querySelector(`#generation-${dogType}`), dogType !== "elders");
+    carouselBuilder.createCarouselFromJSON(dogInfos, document.querySelector(`#generation-${dogType}`), true);
 
 }
 

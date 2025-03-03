@@ -8,12 +8,8 @@
             "color" : "0,35,102",
             "img": [
                 {
-                    "name": "Age 1 mois",
-                    "src" : "img/puppy.png"
-                },
-                {
-                    "name": "Age 2 mois",
-                    "src" : "img/puppy2.png"
+                    "name": "Age 2 semaines",
+                    "src" : "img/puppy/Cayenne_01.jpg"
                 }
             ]
         },
@@ -24,12 +20,8 @@
             "color" : "255,0,255",
             "img": [
                 {
-                    "name": "Age 1 mois",
-                    "src" : "img/puppy.png"
-                },
-                {
-                    "name": "Age 2 mois",
-                    "src" : "img/puppy2.png"
+                    "name": "Age 2 semaines",
+                    "src" : "img/puppy/Abby_01.jpg"
                 }
             ]
         },
@@ -40,12 +32,8 @@
             "color" : "195,176,145",
             "img": [
                 {
-                    "name": "Age 1 mois",
-                    "src" : "img/puppy.png"
-                },
-                {
-                    "name": "Age 2 mois",
-                    "src" : "img/puppy2.png"
+                    "name": "Age 2 semaines",
+                    "src" : "img/puppy/Albert_01.jpg"
                 }
             ]
         },
@@ -56,12 +44,8 @@
             "color" : "255,215,0",
             "img": [
                 {
-                    "name": "Age 1 mois",
-                    "src" : "img/puppy.png"
-                },
-                {
-                    "name": "Age 2 mois",
-                    "src" : "img/puppy2.png"
+                    "name": "Age 2 semaines",
+                    "src" : "img/puppy/Chanel_01.jpg"
                 }
             ]
         },
@@ -72,12 +56,8 @@
             "color" : "64,224,208",
             "img": [
                 {
-                    "name": "Age 1 mois",
-                    "src" : "img/puppy.png"
-                },
-                {
-                    "name": "Age 2 mois",
-                    "src" : "img/puppy2.png"
+                    "name": "Age 2 semaines",
+                    "src" : "img/puppy/Daisy_01.jpg"
                 }
             ]
         }
@@ -137,9 +117,10 @@
     ],
     "elders": [
         {
-            "name": "Naturaly elegant",
+            "fullname": "Naturaly elegant",
+            "name": "Elegant",
             "id": "Maman_Syn",
-            "color" : "38,25,81",
+            "color" : "254,140,200",
             "mom": true,
             "parentOf": "Syn",
             "link": "https://www.chiens-de-france.com/chien/1067964/archive",
@@ -151,8 +132,10 @@
             ]
         },
         {
-            "name": "Nils Qu'Ahuca",
+            "fullname": "Nils Qu'Ahuca",
+            "name": "Nils",
             "id": "Papa_Syn",
+            "color" : "208,206,202",
             "mom": false,
             "parentOf": "Syn",
             "link": "https://www.chiens-de-france.com/chien/1067964/archive",
@@ -166,6 +149,7 @@
         {
             "name": "Ophélie",
             "id": "Maman_Taia",
+            "color" : "102,85,91",
             "mom": true,
             "parentOf": "Taia",
             "img": [
@@ -178,6 +162,7 @@
         {
             "name": "Max",
             "id": "Papa_Taia",
+            "color" : "43,51,60",
             "mom": false,
             "parentOf": "Taia",
             "img": [

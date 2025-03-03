@@ -25,6 +25,10 @@
         padding-bottom: 5vh;
     }
 
+    #generation-elders .carousel-container {
+        max-width: 40%
+    }
+
     #generation-parents {
         height: auto;
 
@@ -36,6 +40,9 @@
         max-width: 40%
     }
 
+    .carousel-arrow {
+        display: none;
+    }
 
     #generation-puppies .carousel-container {
         max-width: 44%;
