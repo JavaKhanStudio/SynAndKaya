@@ -1,5 +1,5 @@
 let pattePath = "img/elements/patte.svg";
-import { generateColorPalette } from '/js/colorUtils.js';
+let colorUtils ;
 
 const zoomModal = document.getElementById('zoomModal');
 const zoomImage = document.getElementById('zoomImage');
@@ -20,7 +20,11 @@ let carouselsData = [];
 
 let carouselsContainer ;
 
-export function createCarouselFromJSON(carouselJSON, container, complexDisplay = true) {
+export async function createCarouselFromJSON(carouselJSON, container, complexDisplay = true) {
+
+    if(!colorUtils) {
+        colorUtils = await import('./colorUtils.js');
+    }
 
     carouselsData = carouselsData.concat(carouselJSON);
     carouselsContainer = container ;
@@ -115,7 +119,7 @@ function generateCarousels(carouselsData, complexDisplay) {
         if (complexDisplay) {
             const titleContainer = document.createElement('div');
             titleContainer.className = 'carousel-title-container';
-            let palette = generateColorPalette(r, g, b);
+            let palette = colorUtils.generateColorPalette(r, g, b);
 
             const uniqueId = 'svg_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
 
