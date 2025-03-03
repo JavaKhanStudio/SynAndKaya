@@ -80,7 +80,7 @@ function updateLineGroup() {
 
 
 
-export function initCanvas() {
+export async function initCanvas() {
     canvas = document.getElementById("bgCanvas");
     ctx = canvas.getContext("2d");
 

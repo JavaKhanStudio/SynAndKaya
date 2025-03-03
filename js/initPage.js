@@ -14,7 +14,7 @@ export async function loadDoggy() {
     await addBubbles(doggyData.elders, "elders") ;
 
     const linesModule = await import('./drawings.js');
-    linesModule.initCanvas()
+    await linesModule.initCanvas()
 }
 
 async function addBubbles(dogInfos, dogType) {
