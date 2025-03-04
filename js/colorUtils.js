@@ -1,5 +1,11 @@
+
+export function generateColorPaletteFromString(str) {
+    let colors = str.split(',') ;
+
+    return generateDisneyGradient(colors[0], colors[1], colors[2]);
+}
+
 export function generateColorPalette(r, g, b) {
-    // Helper function to convert RGB to hex
     function rgbToHex(r, g, b) {
         return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     }
@@ -153,6 +159,78 @@ export function generateColorPalette(r, g, b) {
         COLOR_METAL_S7_HEX: rgbToHex(COLOR_METAL_S7.r, COLOR_METAL_S7.g, COLOR_METAL_S7.b)
     };
 }
+
+function generateDisneyGradient(r, g, b) {
+    function rgbToHSL(r, g, b) {
+        r /= 255, g /= 255, b /= 255;
+        let max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+
+        if (max === min) {
+            h = s = 0;
+        } else {
+            let d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h *= 60;
+        }
+        return [h, s * 100, l * 100];
+    }
+
+    function hslToRGB(h, s, l) {
+        s /= 100;
+        l /= 100;
+
+        let c = (1 - Math.abs(2 * l - 1)) * s;
+        let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+        let m = l - c / 2;
+        let r, g, b;
+
+        if (h < 60) { r = c; g = x; b = 0; }
+        else if (h < 120) { r = x; g = c; b = 0; }
+        else if (h < 180) { r = 0; g = c; b = x; }
+        else if (h < 240) { r = 0; g = x; b = c; }
+        else if (h < 300) { r = x; g = 0; b = c; }
+        else { r = c; g = 0; b = x; }
+
+        return [
+            Math.round((r + m) * 255),
+            Math.round((g + m) * 255),
+            Math.round((b + m) * 255)
+        ];
+    }
+
+    function rgbToHex([r, g, b]) {
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    }
+
+    let [h, s, l] = rgbToHSL(r, g, b);
+
+    let color_light = rgbToHex(hslToRGB(h + 10, Math.min(s + 15, 100), Math.min(l + 30, 100))) ;
+    let color_desaturated_light =  rgbToHex(hslToRGB(h - 5, Math.max(s - 10, 0), Math.min(l + 10, 100))) ;
+    let color_base = rgbToHex(hslToRGB(h, s, l)) ;
+    let color_constrasted = rgbToHex(hslToRGB(h + 15, Math.min(s + 20, 100), Math.max(l - 10, 0))) ;
+    let color_dark = rgbToHex(hslToRGB(h - 20, Math.max(s - 15, 0), Math.max(l - 30, 0))) ;
+
+    return [
+        color_constrasted,
+        color_desaturated_light,
+        color_light,
+        color_desaturated_light,
+        color_base,
+        color_constrasted,
+        color_desaturated_light,
+        color_light,
+        color_desaturated_light,
+        color_constrasted,
+    ];
+}
+
+
 
 // Function to create a linear gradient with enhanced metallic shades
 export function createMetallicGradient(svgId, gradientId, r, g, b, horizontal = true) {

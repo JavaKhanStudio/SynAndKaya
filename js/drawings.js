@@ -1,5 +1,6 @@
 /* Used to draw lines and hearts */
 
+let colorUtils ;
 let canvas;
 let ctx;
 let animationFrameId;
@@ -39,7 +40,6 @@ const ConnectionPoint = Object.freeze({
     RIGHT: "right"
 });
 
-
 let time = 0;
 
 const heartSize_base = 50;
@@ -49,51 +49,41 @@ const heartBaseColor = [darkPink, pink, red, darkPink, pink, red] ;
 const lineColorParent = [darkPink, pink, red, pink, darkPink] ;
 const lineColorChild = [green_light, green_basic, green_dark, green_darker] ;
 
-
-
 const heartGrowthSpeed= 0.08 ;
 const heartOpacityReductionSpeed = 0.01 ;
 const heartBrakeUpPoint = 0.80 ;
 
 const lineDistanceBuffer_HoldingMode = 3 ;
-const lineDistanceBuffer_GrabbingMode = 40 ;
+const lineDistanceBuffer_GrabbingMode = 50 ;
 const vibrationSpeed = 0.2;
 
-function addNewLineGroup(newGroup, update = true) {
-    linesListContainers.push(newGroup);
-    if(update) {
-        updateLineGroup();
+
+export async function initCanvas(doggyData) {
+
+    if(!colorUtils) {
+        colorUtils = await import('./colorUtils.js');
+        console.log(colorUtils)
     }
 
-}
-
-function removeLineGroup(groupToRemove, update = true) {
-    linesListContainers = linesListContainers.filter(group => group !== groupToRemove);
-    if(update) {
-        updateLineGroup();
-    }
-}
-
-function updateLineGroup() {
-    lineList = linesListContainers.flat();
-}
-
-
-
-export function initCanvas() {
     canvas = document.getElementById("bgCanvas");
     ctx = canvas.getContext("2d");
 
     document.addEventListener("DOMContentLoaded", resizeCanvas);
     window.addEventListener("resize", resizeCanvas);
+
+
+    document.addEventListener("mousemove", (event) => manageLinesInteractions(event));
+    document.addEventListener("touchmove", (event) => manageLinesInteractions(event, true));
+
+    document.addEventListener("touchend", handleTouchEnd);
+    document.addEventListener("touchcancel", handleTouchEnd);
+
     window.addEventListener("scroll", resizeCanvas);
 
-    document.addEventListener("mousemove", (event) => {
-        manageLinesInteractions(event);
-    });
-
-    initConnections();
+    initConnections(doggyData);
     updateLineGroup();
+
+    console.log(doggyData)
 
     window.onload = () => {
         setTimeout(() => {
@@ -105,46 +95,92 @@ export function initCanvas() {
 
 }
 
+function waitForElementsToBeInserted(selectors, timeout = 5000) {
+    return new Promise((resolve, reject) => {
+        const elementsFound = new Set();
+        let observer = null; // Ensure observer is declared
 
+        function checkAllElements() {
+            selectors.forEach(selector => {
+                if (document.querySelector(selector)) {
+                    elementsFound.add(selector);
+                }
+            });
 
-function initConnections() {
+            if (elementsFound.size === selectors.length) {
+                if (observer) observer.disconnect(); // Only disconnect if observer exists
+                resolve();
+            }
+        }
+
+        checkAllElements(); // Initial check in case elements are already there
+
+        observer = new MutationObserver(() => {
+            checkAllElements();
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+
+        setTimeout(() => {
+            if (observer) observer.disconnect(); // Again, only if observer is defined
+            if (elementsFound.size !== selectors.length) {
+                reject(new Error(`Timeout: Some elements were not inserted`));
+            }
+        }, timeout);
+    });
+}
+
+function initConnections(doggyData) {
     resizeCanvas();
     heartList = [];
 
-    syn = extractReferenceElement("Syn");
-    taia = extractReferenceElement("Taia");
+    waitForElementsToBeInserted(["#" + findContainerName("Papa_Taia"), "#" + findContainerName("Syn")]).then(() => {
+        syn = extractReferenceElement("Syn");
+        taia = extractReferenceElement("Taia");
 
-    maman_syn = extractReferenceElement("Maman_Syn");
-    papa_syn = extractReferenceElement("Papa_Syn");
+        maman_syn = extractReferenceElement("Maman_Syn");
+        papa_syn = extractReferenceElement("Papa_Syn");
 
-    maman_taia = extractReferenceElement("Maman_Taia");
-    papa_taia = extractReferenceElement("Papa_Taia");
+        maman_taia = extractReferenceElement("Maman_Taia");
+        papa_taia = extractReferenceElement("Papa_Taia");
 
-    puppy_1 = extractReferenceElement("Puppy_1");
-    puppy_2 = extractReferenceElement("Puppy_2");
-    puppy_3 = extractReferenceElement("Puppy_3");
-    puppy_4 = extractReferenceElement("Puppy_4");
-    puppy_5 = extractReferenceElement("Puppy_5");
 
-    let couple_taia_syn = createHeart(taia, syn, heartSize_base);
-    couple_taia_syn.addChildren(puppy_1);
-    couple_taia_syn.addChildren(puppy_2);
-    couple_taia_syn.addChildren(puppy_3);
-    couple_taia_syn.addChildren(puppy_4);
-    couple_taia_syn.addChildren(puppy_5);
-    let parents_syn = createHeart(maman_syn, papa_syn, heartSize_small);
-    parents_syn.addChildren(syn);
+        puppy_1 = extractReferenceElement("Puppy_1");
+        puppy_2 = extractReferenceElement("Puppy_2");
+        puppy_3 = extractReferenceElement("Puppy_3");
+        puppy_4 = extractReferenceElement("Puppy_4");
+        puppy_5 = extractReferenceElement("Puppy_5");
 
-    let parents_taia = createHeart(maman_taia, papa_taia, heartSize_small);
-    parents_taia.addChildren(taia);
+        // Connect Puppies to parents
+        let couple_taia_syn = createHeart(taia, syn, heartSize_base);
+        couple_taia_syn.addChildren(puppy_1, extractColor(doggyData.puppies[0]));
+        couple_taia_syn.addChildren(puppy_2, extractColor(doggyData.puppies[1]));
+        couple_taia_syn.addChildren(puppy_3, extractColor(doggyData.puppies[2]));
+        couple_taia_syn.addChildren(puppy_4, extractColor(doggyData.puppies[3]));
+        couple_taia_syn.addChildren(puppy_5, extractColor(doggyData.puppies[4]));
 
-    heartList.push(couple_taia_syn);
-    heartList.push(parents_syn);
-    heartList.push(parents_taia);
+        // Connected Parent to elders
+        let parents_syn = createHeart(maman_syn, papa_syn, heartSize_small);
+        parents_syn.addChildren(syn, extractColor(doggyData.parents[0]));
+
+        let parents_taia = createHeart(maman_taia, papa_taia, heartSize_small);
+        parents_taia.addChildren(taia, extractColor(doggyData.parents[1]));
+
+        heartList.push(couple_taia_syn);
+        heartList.push(parents_syn);
+        heartList.push(parents_taia);
+        updateLineGroup() ;
+    })
+        .catch(err => console.error(err.message)) ;
+
+}
+
+function extractColor(inputData) {
+    return colorUtils.generateColorPaletteFromString(inputData.color) ;
 }
 
 function extractReferenceElement(elementID) {
-    let reference = document.getElementById("carousel-container-" + elementID);
+    let reference = document.getElementById(findContainerName(elementID));
     if(!reference) {
         throw new Error("Element " + elementID + " not found");
     }
@@ -152,6 +188,9 @@ function extractReferenceElement(elementID) {
     return reference ;
 }
 
+function findContainerName(elementID) {
+    return "carousel-container-" + elementID ;
+}
 
 
 function drawConnections() {
@@ -207,9 +246,6 @@ function getElementConnection(element, connectionPoint = ConnectionPoint.TOP) {
             return { x: rect.left + rect.width / 2, y: rect.top }; // Default to top
     }
 }
-
-
-
 
 const maxSize = 60;
 
@@ -288,11 +324,18 @@ function Heart(heartSize, colors, mom, dad) {
     this.parentsLines = [] ;
     this.childrens = [] ;
     this.childrensLines = [] ;
+    this.timeDecal = Math.floor(Math.random() * 30);
+
+    for(let i = 0 ; i < this.layers.length ; i++) {
+        for(let j = 0 ; j < this.timeDecal ; j++) {
+            tickHeartLayer(this.layers[i], this.maxHeartSize);
+        }
+    }
 
     this.update() ;
 
     this.parents.forEach(parent => {
-        let line = new Line(this, parent, ConnectionPoint.TOP, lineColorParent)
+        let line = new Line(this, parent, ConnectionPoint.TOP, lineColorParent, pink)
         this.parentsLines.push(line);
     });
 
@@ -307,24 +350,29 @@ Heart.prototype.update = function() {
     this.positionY = (momPos.y + dadPos.y) / 2 - (this.maxHeartSize * 0.7);
 }
 
-Heart.prototype.addChildren = function(children) {
+Heart.prototype.addChildren = function(children, connectionColor = lineColorChild) {
     this.childrens.push(children) ;
-    let line = new Line(this, children, ConnectionPoint.BOTTOM, lineColorChild) ;
+
+    console.log(connectionColor)
+    let line = new Line(this, children, ConnectionPoint.BOTTOM, connectionColor, connectionColor[0]);
     this.childrensLines.push(line) ;
+}
+
+function tickHeartLayer(layer, maxHeartSize) {
+    layer.size += heartGrowthSpeed;
+    layer.opacity -= 0.0001;
+    if (layer.size > maxHeartSize * heartBrakeUpPoint) {
+        layer.opacity -= heartOpacityReductionSpeed;
+        if (layer.opacity < 0) {
+            layer.opacity = 0;
+        }
+    }
 }
 
 Heart.prototype.draw = function() {
 
     this.layers.forEach(layer => {
-        layer.size += heartGrowthSpeed;
-        layer.opacity -= 0.0001;
-        if (layer.size > this.maxHeartSize * heartBrakeUpPoint) {
-            layer.opacity -= heartOpacityReductionSpeed;
-            if (layer.opacity < 0) {
-                layer.opacity = 0;
-            }
-        }
-
+        tickHeartLayer(layer, this.maxHeartSize);
         ctx.globalAlpha = layer.opacity;
         drawHeart(this.positionX, this.positionY, layer.size, layer.color);
     });
@@ -337,7 +385,7 @@ Heart.prototype.draw = function() {
     }
 }
 
-function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource) {
+function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource, colorBorder = "#000000") {
     this.oscillate = false;
     this.offset = 0;
     this.isBeingPulled = false;
@@ -348,6 +396,7 @@ function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource) {
     this.too = too ;
     this.connectionPoint = connectionPoint ;
     this.colorSource = colorSource ;
+    this.colorBorder = colorBorder ;
 
     this.x1 = 0 ;
     this.x2 = 0 ;
@@ -355,7 +404,10 @@ function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource) {
     this.y2 = 0 ;
     this.update();
 
-    this.color = generateColor(this, colorSource) ;
+    this.gradientStops = colorSource.map((color, index) => ({
+        offset: index / (colorSource.length - 1),
+        color
+    }));
 }
 
 Line.prototype.update = function() {
@@ -366,15 +418,29 @@ Line.prototype.update = function() {
 
     this.x2  = tooPos.x ;
     this.y2 = tooPos.y ;
-
-    if (this.color instanceof CanvasGradient) {
-        this.color = generateColor(this, this.colorSource) ;
-    }
 }
 
+Line.prototype.updateGradientStops = function(speed = 0.005) {
+    this.gradientStops.forEach(stop => {
+        stop.offset += speed;
+        if (stop.offset > 1) stop.offset -= 1; // Loop colors back around
+    });
+
+    // Ensure order is maintained
+    this.gradientStops.sort((a, b) => a.offset - b.offset);
+};
+
+Line.prototype.getGradient = function() {
+    let gradient = ctx.createLinearGradient(this.x1, this.y1, this.x2, this.y2);
+    this.gradientStops.forEach(stop => {
+        gradient.addColorStop(stop.offset, stop.color);
+    });
+    return gradient;
+};
+
 Line.prototype.draw = function(){
-    ctx.beginPath();
-    ctx.moveTo(this.x1, this.y1);
+    this.updateGradientStops(0.0005);
+
 
     if (this.isBeingPulled) {
         let springStrength = 0.05;  // How stretchy the string is
@@ -404,18 +470,22 @@ Line.prototype.draw = function(){
         this.hasBeenPulledBefore = false;
     }
 
-    if (this.color instanceof CanvasGradient) {
-        ctx.strokeStyle = this.color;
-    } else if (this.color) {
-        ctx.strokeStyle = this.color;
-    } else {
-        ctx.strokeStyle = "#000000";
-    }
-
     let cx = this.isBeingPulled ? this.pullPoint.x : (this.x1 + this.x2) / 2 + this.offset;
     let cy = this.isBeingPulled ? this.pullPoint.y : (this.y1 + this.y2) / 2 + this.offset;
 
+    ctx.beginPath();
+    ctx.moveTo(this.x1, this.y1);
+    ctx.strokeStyle = this.colorBorder;
+    ctx.lineWidth = 6;
     ctx.quadraticCurveTo(cx, cy, this.x2, this.y2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(this.x1, this.y1);
+    ctx.strokeStyle = this.getGradient();
+    ctx.lineWidth = 4;
+    ctx.quadraticCurveTo(cx, cy, this.x2, this.y2);
+
     ctx.stroke();
 }
 
@@ -428,6 +498,41 @@ function generateColor(line, numberStages) {
 
     return color;
 }
+
+function generateAnimatedGradient(line, colors, speed = 0.01) {
+    let gradient = ctx.createLinearGradient(line.x1, line.y1, line.x2, line.y2);
+    let colorStops = colors.map((color, index) => ({
+        offset: index / (colors.length - 1),
+        color
+    }));
+
+    function updateGradient() {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        // Shift offsets to create movement
+        colorStops.forEach(stop => stop.offset = (stop.offset + speed) % 1);
+
+        // Ensure stops remain in order
+        colorStops.sort((a, b) => a.offset - b.offset);
+
+        let newGradient = ctx.createLinearGradient(line.x1, line.y1, line.x2, line.y2);
+        colorStops.forEach(stop => newGradient.addColorStop(stop.offset, stop.color));
+
+        ctx.strokeStyle = newGradient;
+
+        // Redraw the line
+        ctx.beginPath();
+        ctx.moveTo(line.x1, line.y1);
+        ctx.lineTo(line.x2, line.y2);
+        ctx.stroke();
+
+        requestAnimationFrame(updateGradient);
+    }
+
+    updateGradient();
+    return gradient ;
+}
+
 
 
 function isMouseNearLine(mx, my, x1, y1, x2, y2, toGrab = false) {
@@ -504,10 +609,18 @@ function startOscillation(line) {
 }
 
 
-function manageLinesInteractions(event) {
+function manageLinesInteractions(event, isTouch = false) {
     const rect = canvas.getBoundingClientRect();
-    const mx = event.clientX - rect.left;
-    const my = event.clientY - rect.top;
+    let mx, my;
+
+    if (isTouch) {
+        const touch = event.touches[0]; // Get the first touch point
+        mx = touch.clientX - rect.left;
+        my = touch.clientY - rect.top;
+    } else {
+        mx = event.clientX - rect.left;
+        my = event.clientY - rect.top;
+    }
 
     let inPullRangeLines = [];
 
@@ -518,18 +631,12 @@ function manageLinesInteractions(event) {
             inPullRangeLines.push(line);
 
             if (!line.isBeingPulled) {
-                // 🔥 Find the true closest point
                 let { nearestX, nearestY } = getNearestPointOnLine(mx, my, line.x1, line.y1, line.x2, line.y2);
-
-                // 🛠 Fix: Ensure `pullPoint` is reset immediately to the nearest point, preventing teleporting
                 line.pullPoint = { x: nearestX, y: nearestY };
-
-                // Detect original side before grabbing
                 line.grabDirection = (mx < nearestX) ? "left" : "right";
                 line.startGrab = { x: mx, y: my };
             }
 
-            // 🔥 Allow pulling when the mouse moves past the original side
             let hasPassedSide = (line.grabDirection === "left" && mx >= line.startGrab.x) ||
                 (line.grabDirection === "right" && mx <= line.startGrab.x);
 
@@ -537,7 +644,6 @@ function manageLinesInteractions(event) {
                 line.isBeingPulled = true;
                 line.targetPullPoint = { x: mx, y: my };
 
-                // 🔥 Apply smooth interpolation
                 if (!line.pullPoint) {
                     line.pullPoint = { x: line.targetPullPoint.x, y: line.targetPullPoint.y };
                 }
@@ -553,4 +659,34 @@ function manageLinesInteractions(event) {
     });
 
     pulledLines = inPullRangeLines;
+}
+
+function handleTouchEnd(event) {
+    if (event.touches.length > 0) return;
+
+    pulledLines.forEach(line => {
+        line.isBeingPulled = false;
+        startOscillation(line);
+    });
+
+    pulledLines = [];
+}
+
+
+function addNewLineGroup(newGroup, update = true) {
+    linesListContainers.push(newGroup);
+    if(update) {
+        updateLineGroup();
+    }
+}
+
+function removeLineGroup(groupToRemove, update = true) {
+    linesListContainers = linesListContainers.filter(group => group !== groupToRemove);
+    if(update) {
+        updateLineGroup();
+    }
+}
+
+function updateLineGroup() {
+    lineList = linesListContainers.flat();
 }
