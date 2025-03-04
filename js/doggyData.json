@@ -149,7 +149,7 @@
         {
             "name": "Ophélie",
             "id": "Maman_Taia",
-            "color" : "103,60,46",
+            "color" : "43,51,60",
             "mom": true,
             "parentOf": "Taia",
             "img": [
@@ -162,7 +162,7 @@
         {
             "name": "Max",
             "id": "Papa_Taia",
-            "color" : "43,51,60",
+            "color" : "103,60,46",
             "mom": false,
             "parentOf": "Taia",
             "img": [
