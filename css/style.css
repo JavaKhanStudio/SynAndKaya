@@ -6,6 +6,10 @@ html {
     height: 100%;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 canvas {
     position: fixed;
     top: 0;

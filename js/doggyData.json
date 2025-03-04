@@ -149,7 +149,7 @@
         {
             "name": "Ophélie",
             "id": "Maman_Taia",
-            "color" : "102,85,91",
+            "color" : "103,60,46",
             "mom": true,
             "parentOf": "Taia",
             "img": [

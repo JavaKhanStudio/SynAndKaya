@@ -86,8 +86,6 @@ function generateCarousels(carouselsData, complexDisplay) {
         let backgroundColor = `rgba(${carouselColor}, ${background_force})`;
         carousel.style.backgroundColor = backgroundColor ;
 
-        console.log(backgroundColor)
-
         carousel.onclick = () => {
             const activeItem = carousel.querySelector('.carousel-item.active');
             const activeIndex = activeItem ? parseInt(activeItem.dataset.index) : 0;

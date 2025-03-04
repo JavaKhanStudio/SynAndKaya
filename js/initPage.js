@@ -14,7 +14,7 @@ export async function loadDoggy() {
     await addBubbles(doggyData.elders, "elders") ;
 
     const linesModule = await import('./drawings.js');
-    await linesModule.initCanvas()
+    await linesModule.initCanvas(doggyData)
 }
 
 async function addBubbles(dogInfos, dogType) {
@@ -47,7 +47,6 @@ async function loadJson(path) {
     try {
         const response = await fetch(path);
         const jsonData = await response.json();
-        console.log(jsonData);
         return jsonData;
     } catch (error) {
         console.error('Error loading JSON:', error);
