@@ -70,13 +70,15 @@ export async function initCanvas(doggyData) {
 
     document.addEventListener("DOMContentLoaded", resizeCanvas);
     window.addEventListener("resize", resizeCanvas);
-    window.addEventListener("scroll", resizeCanvas);
+
 
     document.addEventListener("mousemove", (event) => manageLinesInteractions(event));
     document.addEventListener("touchmove", (event) => manageLinesInteractions(event, true));
 
     document.addEventListener("touchend", handleTouchEnd);
     document.addEventListener("touchcancel", handleTouchEnd);
+
+    window.addEventListener("scroll", resizeCanvas);
 
     initConnections(doggyData);
     updateLineGroup();
