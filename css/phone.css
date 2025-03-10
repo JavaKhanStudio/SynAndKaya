@@ -21,12 +21,14 @@
 
     #generation-elders {
         height: auto;
-        padding-top: 10vh;
+        padding-top: 15vh;
         padding-bottom: 5vh;
     }
 
     #generation-elders .carousel-container {
-        max-width: 40%
+        max-width: 40%;
+        height: 20vh;
+        padding-bottom: 3vh;
     }
 
     #generation-parents {
@@ -37,7 +39,8 @@
 
     #generation-parents .carousel-container {
         width: 40%;
-        max-width: 40%
+        max-width: 40% ;
+        margin-top: 10vh;
     }
 
     .carousel-arrow {
@@ -71,7 +74,6 @@
     .carousel-container {
         width: calc(40.33% - 10px);
     }
-
 
     .carousel-title-container {
         z-index: 2;

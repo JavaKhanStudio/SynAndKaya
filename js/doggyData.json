@@ -17,7 +17,7 @@
             "name": "Abby",
             "sex": "Femelle",
             "id": "Puppy_2",
-            "color" : "255,0,255",
+            "color" : "255,127,237",
             "img": [
                 {
                     "name": "Age 2 semaines",
@@ -53,7 +53,7 @@
             "name": "Daisy",
             "sex": "Femelle",
             "id": "Puppy_5",
-            "color" : "64,224,208",
+            "color" : "100,224,220",
             "img": [
                 {
                     "name": "Age 2 semaines",
@@ -64,9 +64,8 @@
     ],
     "parents": [
         {
-            "name": "Syn",
+            "name": "Syntaxe",
             "id": "Syn",
-
             "color" : "255,110,0",
             "img": [
                 {

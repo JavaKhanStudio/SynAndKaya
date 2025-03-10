@@ -42,8 +42,8 @@ const ConnectionPoint = Object.freeze({
 
 let time = 0;
 
-const heartSize_base = 50;
-const heartSize_small = 40;
+const heartSize_base = 80;
+const heartSize_small = 60;
 
 const heartBaseColor = [darkPink, pink, red, darkPink, pink, red] ;
 const lineColorParent = [darkPink, pink, red, pink, darkPink] ;
@@ -134,7 +134,7 @@ function initConnections(doggyData) {
     resizeCanvas();
     heartList = [];
 
-    waitForElementsToBeInserted(["#" + findContainerName("Papa_Taia"), "#" + findContainerName("Syn")]).then(() => {
+    waitForElementsToBeInserted(["#" + findContainerName("Puppy_1"),"#" + findContainerName("Papa_Taia"), "#" + findContainerName("Syn")]).then(() => {
         syn = extractReferenceElement("Syn");
         taia = extractReferenceElement("Taia");
 
@@ -143,7 +143,6 @@ function initConnections(doggyData) {
 
         maman_taia = extractReferenceElement("Maman_Taia");
         papa_taia = extractReferenceElement("Papa_Taia");
-
 
         puppy_1 = extractReferenceElement("Puppy_1");
         puppy_2 = extractReferenceElement("Puppy_2");
@@ -247,6 +246,8 @@ function getElementConnection(element, connectionPoint = ConnectionPoint.TOP) {
     }
 }
 
+
+/ * SECTION COEUR * /
 const maxSize = 60;
 
 function drawHeart(x, y, size = 60, color) {
@@ -384,6 +385,9 @@ Heart.prototype.draw = function() {
         this.layers.push(this.layers.shift());
     }
 }
+
+
+/ * SECTION LINES * /
 
 function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource, colorBorder = "#000000") {
     this.oscillate = false;
@@ -690,3 +694,5 @@ function removeLineGroup(groupToRemove, update = true) {
 function updateLineGroup() {
     lineList = linesListContainers.flat();
 }
+
+/ * SECTION SLIDER * /
