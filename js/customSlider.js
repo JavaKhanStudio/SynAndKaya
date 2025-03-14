@@ -11,6 +11,39 @@ const autoScrolling_stepDelay = 1;
 let scrollMomentum = 0;
 const scrollDamping = 0.92;
 
+
+export function initSlider(fromDownToUp = true) {
+
+    smoothScrollTracking();
+
+    if(fromDownToUp) {
+        window.onload = () => {
+            setTimeout(autoScrollToTop, 1000);
+        };
+    }
+
+    console.log("handle" + handle) ;
+
+    // ** EVENT LISTENERS **
+    handle.addEventListener("mousedown", startDrag);
+    handle.addEventListener("touchstart", startDrag, { passive: false });
+    document.addEventListener("mousemove", onDragMove);
+    document.addEventListener("touchmove", onDragMove, { passive: false });
+    document.addEventListener("mouseup", stopDrag);
+    document.addEventListener("touchend", stopDrag);
+
+    document.addEventListener("touchmove", () => {
+        autoScrollActive = false;
+    }, { passive: false });
+
+    document.addEventListener("wheel", (e) => {
+        autoScrollActive = false;
+        e.preventDefault();
+        scrollMomentum += e.deltaY * 0.5; // Sensitivity
+        applyScrollMomentum();
+    }, { passive: false });
+}
+
 function updateHandlePosition() {
     if (dragging || scrollMomentum !== 0) return; // Prevent interference
     let scrollRatio = document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight);
@@ -24,9 +57,8 @@ function updateHandlePosition() {
 
 function autoScrollToTop() {
     if (!autoScrollActive) return;
-
-    console.log("Scroll to top")
-
+    window.scrollTo(0, document.documentElement.scrollHeight);
+    updateHandlePosition();
     let speed = autoScrolling_stepDelay;
     let acceleration = 1.01;
     let animationId;
@@ -45,13 +77,6 @@ function autoScrollToTop() {
 
     animationId = requestAnimationFrame(scrollStep);
 }
-
-window.onload = () => {
-    window.scrollTo(0, document.documentElement.scrollHeight);
-    updateHandlePosition();
-    console.log("scroll to To loading")
-    setTimeout(autoScrollToTop, 1000);
-};
 
 // ** DRAG HANDLING **
 function startDrag(e) {
@@ -80,15 +105,6 @@ function stopDrag() {
     handle.style.transition = "top 0.1s ease-out";
 }
 
-// ** SCROLLING HANDLING **
-
-document.addEventListener("wheel", (e) => {
-    autoScrollActive = false;
-    e.preventDefault();
-    scrollMomentum += e.deltaY * 0.5; // Sensitivity
-    applyScrollMomentum();
-}, { passive: false });
-
 function applyScrollMomentum() {
     if (dragging || Math.abs(scrollMomentum) < 0.1) {
         scrollMomentum = 0;
@@ -108,10 +124,6 @@ function applyScrollMomentum() {
     }
 }
 
-document.addEventListener("touchmove", () => {
-    autoScrollActive = false;
-}, { passive: false });
-
 // ** SMOOTH SCROLL TRACKING (Only when not dragging/momentum) **
 function smoothScrollTracking() {
     if (!dragging && scrollMomentum === 0) {
@@ -119,13 +131,3 @@ function smoothScrollTracking() {
     }
     requestAnimationFrame(smoothScrollTracking);
 }
-
-smoothScrollTracking();
-
-// ** EVENT LISTENERS **
-handle.addEventListener("mousedown", startDrag);
-handle.addEventListener("touchstart", startDrag, { passive: false });
-document.addEventListener("mousemove", onDragMove);
-document.addEventListener("touchmove", onDragMove, { passive: false });
-document.addEventListener("mouseup", stopDrag);
-document.addEventListener("touchend", stopDrag);

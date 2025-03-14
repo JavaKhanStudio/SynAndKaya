@@ -401,7 +401,11 @@ function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource, col
     this.x2 = 0 ;
     this.y1 = 0 ;
     this.y2 = 0 ;
+
     this.update();
+
+    this.fuseX = this.x1 - this.x2 ;
+    this.fuseY = this.y1 - this.y2 ;
 
     this.gradientStops = colorSource.map((color, index) => ({
         offset: index / (colorSource.length - 1),
@@ -410,13 +414,20 @@ function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource, col
 }
 
 Line.prototype.update = function() {
-    this.x1 = this.from.positionX ;
+    this.x1 = this.from.positionX  ;
     this.y1 = this.from.positionY ;
 
     let tooPos = getElementConnection(this.too, this.connectionPoint);
 
     this.x2  = tooPos.x ;
     this.y2 = tooPos.y ;
+
+    console.log("update") ;
+
+    if(this.fuseY > 0) {
+        this.fuseY = this.fuseY-1 ;
+    }
+
 }
 
 Line.prototype.updateGradientStops = function(speed = 0.005) {
@@ -439,7 +450,7 @@ Line.prototype.getGradient = function() {
 
 Line.prototype.draw = function(){
     this.updateGradientStops(0.0005);
-
+    this.update() ;
 
     if (this.isBeingPulled) {
         let springStrength = 0.05;  // How stretchy the string is

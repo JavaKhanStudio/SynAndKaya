@@ -303,19 +303,39 @@ function openZoomModal(carouselId, imageIndex) {
     document.body.style.overflow = 'hidden'; // Prevent scrolling while modal is open
 }
 
-// Update zoom modal content based on current carousel and index
+let step1 = true; // Track which image is currently active
+
 function updateZoomContent() {
     const carouselData = carouselsData.find(data => data.id === currentZoomedCarouselId);
     if (!carouselData) return;
 
+    const zoomImage1 = document.getElementById("zoomImage1");
+    const zoomImage2 = document.getElementById("zoomImage2");
+
     const image = carouselData.img[currentZoomedIndex];
-    zoomImage.src = image.src;
+    const activeImage = step1 ? zoomImage1 : zoomImage2;
+    const nextImage = step1 ? zoomImage2 : zoomImage1;
+
+    // Update the caption
     zoomCaption.textContent = `${carouselData.name} - ${image.name}`;
+
+    // Prepare the next image before transitioning
+    nextImage.src = image.src;
+    nextImage.classList.add('fade-in');
+    activeImage.classList.add('fade-out');
+
+    activeImage.classList.remove('fade-in', 'active');
+    activeImage.classList.add('hidden');
+    nextImage.classList.remove('fade-out', 'hidden');
+    nextImage.classList.add('active');
+
+    step1 = !step1;
 
     // Update zoom nav buttons
     zoomPrevBtn.className = currentZoomedIndex === 0 ? 'zoom-arrow disabled' : 'zoom-arrow';
     zoomNextBtn.className = currentZoomedIndex === carouselData.img.length - 1 ? 'zoom-arrow disabled' : 'zoom-arrow';
 }
+
 
 // Close zoom modal
 function closeZoomModal() {

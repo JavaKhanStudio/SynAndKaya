@@ -48,7 +48,10 @@
         <div class="zoom-container">
             <button class="zoom-close">&times;</button>
             <div class="zoom-image-container">
-                <img id="zoomImage" class="zoom-image" src="" alt="">
+                <div class="image-container">
+                    <img id="zoomImage1" class="zoom-image" src="" alt="">
+                    <img id="zoomImage2" class="zoom-image" src="" alt="">
+                </div>
                 <div class="zoom-nav">
                     <div id="zoomPrev" class="zoom-arrow">
                         <img src="img/elements/patte.svg" alt="Previous" style="transform :rotate(270deg)">
@@ -62,11 +65,15 @@
         </div>
     </div>
 
+
     <script type="module">
         import { loadDoggy } from "./js/initPage.js";
         loadDoggy(); 
     </script>
-    <script src="js/customSlider.js"></script>
+    <script type="module" >
+        import { initSlider } from "./js/customSlider.js"
+        initSlider(true) ;
+    </script>
 </body>
 
 </html>
