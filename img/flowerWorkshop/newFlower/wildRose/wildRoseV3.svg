@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+
+    <defs>
+        <style type="text/css">
+            :root {
+            --flower-body: #ffb7c9;
+            --flower-heart: #ffed7a;
+            --flower-soul: #7fbc6b;
+            --flower-highlight: #00000;
+            --flower-highlight-inside : #1BE809;
+            --flower-border: #000000;
+            }
+        </style>
+    </defs>
+
+    <!-- Background -->
+    <rect width="50" height="50" fill="#f8f4e8"/>
+
+    <!-- Wild rose -->
+    <g transform="translate(25, 25)">
+        <circle cx="0" cy="0" r="8" fill="var(--flower-body)"/>
+        <circle cx="0" cy="-0" r="3" fill="var(--flower-heart)"/>
+        <g transform="rotate(20)">
+            <g transform="rotate(0)" >
+                <path d="M 0,-15 Q 3,-13 0,-10 Q -3,-13 0,-15" fill="var(--flower-soul)"/>
+                <path d="M 0,-14
+            Q 1.5,-12.5 0,-11
+            Q -1.5,-12.5 0,-14" fill="var(--flower-highlight)" opacity="0.8"/>
+                <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="var(--flower-soul)" />
+            </g>
+            <g transform="rotate(60)">
+                <path d="M 0,-15 Q 3,-13 0,-10 Q -3,-13 0,-15" fill="var(--flower-soul)"/>
+                <path d="M 0,-14
+            Q 1.5,-12.5 0,-11
+            Q -1.5,-12.5 0,-14" fill="var(--flower-highlight)" opacity="0.8"/>
+                <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="var(--flower-soul)" />
+            </g>
+            <g transform="rotate(120)">
+                <path d="M 0,-15 Q 3,-13 0,-10 Q -3,-13 0,-15" fill="var(--flower-soul)"/>
+                <path d="M 0,-14
+            Q 1.5,-12.5 0,-11
+            Q -1.5,-12.5 0,-14" fill="var(--flower-highlight)" opacity="0.8"/>
+                <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="var(--flower-soul)" />
+            </g>
+            <g transform="rotate(180)">
+                <path d="M 0,-15 Q 3,-13 0,-10 Q -3,-13 0,-15" fill="var(--flower-soul)"/>
+                <path d="M 0,-14
+            Q 1.5,-12.5 0,-11
+            Q -1.5,-12.5 0,-14" fill="var(--flower-highlight)" opacity="0.8"/>
+                <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="var(--flower-soul)" />
+            </g>
+            <g transform="rotate(240)">
+                <path d="M 0,-15 Q 3,-13 0,-10 Q -3,-13 0,-15" fill="var(--flower-soul)"/>
+                <path d="M 0,-14
+            Q 1.5,-12.5 0,-11
+            Q -1.5,-12.5 0,-14" fill="var(--flower-highlight)" opacity="0.8"/>
+                <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="var(--flower-soul)" />
+            </g>
+            <g transform="rotate(300)">
+                <path d="M 0,-15 Q 3,-13 0,-10 Q -3,-13 0,-15" fill="var(--flower-soul)"/>
+                <path d="M 0,-14
+            Q 1.5,-12.5 0,-11
+            Q -1.5,-12.5 0,-14" fill="var(--flower-highlight)" opacity="0.8"/>
+                <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="var(--flower-soul)" />
+            </g>
+        </g>
+    </g>
+
+
+</svg>

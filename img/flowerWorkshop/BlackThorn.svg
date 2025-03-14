@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+
+  <defs>
+    <style type="text/css">
+      :root {
+      --flower-body: #FFDB58;
+      --flower-body-center: #DBC80A;
+      --flower-body-border: #D9C504;
+
+      --flower-body-inside: #4C3815;
+      --flower-stigma: #F06D00;
+      --flower-stigma-inside: #FBC004;
+      --flower-filament: #E5ECE5;
+      --flower-filament-size: 0.8;
+      }
+    </style>
+
+    <g id="petal" transform="scale(0.5) ">
+      <path d="M25,5
+           C35,20 45,35 45,60
+           C45,85 35,95 25,95
+           C15,95 5,85 5,60
+           C5,35 15,20 25,5 Z"
+            fill="white"
+            stroke="#d9d9d9"
+            stroke-width="0.7" />
+
+      <!-- Subtle veins on the petal -->
+      <path d="M25,5 C25,30 25,65 25,95"
+            fill="none"
+            stroke="#f0f0f0"
+            stroke-width="0.5" />
+
+      <path d="M25,25 C30,35 35,45 37.5,60"
+            fill="none"
+            stroke="#f0f0f0"
+            stroke-width="0.3" />
+
+      <path d="M25,25 C20,35 15,45 12.5,60"
+            fill="none"
+            stroke="#f0f0f0"
+            stroke-width="0.3" />
+
+      <!-- Subtle shading at the base -->
+      <path d="M25,85
+           C30,85 35,80 37.5,75
+           C35,90 30,92.5 25,92.5
+           C20,92.5 15,90 12.5,75
+           C15,80 20,85 25,85 Z"
+            fill="#f5f5f5" />
+
+      <!-- Very light pink gradient at the tip -->
+      <path d="M25,5
+           C27.5,10 30,15 32.5,20
+           C30,17.5 27.5,15 25,12.5
+           C22.5,15 20,17.5 17.5,20
+           C20,15 22.5,10 25,5 Z"
+            fill="#fff0f5" />
+    </g>
+  </defs>
+
+  <!-- Central Pedals -->
+  <g>
+    <use href="#petal" x="167" y="130" transform="rotate(40, 137, 100)"/>
+  </g>
+
+  <!-- Flower Center -->
+  <circle cx="150" cy="150" r="6" fill="var(--flower-body)" stroke="var(--flower-body-border)" stroke-width="1"/>
+  <circle cx="150" cy="150" r="4" fill="var(--flower-body-inside)" stroke-width="1"/>
+
+  <!-- Stamens -->
+  <g id="stamens">
+
+
+
+    <!-- Central stamens -->
+    <g>
+      <line x1="149" y1="146" x2="145" y2="130" stroke="var(--flower-filament)"  stroke-width="var(--flower-filament-size)"/>
+      <ellipse cx="145" cy="130" rx="1.5" ry="2.5" transform="rotate(-25 145.3 130.9)" fill="var(--flower-stigma)"/>
+      <ellipse cx="145" cy="130.9" rx="0.9" ry="1.6"  transform="rotate(-25 145.3 130.9)" opacity="0.7" fill="var(--flower-stigma-inside)"/>
+
+
+      <line x1="151" y1="146" x2="155" y2="130" stroke="var(--flower-filament)" stroke-width="var(--flower-filament-size)"/>
+      <ellipse cx="155" cy="130" rx="1.5" ry="2.5" transform="rotate(20 161.3 130.9)" fill="var(--flower-stigma)"/>
+      <ellipse cx="155" cy="130.9" rx="0.9" ry="1.6"  transform="rotate(20 161.3 130.9)" opacity="0.7" fill="var(--flower-stigma-inside)"/>
+
+      <line x1="152" y1="146" x2="160" y2="126" stroke="var(--flower-filament)" stroke-width="var(--flower-filament-size)"/>
+      <circle cx="160" cy="126" r="1.1" fill="var(--flower-stigma)"/>
+    </g>
+
+
+
+    <circle cx="150" cy="150" r="4" stroke="var(--flower-body-border)" stroke-width="1" fill="FFC404" fill-opacity="0.0"/>
+    <line x1="150" y1="150" x2="150" y2="123" stroke="var(--flower-filament)" stroke-width="var(--flower-filament-size)"/>
+    <ellipse cx="150" cy="123" rx="1.5" ry="2.5"  fill="var(--flower-stigma)"/>
+    <ellipse cx="150" cy="123.9" rx="0.9" ry="1.6"  opacity="0.7" fill="var(--flower-stigma-inside)"/>
+    <circle cx="150" cy="150" r="1"   fill="var(--flower-body-center)" />
+
+
+  </g>
+
+</svg>

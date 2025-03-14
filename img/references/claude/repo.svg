@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+    <!-- Background - transparent -->
+
+
+    <line x1="150" y1="150" x2="135" y2="135" stroke="#E6C651" stroke-width="1.5"/>
+<circle cx="135" cy="135" r="2" fill="#FFA500"/>
+
+<line x1="150" y1="150" x2="165" y2="135" stroke="#E6C651" stroke-width="1.5"/>
+<circle cx="165" cy="135" r="2" fill="#FFA500"/>
+
+<line x1="150" y1="150" x2="130" y2="145" stroke="#E6C651" stroke-width="1.5"/>
+<circle cx="130" cy="145" r="2" fill="#FFA500"/>
+
+<line x1="150" y1="150" x2="170" y2="145" stroke="#E6C651" stroke-width="1.5"/>
+<circle cx="170" cy="145" r="2" fill="#FFA500"/>
+
+<line x1="150" y1="150" x2="130" y2="155" stroke="#E6C651" stroke-width="1.5"/>
+<circle cx="130" cy="155" r="2" fill="#FFA500"/>
+
+<line x1="150" y1="150" x2="170" y2="155" stroke="#E6C651" stroke-width="1.5"/>
+<circle cx="170" cy="155" r="2" fill="#FFA500"/>
+
+
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 200">
+
+    <defs>
+        <style type="text/css">
+            :root {
+                --flower-body: #7fbc6b;
+                --flower-body-darker: #527744;
+            }
+        </style>
+    </defs>
+
+
+    <!-- Vine Body -->
+    <g>
+        <path d="
+                M20,201
+                Q15,150 25,100
+                Q35, 50 20, -3
+                "
+              stroke="var(--flower-body)" fill="none" stroke-width="20" />
+        <path transform="translate(6,0)" d="
+                M20,201
+                Q15,150 25,100
+                Q35, 50 20, -3
+                "
+              stroke="var(--flower-body-darker)" fill="none" stroke-width="7" />
+        <path transform="translate(-10,0)" d="
+                M20,201
+                Q15,150 25,100
+                Q35, 50 20, -3
+                "
+              stroke="var(--flower-body-darker)" fill="none" stroke-width="3" />
+    </g>
+</svg>

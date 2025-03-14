@@ -3,6 +3,15 @@
     --font-size: 16px;
 }
 
+#main-page {
+    display: flex;
+}
+
+#generation-group {
+    margin-left: 5%;
+    width: 90%;
+}
+
 body {
     background-color: var(--background-color);;
 }

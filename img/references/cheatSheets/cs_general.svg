@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" font-family="Arial, sans-serif">
+
+
+    <defs>
+        <style type="text/css">
+            :root {
+            --main-color: #FFDB58;
+            --font-size: 11;
+            }
+        </style>
+    </defs>
+
+
+    <!-- Background -->
+    <rect width="800" height="900" fill="#f8f9fa" />
+    <rect x="10" y="10" width="780" height="880" rx="10" fill="white" stroke="#ddd" stroke-width="1" />
+
+    <!-- Title -->
+    <text x="400" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">SVG Cheat Sheet</text>
+
+    <!-- Basic Shapes Section -->
+    <text x="30" y="80" font-size="18" font-weight="bold" fill="#0066cc">Basic Shapes</text>
+    <line x1="30" y1="85" x2="770" y2="85" stroke="#0066cc" stroke-width="1" />
+
+    <!-- Rectangle -->
+    <rect x="50" y="100" width="80" height="50" fill="#6ab7ff" stroke="#005cb8" stroke-width="1" />
+    <text x="150" y="125" font-size="var(--font-size)" fill="#333">&lt;rect x="50" y="100" width="80" height="50" /&gt;</text>
+
+    <!-- Circle -->
+    <circle cx="90" cy="200" r="30" fill="#6ab7ff" stroke="#005cb8" stroke-width="1" />
+    <text x="150" y="205" font-size="var(--font-size)" fill="#333">&lt;circle cx="90" cy="200" r="30" /&gt;</text>
+
+    <!-- Ellipse -->
+    <ellipse cx="90" cy="280" rx="40" ry="25" fill="#6ab7ff" stroke="#005cb8" stroke-width="1" />
+    <text x="150" y="285" font-size="var(--font-size)" fill="#333">&lt;ellipse cx="90" cy="280" rx="40" ry="25" /&gt;</text>
+
+    <!-- Line -->
+    <line x1="50" y1="330" x2="130" y2="350" stroke="#005cb8" stroke-width="2" />
+    <text x="150" y="345" font-size="var(--font-size)" fill="#333">&lt;line x1="50" y1="330" x2="130" y2="350" /&gt;</text>
+
+    <!-- Polyline -->
+    <polyline points="50,400 70,380 90,400 110,380 130,400" stroke="#005cb8" fill="none" stroke-width="2" />
+    <text x="150" y="405" font-size="var(--font-size)" fill="#333">&lt;polyline points="50,400 70,380 90,400..." /&gt;</text>
+
+    <!-- Polygon -->
+    <polygon points="90,430 50,470 90,510 130,470" fill="#6ab7ff" stroke="#005cb8" stroke-width="1" />
+    <text x="150" y="475" font-size="var(--font-size)" fill="#333">&lt;polygon points="90,430 50,470 90,510 130,470" /&gt;</text>
+
+    <!-- Paths Section -->
+    <text x="30" y="550" font-size="18" font-weight="bold" fill="#0066cc">Path Commands</text>
+    <line x1="30" y1="555" x2="770" y2="555" stroke="#0066cc" stroke-width="1" />
+
+    <!-- Path Commands -->
+    <path d="M50,580 H130" stroke="#005cb8" stroke-width="2" />
+    <text x="150" y="585" font-size="var(--font-size)" fill="#333">M = moveto, H = horizontal line</text>
+
+    <path d="M50,610 V650" stroke="#005cb8" stroke-width="2" />
+    <text x="150" y="635" font-size="var(--font-size)" fill="#333">V = vertical line</text>
+
+    <path d="M50,680 L130,700" stroke="#005cb8" stroke-width="2" />
+    <text x="150" y="695" font-size="var(--font-size)" fill="#333">L = line to</text>
+
+    <path d="M60,730 C80,710 100,750 120,730" stroke="#005cb8" fill="none" stroke-width="2" />
+    <text x="150" y="735" font-size="var(--font-size)" fill="#333">C = cubic bezier curve</text>
+
+    <path d="M60,770 Q90,750 120,770" stroke="#005cb8" fill="none" stroke-width="2" />
+    <text x="150" y="775" font-size="var(--font-size)" fill="#333">Q = quadratic bezier curve</text>
+
+    <path d="M60,810 A30,20 0 0 1 120,810" stroke="#005cb8" fill="none" stroke-width="2" />
+    <text x="150" y="815" font-size="var(--font-size)" fill="#333">A = elliptical arc</text>
+
+    <path d="M60,840 80,860 100,840 Z" fill="#6ab7ff" stroke="#005cb8" stroke-width="1" />
+    <text x="150" y="855" font-size="var(--font-size)" fill="#333">Z = closepath</text>
+
+    <!-- Styling Section -->
+    <text x="400" y="80" font-size="18" font-weight="bold" fill="#0066cc">Styling</text>
+    <line x1="400" y1="85" x2="770" y2="85" stroke="#0066cc" stroke-width="1" />
+
+    <!-- Fill -->
+    <rect x="420" y="100" width="60" height="40" fill="red" />
+    <text x="500" y="125" font-size="var(--font-size)" fill="#333">fill="red"</text>
+
+    <!-- Stroke -->
+    <rect x="420" y="150" width="60" height="40" fill="none" stroke="blue" stroke-width="3" />
+    <text x="500" y="175" font-size="var(--font-size)" fill="#333">stroke="blue" stroke-width="3"</text>
+
+    <!-- Opacity -->
+    <rect x="420" y="200" width="60" height="40" fill="green" fill-opacity="0.5" />
+    <text x="500" y="225" font-size="var(--font-size)" fill="#333">fill-opacity="0.5"</text>
+
+    <!-- Stroke-dasharray -->
+    <line x1="420" y1="270" x2="480" y2="270" stroke="purple" stroke-width="3" stroke-dasharray="5,3" />
+    <text x="500" y="275" font-size="var(--font-size)" fill="#333">stroke-dasharray="5,3"</text>
+
+    <!-- Transformation Section -->
+    <text x="400" y="320" font-size="18" font-weight="bold" fill="#0066cc">Transformations</text>
+    <line x1="400" y1="325" x2="770" y2="325" stroke="#0066cc" stroke-width="1" />
+
+    <!-- Translate -->
+    <g transform="translate(450, 350)">
+        <rect x="-20" y="-20" width="40" height="40" fill="#6ab7ff" />
+    </g>
+    <text x="500" y="355" font-size="var(--font-size)" fill="#333">transform="translate(450, 350)"</text>
+
+    <!-- Rotate -->
+    <g transform="translate(450, 410) rotate(45)">
+        <rect x="-20" y="-20" width="40" height="40" fill="#6ab7ff" />
+    </g>
+    <text x="500" y="415" font-size="var(--font-size)" fill="#333">transform="rotate(45)"</text>
+
+    <!-- Scale -->
+    <g transform="translate(450, 470) scale(1.5, 0.8)">
+        <rect x="-20" y="-20" width="40" height="40" fill="#6ab7ff" />
+    </g>
+    <text x="500" y="475" font-size="var(--font-size)" fill="#333">transform="scale(1.5, 0.8)"</text>
+
+    <!-- Reusing Elements Section -->
+    <text x="400" y="530" font-size="18" font-weight="bold" fill="#0066cc">Reusing Elements</text>
+    <line x1="400" y1="535" x2="770" y2="535" stroke="#0066cc" stroke-width="1" />
+
+    <!-- Define -->
+    <defs>
+        <g id="star">
+            <polygon points="0,-10 2,-3 10,-3 4,2 6,10 0,5 -6,10 -4,2 -10,-3 -2,-3" fill="gold" stroke="orange" />
+        </g>
+    </defs>
+
+    <!-- Use Element -->
+    <use href="#star" x="450" y="570" />
+    <text x="500" y="575" font-size="var(--font-size)" fill="#333">&lt;use href="#star" x="450" y="570" /&gt;</text>
+
+    <!-- Multiple Uses -->
+    <use href="#star" x="430" y="610" />
+    <use href="#star" x="450" y="610" />
+    <use href="#star" x="470" y="610" />
+    <text x="500" y="615" font-size="var(--font-size)" fill="#333">Multiple &lt;use&gt; elements</text>
+
+    <!-- Text Section -->
+    <text x="400" y="650" font-size="18" font-weight="bold" fill="#0066cc">Text</text>
+    <line x1="400" y1="655" x2="770" y2="655" stroke="#0066cc" stroke-width="1" />
+
+    <!-- Basic Text -->
+    <text x="450" y="680" font-size="var(--font-size)" fill="#333">Basic Text</text>
+    <text x="500" y="680" font-size="var(--font-size)" fill="#333">&lt;text x="450" y="680"&gt;Basic Text&lt;/text&gt;</text>
+
+    <!-- Text Styling -->
+    <text x="450" y="710" font-size="var(--font-size)" font-weight="bold" fill="navy">Bold Text</text>
+    <text x="500" y="710" font-size="var(--font-size)" fill="#333">font-weight="bold" fill="navy"</text>
+
+    <!-- Text Path -->
+    <defs>
+        <path id="curve" d="M420,750 Q460,730 500,750" />
+    </defs>
+    <text>
+        <textPath href="#curve" font-size="12">Text on a path</textPath>
+    </text>
+    <path d="M420,750 Q460,730 500,750" stroke="#ccc" stroke-width="1" fill="none" />
+    <text x="520" y="750" font-size="var(--font-size)" fill="#333">&lt;textPath href="#path"&gt;</text>
+
+    <!-- Filters Section -->
+    <text x="400" y="780" font-size="18" font-weight="bold" fill="#0066cc">SVG Filters</text>
+    <line x1="400" y1="785" x2="770" y2="785" stroke="#0066cc" stroke-width="1" />
+
+    <!-- Filter Definition -->
+    <defs>
+        <filter id="blur">
+            <feGaussianBlur stdDeviation="2" />
+        </filter>
+    </defs>
+
+    <!-- Applying Filter -->
+    <rect x="420" y="800" width="60" height="40" fill="#6ab7ff" filter="url(#blur)" />
+    <text x="500" y="825" font-size="var(--font-size)" fill="#333">filter="url(#blur)"</text>
+
+    <!-- Footer -->
+    <text x="400" y="880" font-size="10" text-anchor="middle" fill="#666">
+        For more information: developer.mozilla.org/en-US/docs/Web/SVG
+    </text>
+</svg>

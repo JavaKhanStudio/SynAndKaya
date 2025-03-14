@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+
+    <defs>
+        <style type="text/css">
+            :root {
+                --flower-body: #ffb7c9;
+            }
+        </style>
+    </defs>
+
+
+    <!-- Background -->
+    <rect width="50" height="50" fill="#f8f4e8"/>
+
+
+</svg>

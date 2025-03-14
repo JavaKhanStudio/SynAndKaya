@@ -15,7 +15,7 @@ html, body {
     transform: translateY(-50%);
     width: var(--slider-width);
     height: var(--slider-height);
-    background: #ddd;
+    background: url('../img/flowerWorkshop/vineV2.svg') ;
     border-radius: 5px;
 }
 
@@ -32,7 +32,7 @@ html, body {
 
 .content {
     width: 100vw;
-    height: 200vh; /* Makes the page scrollable */
+    height: 200vh;
     background: linear-gradient(to bottom, white, lightblue);
     display: flex;
     align-items: center;

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <!-- Single Open Heather Flower -->
+    <!-- Flower stem -->
+    <path d="M50 80 Q50 70 50 60" fill="none" stroke="#7A8C38" stroke-width="1.5"/>
+
+    <!-- Open bell-shaped flower - petals spread outward -->
+    <!-- Petal 1 -->
+    <path d="M50 60
+           Q56 59 60 54
+           Q61 50 60 45
+           Q58 42 55 42
+           Q52 42 50 45
+           Q50 48 50 50"
+          fill="#E6A5B9" stroke="#D4879C" stroke-width="0.8"/>
+
+    <!-- Petal 2 -->
+    <path d="M50 60
+           Q53 63 55 65
+           Q58 64 58 60
+           Q58 56 55 52
+           Q52 50 50 50"
+          fill="#E6A5B9" stroke="#D4879C" stroke-width="0.8"/>
+
+    <!-- Petal 3 -->
+    <path d="M50 60
+           Q47 63 45 65
+           Q42 64 42 60
+           Q42 56 45 52
+           Q48 50 50 50"
+          fill="#E6A5B9" stroke="#D4879C" stroke-width="0.8"/>
+
+    <!-- Petal 4 -->
+    <path d="M50 60
+           Q44 59 40 54
+           Q39 50 40 45
+           Q42 42 45 42
+           Q48 42 50 45
+           Q50 48 50 50"
+          fill="#E6A5B9" stroke="#D4879C" stroke-width="0.8"/>
+
+    <!-- Flower center -->
+    <circle cx="50" cy="50" r="4" fill="#E091A9"/>
+
+    <!-- Stamen/pollen -->
+    <circle cx="50" cy="50" r="2" fill="#FFEB3B"/>
+    <line x1="50" y1="50" x2="53" y2="46" stroke="#FFEB3B" stroke-width="0.8"/>
+    <circle cx="53" cy="46" r="0.8" fill="#FFD700"/>
+    <line x1="50" y1="50" x2="47" y2="46" stroke="#FFEB3B" stroke-width="0.8"/>
+    <circle cx="47" cy="46" r="0.8" fill="#FFD700"/>
+    <line x1="50" y1="50" x2="54" y2="50" stroke="#FFEB3B" stroke-width="0.8"/>
+    <circle cx="54" cy="50" r="0.8" fill="#FFD700"/>
+    <line x1="50" y1="50" x2="46" y2="50" stroke="#FFEB3B" stroke-width="0.8"/>
+    <circle cx="46" cy="50" r="0.8" fill="#FFD700"/>
+
+    <!-- Slight highlights for dimension -->
+    <path d="M44 51 Q46 48 50 47" fill="none" stroke="#FFFFFF" stroke-width="0.4" opacity="0.3"/>
+    <path d="M54 54 Q52 52 50 52" fill="none" stroke="#FFFFFF" stroke-width="0.4" opacity="0.3"/>
+</svg>

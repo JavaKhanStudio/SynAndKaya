@@ -62,7 +62,6 @@ export async function initCanvas(doggyData) {
 
     if(!colorUtils) {
         colorUtils = await import('./colorUtils.js');
-        console.log(colorUtils)
     }
 
     canvas = document.getElementById("bgCanvas");
@@ -82,8 +81,6 @@ export async function initCanvas(doggyData) {
 
     initConnections(doggyData);
     updateLineGroup();
-
-    console.log(doggyData)
 
     window.onload = () => {
         setTimeout(() => {
@@ -354,7 +351,6 @@ Heart.prototype.update = function() {
 Heart.prototype.addChildren = function(children, connectionColor = lineColorChild) {
     this.childrens.push(children) ;
 
-    console.log(connectionColor)
     let line = new Line(this, children, ConnectionPoint.BOTTOM, connectionColor, connectionColor[0]);
     this.childrensLines.push(line) ;
 }
@@ -387,8 +383,7 @@ Heart.prototype.draw = function() {
 }
 
 
-/ * SECTION LINES * /
-
+// SECTION LINES
 function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource, colorBorder = "#000000") {
     this.oscillate = false;
     this.offset = 0;
