@@ -10,6 +10,10 @@
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Cayenne_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Cayenne_02.jpg"
                 }
             ]
         },
@@ -22,6 +26,10 @@
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Abby_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Abby_02.jpg"
                 }
             ]
         },
@@ -34,6 +42,10 @@
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Albert_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Albert_02.jpg"
                 }
             ]
         },
@@ -46,6 +58,10 @@
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Chanel_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Chanel_02.jpg"
                 }
             ]
         },
@@ -58,6 +74,10 @@
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Daisy_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Daisy_02.jpg"
                 }
             ]
         }

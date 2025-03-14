@@ -35,10 +35,7 @@ export async function createCarouselFromJSON(carouselJSON, container, complexDis
 function generateCarousels(carouselsData, complexDisplay) {
     carouselsContainer.innerHTML = '';
 
-
-
     let parser = new DOMParser();
-
     carouselsData.forEach(carouselData => {
 
         let carouselColor = carouselData.color ? carouselData.color : "40,40,255" ;
@@ -91,7 +88,6 @@ function generateCarousels(carouselsData, complexDisplay) {
             const activeIndex = activeItem ? parseInt(activeItem.dataset.index) : 0;
             openZoomModal(carouselData.id, activeIndex);
         };
-
 
         carouselData.img.forEach((img, index) => {
             const carouselItem = document.createElement('div');
@@ -184,7 +180,11 @@ function generateCarousels(carouselsData, complexDisplay) {
 
         if(complexDisplay) {
             const prevArrow = document.createElement('div');
-            prevArrow.className = carouselData.img.length <= 1 ? 'carousel-arrow disabled' : 'carousel-arrow';
+
+            prevArrow.classList.add('carousel-arrow') ;
+            prevArrow.classList.add('carousel-arrow-prev') ;
+            prevArrow.classList.add('disabled');
+
             prevArrow.onclick = (e) => {
                 e.stopPropagation();
                 navigateCarousel(carouselData.id, 'prev');
@@ -196,7 +196,15 @@ function generateCarousels(carouselsData, complexDisplay) {
             prevArrow.appendChild(prevArrowImg);
 
             const nextArrow = document.createElement('div');
-            nextArrow.className = carouselData.img.length <= 1 ? 'carousel-arrow disabled' : 'carousel-arrow';
+            nextArrow.classList.add('carousel-arrow') ;
+            nextArrow.classList.add('carousel-arrow-next') ;
+
+            if (carouselData.img.length <= 1) {
+                nextArrow.classList.add('disabled');
+            } else {
+                nextArrow.classList.remove('disabled');
+            }
+
             nextArrow.onclick = (e) => {
                 e.stopPropagation();
                 navigateCarousel(carouselData.id, 'next');
@@ -213,16 +221,12 @@ function generateCarousels(carouselsData, complexDisplay) {
         }
 
         carouselContainer.appendChild(carousel);
-
-
-
-
         carouselsContainer.appendChild(carouselContainer);
     });
 }
 
 // Navigate carousel to specific index
-function navigateCarouselToIndex(carouselId, targetIndex) {
+export function navigateCarouselToIndex(carouselId, targetIndex) {
     const carousel = document.querySelector(`.carousel[data-id="${carouselId}"]`);
     const items = carousel.querySelectorAll('.carousel-item');
     const dots = carousel.parentElement.querySelectorAll('.carousel-dot');
@@ -243,13 +247,22 @@ function navigateCarouselToIndex(carouselId, targetIndex) {
         dot.className = index === targetIndex ? 'carousel-dot active' : 'carousel-dot';
     });
 
-    // Update navigation arrows
-    prevArrow.className = targetIndex === 0 ? 'carousel-arrow disabled' : 'carousel-arrow';
-    nextArrow.className = targetIndex === items.length - 1 ? 'carousel-arrow disabled' : 'carousel-arrow';
+    if (targetIndex === 0) {
+        prevArrow.classList.add('disabled');
+    } else {
+        prevArrow.classList.remove('disabled');
+    }
+
+    if (targetIndex === items.length - 1) {
+        nextArrow.classList.add('disabled');
+    } else {
+        nextArrow.classList.remove('disabled');
+    }
+
 }
 
 // Navigate carousel forward or backward
-function navigateCarousel(carouselId, direction) {
+export function navigateCarousel(carouselId, direction) {
     const carousel = document.querySelector(`.carousel[data-id="${carouselId}"]`);
     const items = carousel.querySelectorAll('.carousel-item');
 

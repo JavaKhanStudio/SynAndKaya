@@ -25,6 +25,8 @@ function updateHandlePosition() {
 function autoScrollToTop() {
     if (!autoScrollActive) return;
 
+    console.log("Scroll to top")
+
     let speed = autoScrolling_stepDelay;
     let acceleration = 1.01;
     let animationId;
@@ -47,6 +49,7 @@ function autoScrollToTop() {
 window.onload = () => {
     window.scrollTo(0, document.documentElement.scrollHeight);
     updateHandlePosition();
+    console.log("scroll to To loading")
     setTimeout(autoScrollToTop, 1000);
 };
 

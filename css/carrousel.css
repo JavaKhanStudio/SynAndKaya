@@ -38,8 +38,8 @@
 
 .carousel-item {
     min-width: 100%;
-    will-change: transform;
-    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out; /* Ensures smooth removal */
+    will-change: transform, opacity;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out, opacity 0.5s ease-in-out; /* Add opacity */
     position: absolute;
     top: 0;
     left: 0;
@@ -55,18 +55,17 @@
     filter: brightness(1.0);
 }
 
-.carousel:hover .carousel-item{
-    filter: brightness(1.2);
-    cursor: pointer;
-    transform: scale(1.05) translateZ(0);
-}
-
-
 .carousel-item.active {
     opacity: 1;
     pointer-events: auto;
     z-index: 1;
+}
 
+
+.carousel:hover .carousel-item{
+    filter: brightness(1.2);
+    cursor: pointer;
+    transform: scale(1.05) translateZ(0);
 }
 
 .carousel-img-container {
@@ -97,19 +96,27 @@
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: -3px;
     pointer-events: none;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     padding: 0 10px;
     z-index: 2;
 }
 
+.carousel-arrow-prev {
+    right:20px
+}
+
+.carousel-arrow-next {
+    left:20px
+}
+
 .carousel-arrow {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.8);
+    width: 25%;
+    aspect-ratio: 1 / 1;
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -118,6 +125,7 @@
     pointer-events: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s;
+    position: relative;
 }
 
 .carousel-arrow:hover {
@@ -130,8 +138,8 @@
 }
 
 .carousel-arrow img {
-    width: 20px;
-    height: 20px;
+    width: 45%;
+    aspect-ratio: 1 / 1;
 }
 
 .carousel-pagination {
@@ -170,7 +178,7 @@
     justify-content: center;
     align-items: center;
     opacity: 0;
-
+    will-change: transform, opacity;
     transition: opacity 0.5s ease-out, visibility 0.5s;
 }
 
@@ -199,8 +207,9 @@
     border-radius: 10px;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.6s;
+    transition: opacity 0.2s ease-in-out;
 }
+
 
 .zoom-modal.active .zoom-image {
     opacity: 1;
