@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <!-- Single Heather Flower -->
+    <!-- Flower stem -->
+    <path d="M50 80 Q50 70 50 60" fill="none" stroke="#7A8C38" stroke-width="1.5"/>
+
+    <!-- Bell-shaped flower -->
+    <path d="M50 60
+           Q55 60 58 55
+           Q60 50 58 45
+           Q55 40 50 40
+           Q45 40 42 45
+           Q40 50 42 55
+           Q45 60 50 60"
+          fill="#E6A5B9" stroke="#D4879C" stroke-width="0.8"/>
+
+    <!-- Flower internal detail lines -->
+    <path d="M50 60 Q50 55 50 40" fill="none" stroke="#D4879C" stroke-width="0.3" opacity="0.7"/>
+    <path d="M55 58 Q55 50 55 42" fill="none" stroke="#D4879C" stroke-width="0.3" opacity="0.7"/>
+    <path d="M45 58 Q45 50 45 42" fill="none" stroke="#D4879C" stroke-width="0.3" opacity="0.7"/>
+
+    <!-- Flower opening details -->
+    <path d="M50 40 Q52 38 54 40" fill="none" stroke="#D4879C" stroke-width="0.5"/>
+    <path d="M50 40 Q48 38 46 40" fill="none" stroke="#D4879C" stroke-width="0.5"/>
+
+    <!-- Small sepals at base of flower -->
+    <path d="M50 60 Q53 62 56 60" fill="#7A8C38" stroke="#5A6C28" stroke-width="0.5"/>
+    <path d="M50 60 Q47 62 44 60" fill="#7A8C38" stroke="#5A6C28" stroke-width="0.5"/>
+
+    <!-- Stamen/pollen -->
+    <circle cx="50" cy="45" r="0.8" fill="#FFD700"/>
+    <circle cx="48" cy="47" r="0.6" fill="#FFD700"/>
+    <circle cx="52" cy="47" r="0.6" fill="#FFD700"/>
+
+    <!-- Slight highlight for dimension -->
+    <path d="M46 47 Q48 43 52 42" fill="none" stroke="#FFFFFF" stroke-width="0.3" opacity="0.4"/>
+</svg>

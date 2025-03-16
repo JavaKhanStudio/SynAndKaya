@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+        viewBox="0 0 200 300"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="white" />
+
+    <!-- Stem -->
+    <line x1="100" y1="250" x2="100" y2="80" stroke="green" stroke-width="4" />
+
+    <!-- Leaves -->
+    <path d="M100,180 Q90,170 80,160" stroke="green" stroke-width="3" fill="none" />
+    <path d="M100,160 Q110,150 120,140" stroke="green" stroke-width="3" fill="none" />
+    <path d="M100,140 Q90,130 80,120" stroke="green" stroke-width="3" fill="none" />
+    <path d="M100,120 Q110,110 120,100" stroke="green" stroke-width="3" fill="none" />
+
+    <!-- Flowers -->
+    <circle cx="100" cy="80" r="6" fill="purple" stroke="darkviolet" stroke-width="2" />
+    <circle cx="110" cy="90" r="6" fill="purple" stroke="darkviolet" stroke-width="2" />
+    <circle cx="90" cy="95" r="6" fill="purple" stroke="darkviolet" stroke-width="2" />
+    <circle cx="105" cy="110" r="6" fill="purple" stroke="darkviolet" stroke-width="2" />
+    <circle cx="95" cy="115" r="6" fill="purple" stroke="darkviolet" stroke-width="2" />
+    <circle cx="100" cy="130" r="6" fill="purple" stroke="darkviolet" stroke-width="2" />
+    <circle cx="110" cy="140" r="6" fill="purple" stroke="darkviolet" stroke-width="2" />
+    <circle cx="90" cy="145" r="6" fill="purple" stroke="darkviolet" stroke-width="2" />
+</svg>

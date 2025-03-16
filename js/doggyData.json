@@ -10,6 +10,10 @@
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Cayenne_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Cayenne_02.jpg"
                 }
             ]
         },
@@ -17,11 +21,15 @@
             "name": "Abby",
             "sex": "Femelle",
             "id": "Puppy_2",
-            "color" : "255,0,255",
+            "color" : "255,127,237",
             "img": [
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Abby_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Abby_02.jpg"
                 }
             ]
         },
@@ -34,6 +42,10 @@
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Albert_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Albert_02.jpg"
                 }
             ]
         },
@@ -46,6 +58,10 @@
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Chanel_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Chanel_02.jpg"
                 }
             ]
         },
@@ -53,20 +69,23 @@
             "name": "Daisy",
             "sex": "Femelle",
             "id": "Puppy_5",
-            "color" : "64,224,208",
+            "color" : "100,224,220",
             "img": [
                 {
                     "name": "Age 2 semaines",
                     "src" : "img/puppy/Daisy_01.jpg"
+                },
+                {
+                    "name": "Age 3 semaines",
+                    "src" : "img/puppy/Daisy_02.jpg"
                 }
             ]
         }
     ],
     "parents": [
         {
-            "name": "Syn",
+            "name": "Syntaxe",
             "id": "Syn",
-
             "color" : "255,110,0",
             "img": [
                 {

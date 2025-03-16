@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320">
+    <!-- Background grid -->
+    <defs>
+        <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#ccc" stroke-width="0.5"/>
+        </pattern>
+        <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+            <rect width="100" height="100" fill="url(#smallGrid)"/>
+            <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#999" stroke-width="1"/>
+        </pattern>
+    </defs>
+    <rect width="500" height="320" fill="url(#grid)" />
+
+    <!-- Example 1: Simple M command (move to point) -->
+    <circle cx="50" cy="50" r="4" fill="red" />
+    <text x="55" y="45" font-size="12">M50,50</text>
+
+    <!-- Example 2: M and straight line -->
+    <path d="M50,50 L150,50" stroke="blue" fill="none" stroke-width="2" />
+    <circle cx="150" cy="50" r="4" fill="blue" />
+    <text x="155" y="45" font-size="12">L150,50</text>
+
+    <!-- Example 3: Q curve with control point -->
+    <path d="M50,100 Q125,50 200,100" stroke="green" fill="none" stroke-width="2" />
+    <circle cx="50" cy="100" r="4" fill="green" />
+    <circle cx="125" cy="50" r="4" fill="purple" />
+    <circle cx="200" cy="100" r="4" fill="green" />
+    <line x1="50" y1="100" x2="125" y2="50" stroke="purple" stroke-width="1" stroke-dasharray="4" />
+    <line x1="125" y1="50" x2="200" y2="100" stroke="purple" stroke-width="1" stroke-dasharray="4" />
+    <text x="110" y="40" font-size="12">Control Point Q125,50</text>
+    <text x="205" y="100" font-size="12">End 200,100</text>
+
+    <!-- Example 4: Multiple Q curves -->
+    <path d="M50,150 Q100,120 150,150 Q200,180 250,150" stroke="red" fill="none" stroke-width="2" />
+    <circle cx="50" cy="150" r="3" fill="red" />
+    <circle cx="100" cy="120" r="3" fill="purple" />
+    <circle cx="150" cy="150" r="3" fill="red" />
+    <circle cx="200" cy="180" r="3" fill="purple" />
+    <circle cx="250" cy="150" r="3" fill="red" />
+    <line x1="50" y1="150" x2="100" y2="120" stroke="purple" stroke-width="1" stroke-dasharray="4" />
+    <line x1="100" y1="120" x2="150" y2="150" stroke="purple" stroke-width="1" stroke-dasharray="4" />
+    <line x1="150" y1="150" x2="200" y2="180" stroke="purple" stroke-width="1" stroke-dasharray="4" />
+    <line x1="200" y1="180" x2="250" y2="150" stroke="purple" stroke-width="1" stroke-dasharray="4" />
+    <text x="60" y="170" font-size="10">M50,150</text>
+    <text x="150" y="170" font-size="10">Q100,120 150,150</text>
+    <text x="250" y="170" font-size="10">Q200,180 250,150</text>
+
+    <!-- Example 5: Complex shape with M and Q -->
+    <path d="M300,50 Q350,20 400,50 Q450,80 400,110 Q350,140 300,110 Q250,80 300,50"
+          stroke="orange" fill="lightyellow" stroke-width="2" />
+    <text x="300" y="85" font-size="10">Closed shape with Q curves</text>
+
+    <!-- Example 6: Connecting multiple elements -->
+    <path d="M50,250 Q100,200 150,250 M200,250 Q250,200 300,250 M350,250 Q400,200 450,250"
+          stroke="blue" fill="none" stroke-width="2" />
+    <text x="50" y="280" font-size="12">Multiple M commands to create separate elements</text>
+
+    <!-- Legend -->
+    <circle cx="20" cy="300" r="4" fill="red" />
+    <text x="30" y="304" font-size="12">Start/End Points</text>
+
+    <circle cx="150" cy="300" r="4" fill="purple" />
+    <text x="160" y="304" font-size="12">Control Points</text>
+
+    <line x1="270" y1="300" x2="290" y2="300" stroke="purple" stroke-width="1" stroke-dasharray="4" />
+    <text x="300" y="304" font-size="12">Control Lines</text>
+</svg>

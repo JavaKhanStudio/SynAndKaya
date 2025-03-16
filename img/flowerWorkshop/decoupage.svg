@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 300">
+  <!-- Background -->
+  <rect width="100" height="300" fill="#f8f4e8"/>
+
+  <!-- Border elements -->
+  <rect x="2" y="2" width="96" height="296" fill="none" stroke="#8b4513" stroke-width="1.5"/>
+
+
+
+
+  
+
+  <!-- Small forget-me-not cluster -->
+  <g transform="translate(20, 80)">
+    <path d="M 0,0 C 1,-3 0,-8 0,-10" stroke="#447744" stroke-width="1" fill="none"/>
+    <circle cx="0" cy="-10" r="4" fill="#7abaff"/>
+    <circle cx="0" cy="-10" r="1.5" fill="#ffed7a"/>
+    <circle cx="-4" cy="-12" r="4" fill="#7abaff"/>
+    <circle cx="-4" cy="-12" r="1.5" fill="#ffed7a"/>
+    <circle cx="4" cy="-12" r="4" fill="#7abaff"/>
+    <circle cx="4" cy="-12" r="1.5" fill="#ffed7a"/>
+    <circle cx="-2" cy="-15" r="4" fill="#7abaff"/>
+    <circle cx="-2" cy="-15" r="1.5" fill="#ffed7a"/>
+    <circle cx="2" cy="-15" r="4" fill="#7abaff"/>
+    <circle cx="2" cy="-15" r="1.5" fill="#ffed7a"/>
+  </g>
+  
+  <!-- Tulip -->
+  <g transform="translate(50, 95)">
+    <path d="M 0,0 C 2,-5 0,-12 0,-15" stroke="#447744" stroke-width="1.5" fill="none"/>
+    <path d="M 0,-15 C 5,-25 0,-30 -5,-25 C -5,-15 5,-15 0,-15 Z" fill="#d46a99"/>
+    <path d="M 0,-15 C -5,-25 0,-30 5,-25 C 5,-15 -5,-15 0,-15 Z" fill="#d46a99"/>
+  </g>
+  
+  <!-- Middle section -->
+  
+  <!-- Cornflower -->
+  <g transform="translate(80, 115)">
+    <path d="M 0,0 C 2,-5 0,-12 0,-15" stroke="#447744" stroke-width="1.5" fill="none"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(0)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(30)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(60)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(90)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(120)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(150)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(180)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(210)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(240)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(270)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(300)"/>
+    <path d="M 0,-15 C 2,-17 0,-20 -2,-17 C -2,-15 2,-15 0,-15 Z" fill="#5555dd" transform="rotate(330)"/>
+    <circle cx="0" cy="-15" r="3" fill="#ffed7a"/>
+  </g>
+  
+
+  
+  <!-- Wild strawberry -->
+  <g transform="translate(60, 150)">
+    <path d="M 0,0 C 1,-3 0,-8 0,-10" stroke="#447744" stroke-width="1" fill="none"/>
+    <path d="M -6,-8 Q -3,-9 0,-8 Q 3,-9 6,-8 Q 3,-5 0,-2 Q -3,-5 -6,-8 Z" fill="#61a044"/>
+    <path d="M -5,-12 Q -2,-13 0,-12 Q 2,-13 5,-12 Q 3,-10 0,-8 Q -3,-10 -5,-12 Z" fill="#61a044"/>
+    <path d="M -4,-16 Q -2,-17 0,-16 Q 2,-17 4,-16 Q 2,-14 0,-12 Q -2,-14 -4,-16 Z" fill="#61a044"/>
+    <circle cx="-2" cy="-6" r="1" fill="#f44336"/>
+    <circle cx="2" cy="-6" r="1" fill="#f44336"/>
+    <circle cx="0" cy="-4" r="1" fill="#f44336"/>
+    <circle cx="-2" cy="-10" r="1" fill="#f44336"/>
+    <circle cx="2" cy="-10" r="1" fill="#f44336"/>
+    <circle cx="0" cy="-14" r="1" fill="#f44336"/>
+  </g>
+  
+  <!-- Thistle -->
+  <g transform="translate(25, 170)">
+    <path d="M 0,0 C 1,-5 0,-12 0,-15" stroke="#447744" stroke-width="1.5" fill="none"/>
+    <path d="M 0,-15 C 3,-20 0,-22 -3,-20 C -3,-15 3,-15 0,-15 Z" fill="#b090e0" transform="rotate(0)"/>
+    <path d="M 0,-15 C 3,-20 0,-22 -3,-20 C -3,-15 3,-15 0,-15 Z" fill="#b090e0" transform="rotate(60)"/>
+    <path d="M 0,-15 C 3,-20 0,-22 -3,-20 C -3,-15 3,-15 0,-15 Z" fill="#b090e0" transform="rotate(120)"/>
+    <path d="M 0,-15 C 3,-20 0,-22 -3,-20 C -3,-15 3,-15 0,-15 Z" fill="#b090e0" transform="rotate(180)"/>
+    <path d="M 0,-15 C 3,-20 0,-22 -3,-20 C -3,-15 3,-15 0,-15 Z" fill="#b090e0" transform="rotate(240)"/>
+    <path d="M 0,-15 C 3,-20 0,-22 -3,-20 C -3,-15 3,-15 0,-15 Z" fill="#b090e0" transform="rotate(300)"/>
+  </g>
+  
+  <!-- White daisy -->
+  <g transform="translate(75, 185)">
+    <circle cx="0" cy="0" r="10" fill="#ffffff"/>
+    <circle cx="0" cy="0" r="4" fill="#ffcc00"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(0)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(40)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(80)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(120)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(160)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(200)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(240)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(280)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(320)"/>
+  </g>
+  
+  <!-- Primrose -->
+  <g transform="translate(45, 210)">
+    <path d="M 0,0 C 1,-3 0,-8 0,-10" stroke="#447744" stroke-width="1" fill="none"/>
+    <circle cx="0" cy="-10" r="7" fill="#ffffc0"/>
+    <circle cx="0" cy="-10" r="3" fill="#ffcc00"/>
+    <path d="M 0,-16 Q 1,-14 0,-10 Q -1,-14 0,-16" fill="#7fbc6b" transform="rotate(0)"/>
+    <path d="M 0,-16 Q 1,-14 0,-10 Q -1,-14 0,-16" fill="#7fbc6b" transform="rotate(72)"/>
+    <path d="M 0,-16 Q 1,-14 0,-10 Q -1,-14 0,-16" fill="#7fbc6b" transform="rotate(144)"/>
+    <path d="M 0,-16 Q 1,-14 0,-10 Q -1,-14 0,-16" fill="#7fbc6b" transform="rotate(216)"/>
+    <path d="M 0,-16 Q 1,-14 0,-10 Q -1,-14 0,-16" fill="#7fbc6b" transform="rotate(288)"/>
+  </g>
+  
+  <!-- Bottom section (connects with top for looping) -->
+  
+  <!-- Lily of the valley -->
+  <g transform="translate(15, 235)">
+    <path d="M 0,0 C 2,-5 0,-15 0,-18" stroke="#447744" stroke-width="1.5" fill="none"/>
+    <path d="M 0,-15 C 2,-15 2,-12 0,-12 C -2,-12 -2,-15 0,-15" fill="#ffffff" transform="rotate(0)"/>
+    <path d="M 0,-15 C 2,-15 2,-12 0,-12 C -2,-12 -2,-15 0,-15" fill="#ffffff" transform="rotate(30)"/>
+    <path d="M 0,-15 C 2,-15 2,-12 0,-12 C -2,-12 -2,-15 0,-15" fill="#ffffff" transform="rotate(60)"/>
+    <path d="M 0,-16 C 2,-16 2,-13 0,-13 C -2,-13 -2,-16 0,-16" fill="#ffffff" transform="rotate(90)"/>
+    <path d="M 0,-17 C 2,-17 2,-14 0,-14 C -2,-14 -2,-17 0,-17" fill="#ffffff" transform="rotate(120)"/>
+    <path d="M 0,-18 C 2,-18 2,-15 0,-15 C -2,-15 -2,-18 0,-18" fill="#ffffff" transform="rotate(150)"/>
+  </g>
+  
+  <!-- Yellow daisy (matches top flower for seamless looping) -->
+  <g transform="translate(65, 250)">
+    <circle cx="0" cy="0" r="10" fill="#ffed7a"/>
+    <circle cx="0" cy="0" r="4" fill="#ffcc00"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(0)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(40)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(80)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(120)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(160)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(200)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(240)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(280)"/>
+    <path d="M 0,-13 Q 3,-10 0,-7 Q -3,-10 0,-13" fill="#7fbc6b" transform="rotate(320)"/>
+  </g>
+  
+  <!-- Wild rose (matches top section for seamless looping) -->
+  <g transform="translate(35, 275)">
+    <path d="M 0,0 C 1,-3 0,-8 0,-10" stroke="#447744" stroke-width="1" fill="none"/>
+    <circle cx="0" cy="-9" r="8" fill="#ffb7c9"/>
+    <circle cx="0" cy="-9" r="3" fill="#ffed7a"/>
+    <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="#7fbc6b" transform="rotate(10)"/>
+    <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="#7fbc6b" transform="rotate(80)"/>
+    <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="#7fbc6b" transform="rotate(150)"/>
+    <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="#7fbc6b" transform="rotate(220)"/>
+    <path d="M 0,-15 Q 1,-13 0,-10 Q -1,-13 0,-15" fill="#7fbc6b" transform="rotate(290)"/>
+  </g>
+  
+  <!-- Small leaves and tiny flowers filling spaces -->
+  <path d="M 15,35 Q 18,32 15,29 Q 12,32 15,35" fill="#7fbc6b"/>
+  <path d="M 55,15 Q 58,12 55,9 Q 52,12 55,15" fill="#7fbc6b"/>
+  <path d="M 90,40 Q 93,37 90,34 Q 87,37 90,40" fill="#7fbc6b"/>
+  <path d="M 10,65 Q 13,62 10,59 Q 7,62 10,65" fill="#7fbc6b"/>
+  <path d="M 65,75 Q 68,72 65,69 Q 62,72 65,75" fill="#7fbc6b"/>
+  <path d="M 30,100 Q 33,97 30,94 Q 27,97 30,100" fill="#7fbc6b"/>
+  <path d="M 85,95 Q 88,92 85,89 Q 82,92 85,95" fill="#7fbc6b"/>
+  <path d="M 50,120 Q 53,117 50,114 Q 47,117 50,120" fill="#7fbc6b"/>
+  <path d="M 10,140 Q 13,137 10,134 Q 7,137 10,140" fill="#7fbc6b"/>
+  <path d="M 45,165 Q 48,162 45,159 Q 42,162 45,165" fill="#7fbc6b"/>
+  <path d="M 90,155 Q 93,152 90,149 Q 87,152 90,155" fill="#7fbc6b"/>
+  <path d="M 15,195 Q 18,192 15,189 Q 12,192 15,195" fill="#7fbc6b"/>
+  <path d="M 65,225 Q 68,222 65,219 Q 62,222 65,225" fill="#7fbc6b"/>
+  <path d="M 30,245 Q 33,242 30,239 Q 27,242 30,245" fill="#7fbc6b"/>
+  <path d="M 80,260 Q 83,257 80,254 Q 77,257 80,260" fill="#7fbc6b"/>
+  <path d="M 55,285 Q 58,282 55,279 Q 52,282 55,285" fill="#7fbc6b"/>
+  
+  <!-- Tiny flowers -->
+  <circle cx="20" cy="45" r="3" fill="#ff9999"/>
+  <circle cx="20" cy="45" r="1" fill="#ffff00"/>
+  
+  <circle cx="75" cy="35" r="3" fill="#aaddff"/>
+  <circle cx="75" cy="35" r="1" fill="#ffff00"/>
+  
+  <circle cx="15" cy="105" r="3" fill="#ffcc99"/>
+  <circle cx="15" cy="105" r="1" fill="#ffff00"/>
+  
+  <circle cx="40" cy="135" r="3" fill="#eeffaa"/>
+  <circle cx="40" cy="135" r="1" fill="#ffff00"/>
+  
+  <circle cx="85" cy="145" r="3" fill="#ddaaff"/>
+  <circle cx="85" cy="145" r="1" fill="#ffff00"/>
+  
+  <circle cx="65" cy="180" r="3" fill="#ffaadd"/>
+  <circle cx="65" cy="180" r="1" fill="#ffff00"/>
+  
+  <circle cx="20" cy="215" r="3" fill="#aaffee"/>
+  <circle cx="20" cy="215" r="1" fill="#ffff00"/>
+  
+  <circle cx="90" cy="225" r="3" fill="#ccffaa"/>
+  <circle cx="90" cy="225" r="1" fill="#ffff00"/>
+  
+  <circle cx="40" cy="255" r="3" fill="#ffaaaa"/>
+  <circle cx="40" cy="255" r="1" fill="#ffff00"/>
+  
+  <circle cx="15" cy="265" r="3" fill="#aaaaff"/>
+  <circle cx="15" cy="265" r="1" fill="#ffff00"/>
+  
+  <circle cx="75" cy="285" r="3" fill="#aaffaa"/>
+  <circle cx="75" cy="285" r="1" fill="#ffff00"/>
+  
+  <!-- Fill any remaining small gaps with tiny elements -->
+  <circle cx="40" cy="25" r="2" fill="#7fbc6b"/>
+  <circle cx="90" cy="60" r="2" fill="#7fbc6b"/>
+  <circle cx="35" cy="80" r="2" fill="#7fbc6b"/>
+  <circle cx="70" cy="110" r="2" fill="#7fbc6b"/>
+  <circle cx="20" cy="155" r="2" fill="#7fbc6b"/>
+  <circle cx="90" cy="175" r="2" fill="#7fbc6b"/>
+  <circle cx="35" cy="195" r="2" fill="#7fbc6b"/>
+  <circle cx="80" cy="215" r="2" fill="#7fbc6b"/>
+  <circle cx="55" cy="235" r="2" fill="#7fbc6b"/>
+  <circle cx="25" cy="255" r="2" fill="#7fbc6b"/>
+  <circle cx="60" cy="270" r="2" fill="#7fbc6b"/>
+  <circle cx="90" cy="285" r="2" fill="#7fbc6b"/>
+</svg>

@@ -42,8 +42,8 @@ const ConnectionPoint = Object.freeze({
 
 let time = 0;
 
-const heartSize_base = 50;
-const heartSize_small = 40;
+const heartSize_base = 80;
+const heartSize_small = 60;
 
 const heartBaseColor = [darkPink, pink, red, darkPink, pink, red] ;
 const lineColorParent = [darkPink, pink, red, pink, darkPink] ;
@@ -62,7 +62,6 @@ export async function initCanvas(doggyData) {
 
     if(!colorUtils) {
         colorUtils = await import('./colorUtils.js');
-        console.log(colorUtils)
     }
 
     canvas = document.getElementById("bgCanvas");
@@ -82,8 +81,6 @@ export async function initCanvas(doggyData) {
 
     initConnections(doggyData);
     updateLineGroup();
-
-    console.log(doggyData)
 
     window.onload = () => {
         setTimeout(() => {
@@ -134,7 +131,7 @@ function initConnections(doggyData) {
     resizeCanvas();
     heartList = [];
 
-    waitForElementsToBeInserted(["#" + findContainerName("Papa_Taia"), "#" + findContainerName("Syn")]).then(() => {
+    waitForElementsToBeInserted(["#" + findContainerName("Puppy_1"),"#" + findContainerName("Papa_Taia"), "#" + findContainerName("Syn")]).then(() => {
         syn = extractReferenceElement("Syn");
         taia = extractReferenceElement("Taia");
 
@@ -143,7 +140,6 @@ function initConnections(doggyData) {
 
         maman_taia = extractReferenceElement("Maman_Taia");
         papa_taia = extractReferenceElement("Papa_Taia");
-
 
         puppy_1 = extractReferenceElement("Puppy_1");
         puppy_2 = extractReferenceElement("Puppy_2");
@@ -247,6 +243,8 @@ function getElementConnection(element, connectionPoint = ConnectionPoint.TOP) {
     }
 }
 
+
+/ * SECTION COEUR * /
 const maxSize = 60;
 
 function drawHeart(x, y, size = 60, color) {
@@ -353,7 +351,6 @@ Heart.prototype.update = function() {
 Heart.prototype.addChildren = function(children, connectionColor = lineColorChild) {
     this.childrens.push(children) ;
 
-    console.log(connectionColor)
     let line = new Line(this, children, ConnectionPoint.BOTTOM, connectionColor, connectionColor[0]);
     this.childrensLines.push(line) ;
 }
@@ -385,6 +382,8 @@ Heart.prototype.draw = function() {
     }
 }
 
+
+// SECTION LINES
 function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource, colorBorder = "#000000") {
     this.oscillate = false;
     this.offset = 0;
@@ -402,7 +401,11 @@ function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource, col
     this.x2 = 0 ;
     this.y1 = 0 ;
     this.y2 = 0 ;
+
     this.update();
+
+    this.fuseX = this.x1 - this.x2 ;
+    this.fuseY = this.y1 - this.y2 ;
 
     this.gradientStops = colorSource.map((color, index) => ({
         offset: index / (colorSource.length - 1),
@@ -411,13 +414,20 @@ function Line(from, too, connectionPoint = ConnectionPoint.TOP, colorSource, col
 }
 
 Line.prototype.update = function() {
-    this.x1 = this.from.positionX ;
+    this.x1 = this.from.positionX  ;
     this.y1 = this.from.positionY ;
 
     let tooPos = getElementConnection(this.too, this.connectionPoint);
 
     this.x2  = tooPos.x ;
     this.y2 = tooPos.y ;
+
+    console.log("update") ;
+
+    if(this.fuseY > 0) {
+        this.fuseY = this.fuseY-1 ;
+    }
+
 }
 
 Line.prototype.updateGradientStops = function(speed = 0.005) {
@@ -440,7 +450,7 @@ Line.prototype.getGradient = function() {
 
 Line.prototype.draw = function(){
     this.updateGradientStops(0.0005);
-
+    this.update() ;
 
     if (this.isBeingPulled) {
         let springStrength = 0.05;  // How stretchy the string is
@@ -690,3 +700,5 @@ function removeLineGroup(groupToRemove, update = true) {
 function updateLineGroup() {
     lineList = linesListContainers.flat();
 }
+
+/ * SECTION SLIDER * /

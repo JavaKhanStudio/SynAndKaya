@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controllable Flower Animation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #speed-control {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="300" height="300" id="flower">
+    <!-- Stem -->
+    <path d="M100 180 L100 120" stroke="green" stroke-width="3" fill="none"/>
+
+    <!-- Leaves -->
+    <path d="M100 150 Q120 140 115 160" stroke="green" stroke-width="2" fill="#7CB342"/>
+    <path d="M100 160 Q80 150 85 170" stroke="green" stroke-width="2" fill="#7CB342"/>
+
+    <!-- Animated Petals -->
+    <!-- Petal 1 -->
+    <path d="M100 120 Q105 100 100 90" fill="#FF80AB" id="petal1" class="petal"/>
+
+    <!-- Petal 2 -->
+    <path d="M100 120 Q115 110 110 90" fill="#F48FB1" id="petal2" class="petal"/>
+
+    <!-- Petal 3 -->
+    <path d="M100 120 Q120 115 115 95" fill="#F8BBD0" id="petal3" class="petal"/>
+
+    <!-- Petal 4 -->
+    <path d="M100 120 Q110 125 115 105" fill="#FF80AB" id="petal4" class="petal"/>
+
+    <!-- Petal 5 -->
+    <path d="M100 120 Q95 100 100 90" fill="#F48FB1" id="petal5" class="petal"/>
+
+    <!-- Petal 6 -->
+    <path d="M100 120 Q85 110 90 90" fill="#F8BBD0" id="petal6" class="petal"/>
+
+    <!-- Petal 7 -->
+    <path d="M100 120 Q80 115 85 95" fill="#FF80AB" id="petal7" class="petal"/>
+
+    <!-- Petal 8 -->
+    <path d="M100 120 Q90 125 85 105" fill="#F48FB1" id="petal8" class="petal"/>
+
+    <!-- Flower Center -->
+    <circle cx="100" cy="110" r="8" fill="#FFEB3B" id="center"/>
+
+    <!-- Sepals -->
+    <path d="M100 120 Q90 115 85 125" fill="#2E7D32" id="sepal1" class="sepal"/>
+    <path d="M100 120 Q110 115 115 125" fill="#2E7D32" id="sepal2" class="sepal"/>
+    <path d="M100 120 Q105 110 115 115" fill="#2E7D32" id="sepal3" class="sepal"/>
+    <path d="M100 120 Q95 110 85 115" fill="#2E7D32" id="sepal4" class="sepal"/>
+</svg>
+
+<div class="controls">
+    <button id="openBtn">Open Flower</button>
+    <button id="closeBtn" disabled>Close Flower</button>
+    <button id="resetBtn">Reset</button>
+</div>
+
+<div id="speed-control">
+    <label for="speedSlider">Animation Speed:</label>
+    <input type="range" id="speedSlider" min="0.5" max="5" step="0.5" value="2">
+    <span id="speedValue">2.0x</span>
+</div>
+
+<div class="animation-type" style="margin-top: 10px;">
+    <label style="margin-right: 10px;">
+        <input type="radio" name="animationType" value="sequential" checked> Sequential Animation
+    </label>
+    <label>
+        <input type="radio" name="animationType" value="simultaneous"> Simultaneous Animation
+    </label>
+</div>
+
+<script>
+    // Define petal states
+    const petalStates = {
+        petal1: {
+            closed: "M100 120 Q105 100 100 90",
+            open: "M100 120 Q110 80 100 60",
+            closedColor: "#FF80AB",
+            openColor: "#FF4081"
+        },
+        petal2: {
+            closed: "M100 120 Q115 110 110 90",
+            open: "M100 120 Q130 90 130 65",
+            closedColor: "#F48FB1",
+            openColor: "#EC407A"
+        },
+        petal3: {
+            closed: "M100 120 Q120 115 115 95",
+            open: "M100 120 Q145 105 150 80",
+            closedColor: "#F8BBD0",
+            openColor: "#F06292"
+        },
+        petal4: {
+            closed: "M100 120 Q110 125 115 105",
+            open: "M100 120 Q130 135 145 110",
+            closedColor: "#FF80AB",
+            openColor: "#FF4081"
+        },
+        petal5: {
+            closed: "M100 120 Q95 100 100 90",
+            open: "M100 120 Q90 80 100 60",
+            closedColor: "#F48FB1",
+            openColor: "#EC407A"
+        },
+        petal6: {
+            closed: "M100 120 Q85 110 90 90",
+            open: "M100 120 Q70 90 70 65",
+            closedColor: "#F8BBD0",
+            openColor: "#F06292"
+        },
+        petal7: {
+            closed: "M100 120 Q80 115 85 95",
+            open: "M100 120 Q55 105 50 80",
+            closedColor: "#FF80AB",
+            openColor: "#FF4081"
+        },
+        petal8: {
+            closed: "M100 120 Q90 125 85 105",
+            open: "M100 120 Q70 135 55 110",
+            closedColor: "#F48FB1",
+            openColor: "#EC407A"
+        }
+    };
+
+    const sepalStates = {
+        sepal1: {
+            closed: "M100 120 Q90 115 85 125",
+            open: "M100 120 Q80 125 70 135",
+            closedColor: "#2E7D32",
+            openColor: "#388E3C"
+        },
+        sepal2: {
+            closed: "M100 120 Q110 115 115 125",
+            open: "M100 120 Q120 125 130 135",
+            closedColor: "#2E7D32",
+            openColor: "#388E3C"
+        },
+        sepal3: {
+            closed: "M100 120 Q105 110 115 115",
+            open: "M100 120 Q115 105 130 110",
+            closedColor: "#2E7D32",
+            openColor: "#388E3C"
+        },
+        sepal4: {
+            closed: "M100 120 Q95 110 85 115",
+            open: "M100 120 Q85 105 70 110",
+            closedColor: "#2E7D32",
+            openColor: "#388E3C"
+        }
+    };
+
+    const centerStates = {
+        closed: { r: 8, color: "#FFEB3B" },
+        open: { r: 15, color: "#FFC107" }
+    };
+
+    // State and animation variables
+    let isAnimating = false;
+    let isOpen = false;
+    let animations = [];
+    let animationSpeed = 2; // Default speed
+    let isSequential = true; // Default to sequential animation
+
+    // Get DOM elements
+    const openBtn = document.getElementById('openBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const speedSlider = document.getElementById('speedSlider');
+    const speedValue = document.getElementById('speedValue');
+    const petals = document.querySelectorAll('.petal');
+    const sepals = document.querySelectorAll('.sepal');
+    const center = document.getElementById('center');
+
+    // Animation utility function
+    function animate(element, startProps, endProps, duration, delay, onComplete) {
+        return new Promise(resolve => {
+            const startTime = performance.now() + (delay || 0);
+            const endTime = startTime + duration;
+
+            // Store animation info to be able to cancel it
+            const animation = {
+                element: element,
+                startProps: startProps,
+                endProps: endProps,
+                startTime: startTime,
+                endTime: endTime,
+                onComplete: onComplete,
+                resolve: resolve,
+                canceled: false
+            };
+
+            animations.push(animation);
+
+            // If not already animating, start animation loop
+            if (!isAnimating) {
+                isAnimating = true;
+                requestAnimationFrame(animationFrame);
+            }
+        });
+    }
+
+    // Main animation loop
+    function animationFrame(timestamp) {
+        let stillAnimating = false;
+
+        for (let i = animations.length - 1; i >= 0; i--) {
+            const anim = animations[i];
+
+            if (anim.canceled) {
+                animations.splice(i, 1);
+                continue;
+            }
+
+            if (timestamp < anim.startTime) {
+                stillAnimating = true;
+                continue;
+            }
+
+            const progress = Math.min(1, (timestamp - anim.startTime) / (anim.endTime - anim.startTime));
+
+            if (progress < 1) {
+                stillAnimating = true;
+
+                // Handle different property types
+                if (anim.element.tagName === 'path') {
+                    if (anim.startProps.d && anim.endProps.d) {
+                        // Simple linear interpolation for path data is not ideal but works for this demo
+                        anim.element.setAttribute('d', anim.startProps.d);
+                    }
+                    if (anim.startProps.fill && anim.endProps.fill) {
+                        anim.element.setAttribute('fill', anim.startProps.fill);
+                    }
+                } else if (anim.element.tagName === 'circle') {
+                    if ('r' in anim.startProps && 'r' in anim.endProps) {
+                        const r = anim.startProps.r + (anim.endProps.r - anim.startProps.r) * progress;
+                        anim.element.setAttribute('r', r);
+                    }
+                    if (anim.startProps.fill && anim.endProps.fill) {
+                        anim.element.setAttribute('fill', anim.startProps.fill);
+                    }
+                }
+            } else {
+                // Animation complete
+                if (anim.element.tagName === 'path') {
+                    if (anim.endProps.d) {
+                        anim.element.setAttribute('d', anim.endProps.d);
+                    }
+                    if (anim.endProps.fill) {
+                        anim.element.setAttribute('fill', anim.endProps.fill);
+                    }
+                } else if (anim.element.tagName === 'circle') {
+                    if ('r' in anim.endProps) {
+                        anim.element.setAttribute('r', anim.endProps.r);
+                    }
+                    if (anim.endProps.fill) {
+                        anim.element.setAttribute('fill', anim.endProps.fill);
+                    }
+                }
+
+                if (anim.onComplete) {
+                    anim.onComplete();
+                }
+
+                anim.resolve();
+                animations.splice(i, 1);
+            }
+        }
+
+        if (stillAnimating) {
+            requestAnimationFrame(animationFrame);
+        } else {
+            isAnimating = false;
+        }
+    }
+
+    // Function to open the flower
+    async function openFlower() {
+        if (isOpen) return;
+
+        openBtn.disabled = true;
+        resetBtn.disabled = true;
+
+        // Calculate base duration based on speed
+        const baseDuration = 3000 / animationSpeed;
+
+        if (isSequential) {
+            // Sequential animation (original staggered effect)
+
+            // Animate sepals first
+            const sepalPromises = [];
+            sepals.forEach((sepal, index) => {
+                const id = sepal.id;
+                const state = sepalStates[id];
+                sepalPromises.push(
+                    animate(
+                        sepal,
+                        { d: state.closed, fill: state.closedColor },
+                        { d: state.open, fill: state.openColor },
+                        baseDuration * 0.75,
+                        100,
+                        null
+                    )
+                );
+            });
+
+            await Promise.all(sepalPromises);
+
+            // Then animate petals with staggered timing
+            const petalPromises = [];
+            petals.forEach((petal, index) => {
+                const id = petal.id;
+                const state = petalStates[id];
+                petalPromises.push(
+                    animate(
+                        petal,
+                        { d: state.closed, fill: state.closedColor },
+                        { d: state.open, fill: state.openColor },
+                        baseDuration,
+                        index * 200,
+                        null
+                    )
+                );
+            });
+
+            // Animate the center slightly after petals start opening
+            const centerPromise = animate(
+                center,
+                { r: centerStates.closed.r, fill: centerStates.closed.color },
+                { r: centerStates.open.r, fill: centerStates.open.color },
+                baseDuration * 0.75,
+                baseDuration * 0.5,
+                null
+            );
+
+            await Promise.all([...petalPromises, centerPromise]);
+        } else {
+            // Simultaneous animation (all elements animate together)
+            const allPromises = [];
+
+            // Animate all sepals at once
+            sepals.forEach((sepal) => {
+                const id = sepal.id;
+                const state = sepalStates[id];
+                allPromises.push(
+                    animate(
+                        sepal,
+                        { d: state.closed, fill: state.closedColor },
+                        { d: state.open, fill: state.openColor },
+                        baseDuration * 0.75,
+                        0, // No delay
+                        null
+                    )
+                );
+            });
+
+            // Animate all petals at once
+            petals.forEach((petal) => {
+                const id = petal.id;
+                const state = petalStates[id];
+                allPromises.push(
+                    animate(
+                        petal,
+                        { d: state.closed, fill: state.closedColor },
+                        { d: state.open, fill: state.openColor },
+                        baseDuration,
+                        0, // No delay
+                        null
+                    )
+                );
+            });
+
+            // Animate the center at the same time
+            allPromises.push(
+                animate(
+                    center,
+                    { r: centerStates.closed.r, fill: centerStates.closed.color },
+                    { r: centerStates.open.r, fill: centerStates.open.color },
+                    baseDuration * 0.75,
+                    0, // No delay
+                    null
+                )
+            );
+
+            // Wait for all animations to complete
+            await Promise.all(allPromises);
+        }
+
+        isOpen = true;
+        closeBtn.disabled = false;
+        resetBtn.disabled = false;
+    }
+
+    // Function to close the flower
+    async function closeFlower() {
+        if (!isOpen) return;
+
+        closeBtn.disabled = true;
+        resetBtn.disabled = true;
+
+        // Calculate base duration based on speed
+        const baseDuration = 3000 / animationSpeed;
+
+        if (isSequential) {
+            // Sequential animation (original staggered effect)
+
+            // Animate petals first (in reverse order)
+            const petalPromises = [];
+            for (let i = petals.length - 1; i >= 0; i--) {
+                const petal = petals[i];
+                const id = petal.id;
+                const state = petalStates[id];
+                petalPromises.push(
+                    animate(
+                        petal,
+                        { d: state.open, fill: state.openColor },
+                        { d: state.closed, fill: state.closedColor },
+                        baseDuration,
+                        (petals.length - 1 - i) * 200,
+                        null
+                    )
+                );
+            }
+
+            // Animate the center first
+            const centerPromise = animate(
+                center,
+                { r: centerStates.open.r, fill: centerStates.open.color },
+                { r: centerStates.closed.r, fill: centerStates.closed.color },
+                baseDuration * 0.75,
+                0,
+                null
+            );
+
+            await Promise.all([...petalPromises, centerPromise]);
+
+            // Then animate sepals
+            const sepalPromises = [];
+            sepals.forEach((sepal, index) => {
+                const id = sepal.id;
+                const state = sepalStates[id];
+                sepalPromises.push(
+                    animate(
+                        sepal,
+                        { d: state.open, fill: state.openColor },
+                        { d: state.closed, fill: state.closedColor },
+                        baseDuration * 0.75,
+                        100,
+                        null
+                    )
+                );
+            });
+
+            await Promise.all(sepalPromises);
+        } else {
+            // Simultaneous animation (all elements animate together)
+            const allPromises = [];
+
+            // Animate all petals at once
+            petals.forEach((petal) => {
+                const id = petal.id;
+                const state = petalStates[id];
+                allPromises.push(
+                    animate(
+                        petal,
+                        { d: state.open, fill: state.openColor },
+                        { d: state.closed, fill: state.closedColor },
+                        baseDuration,
+                        0, // No delay
+                        null
+                    )
+                );
+            });
+
+            // Animate the center at the same time
+            allPromises.push(
+                animate(
+                    center,
+                    { r: centerStates.open.r, fill: centerStates.open.color },
+                    { r: centerStates.closed.r, fill: centerStates.closed.color },
+                    baseDuration * 0.75,
+                    0, // No delay
+                    null
+                )
+            );
+
+            // Animate all sepals at once
+            sepals.forEach((sepal) => {
+                const id = sepal.id;
+                const state = sepalStates[id];
+                allPromises.push(
+                    animate(
+                        sepal,
+                        { d: state.open, fill: state.openColor },
+                        { d: state.closed, fill: state.closedColor },
+                        baseDuration * 0.75,
+                        0, // No delay
+                        null
+                    )
+                );
+            });
+
+            // Wait for all animations to complete
+            await Promise.all(allPromises);
+        }
+
+        isOpen = false;
+        openBtn.disabled = false;
+        resetBtn.disabled = false;
+    }
+
+    // Function to reset the flower to initial state
+    function resetFlower() {
+        // Cancel all ongoing animations
+        animations.forEach(anim => {
+            anim.canceled = true;
+            anim.resolve();
+        });
+        animations = [];
+
+        // Reset petals
+        petals.forEach(petal => {
+            const id = petal.id;
+            const state = petalStates[id];
+            petal.setAttribute('d', state.closed);
+            petal.setAttribute('fill', state.closedColor);
+        });
+
+        // Reset sepals
+        sepals.forEach(sepal => {
+            const id = sepal.id;
+            const state = sepalStates[id];
+            sepal.setAttribute('d', state.closed);
+            sepal.setAttribute('fill', state.closedColor);
+        });
+
+        // Reset center
+        center.setAttribute('r', centerStates.closed.r);
+        center.setAttribute('fill', centerStates.closed.color);
+
+        isOpen = false;
+        openBtn.disabled = false;
+        closeBtn.disabled = true;
+        resetBtn.disabled = false;
+    }
+
+    // Event listeners
+    openBtn.addEventListener('click', openFlower);
+    closeBtn.addEventListener('click', closeFlower);
+    resetBtn.addEventListener('click', resetFlower);
+
+    speedSlider.addEventListener('input', () => {
+        animationSpeed = parseFloat(speedSlider.value);
+        speedValue.textContent = animationSpeed.toFixed(1) + 'x';
+    });
+
+    // Add event listeners for animation type radio buttons
+    document.querySelectorAll('input[name="animationType"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            isSequential = e.target.value === 'sequential';
+        });
+    });
+
+    // Initialize flower in closed state
+    resetFlower();
+</script>
+</body>
+</html>

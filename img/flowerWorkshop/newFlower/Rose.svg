@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+
+    <defs>
+        <style type="text/css">
+            :root {
+                --flower-body: #ffb7c9;
+            }
+        </style>
+    </defs>
+
+
+    <!-- Background -->
+    <rect width="50" height="50" fill="#f8f4e8"/>
+    <!-- Rose -->
+    <g transform="translate(25, 43) scale(2)">
+        <path d="M 0,0 C 2,-5 0,-12 0,-15" stroke="#447744" stroke-width="1.5" fill="none"/>
+        <path d="M 0,-15 C 5,-15 5,-10 0,-10 C -5,-10 -5,-15 0,-15 Z" fill="#d46a6a"/>
+        <path d="M 0,-15 C 4,-18 4,-13 0,-10 C -4,-13 -4,-18 0,-15 Z" fill="#c45a5a"/>
+        <path d="M 0,-15 C 3,-20 3,-14 0,-10 C -3,-14 -3,-20 0,-15 Z" fill="#b24a4a"/>
+    </g>
+
+
+</svg>

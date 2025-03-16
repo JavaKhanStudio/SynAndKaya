@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+    <!-- Background grid for reference -->
+    <defs>
+        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#eee" stroke-width="1"/>
+        </pattern>
+    </defs>
+    <rect width="400" height="300" fill="url(#grid)" />
+
+    <!-- Origin marker (0,0) -->
+    <circle cx="0" cy="0" r="5" fill="red" />
+    <text x="10" y="15" font-size="12">Origin (0,0)</text>
+
+    <!-- Default rotation (around origin) -->
+    <rect x="50" y="50" width="60" height="40" fill="blue" opacity="0.5" />
+    <rect x="50" y="50" width="60" height="40" fill="blue" opacity="0.8"
+          transform="rotate(30)" />
+    <text x="50" y="110" font-size="12">Default rotation (around origin)</text>
+
+    <!-- Custom center of rotation -->
+    <g>
+        <!-- Rotation center point -->
+        <circle cx="200" cy="150" r="5" fill="red" />
+        <text x="210" y="155" font-size="12">Rotation center (200,150)</text>
+
+        <!-- Original rectangle -->
+        <rect x="170" y="120" width="60" height="40" fill="green" opacity="0.5" />
+
+        <!-- Rotated rectangle (around the custom center) -->
+        <rect x="170" y="120" width="60" height="40" fill="green" opacity="0.8"
+              transform="rotate(45, 200, 150)" />
+
+        <text x="140" y="190" font-size="12">Custom rotation (45° around point 200,150)</text>
+    </g>
+</svg>

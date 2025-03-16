@@ -1,0 +1,5 @@
+https://svgo.dev/
+npm i -g svgo
+svgo BlackThornV3.svg -o BlackThornOut.svg
+svgo --multipass --config='{"plugins":["preset-default","convertStyleToAttrs","convertTransform","collapseGroups"]}' BlackThornV3.svg -o output.svg
+

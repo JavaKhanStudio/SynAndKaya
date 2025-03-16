@@ -1,6 +1,8 @@
 let doggyBubble = null;
 let doggyData = null;
 let carouselBuilder = null;
+const bubbleMap = new Map() ;
+const timeBetweenPicture= 9000
 export async function loadDoggy() {
 
     console.log("loadDoggy Ultimate Version!");
@@ -22,25 +24,27 @@ async function addBubbles(dogInfos, dogType) {
         carouselBuilder = await import('./carouselBuilder.js');
     }
 
-    // carouselBuilder.createCarouselFromJSON(dogInfos, document.querySelector(`#generation-${dogType}`), dogType !== "elders");
-    carouselBuilder.createCarouselFromJSON(dogInfos, document.querySelector(`#generation-${dogType}`), true);
+    await carouselBuilder.createCarouselFromJSON(dogInfos, document.querySelector(`#generation-${dogType}`), true);
 
-}
 
-function addBubble(dogInfo, dogType) {
+    dogInfos.forEach(info => {
+        let elementID = info.id
+        let carouselPart= document.getElementById(`carousel-container-${elementID}`) ;
 
-    const clone = doggyBubble.cloneNode(true);
-    clone.id = dogInfo.id;
-    let name = clone.querySelector(".doggy-name");
-    name.textContent = dogInfo.name;
+        let bubble = new Bubble(elementID, carouselPart) ;
+        bubbleMap.set(elementID, bubble) ;
 
-    if (dogType === "puppies") {
-        document.querySelector("#generation-puppies").appendChild(clone);
-    } else if (dogType === "parents") {
-        document.querySelector("#generation-parents").appendChild(clone);
-    } else if (dogType === "elders") {
-        document.querySelector("#generation-elders").appendChild(clone);
-    }
+        carouselPart.addEventListener('mouseenter', () => {
+            bubble.isHovered = true;
+        });
+
+        carouselPart.addEventListener('mouseleave', () => {
+            bubble.isHovered = false;
+        });
+
+    }) ;
+
+
 }
 
 async function loadJson(path) {
@@ -53,19 +57,80 @@ async function loadJson(path) {
     }
 }
 
-async function loadHTML(filePath) {
-    try {
-        const response = await fetch(filePath);
-        if (!response.ok) {
-            throw new Error(`Failed to load ${filePath}: ${response.statusText}`);
-        }
 
-        let htmlString = await response.text();
-        const template = document.createElement('template');
-        template.innerHTML = htmlString.trim();
-        return template.content.firstElementChild;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
+function Bubble(id, carouselPart) {
+    this.id = id;
+    this.carousel = carouselPart;
+    this.isHovered = false;
+    this.internalTimer = null;
+    this.animationFrame = null;
+
+    this.startAnimation();
+    this.updateFrame(); // Start per-frame update
+
+    carouselPart.addEventListener('mouseenter', () => {
+        this.isHovered = true;
+        this.stopAnimation();
+    });
+
+    carouselPart.addEventListener('mouseleave', () => {
+        this.isHovered = false;
+        this.startAnimation();
+    });
 }
+
+// Function to start the 7-second animation timer
+Bubble.prototype.startAnimation = function () {
+    if (this.internalTimer) return;
+
+    this.internalTimer = setInterval(() => {
+        if (!this.isHovered) {
+            this.moveToNextPicture();
+        }
+    }, timeBetweenPicture);
+};
+
+Bubble.prototype.stopAnimation = function () {
+    if (this.internalTimer) {
+        clearInterval(this.internalTimer);
+        this.internalTimer = null;
+    }
+};
+
+Bubble.prototype.updateFrame = function () {
+    this.animationFrame = requestAnimationFrame(() => this.updateFrame());
+
+    if (!this.isHovered) {
+        this.update();
+    }
+};
+
+Bubble.prototype.stopFrameUpdates = function () {
+    if (this.animationFrame) {
+        cancelAnimationFrame(this.animationFrame);
+        this.animationFrame = null;
+    }
+};
+
+
+Bubble.prototype.update = function () {
+
+};
+
+Bubble.prototype.moveToNextPicture = function () {
+
+    let items = this.carousel.querySelectorAll('.carousel-item');
+    let currentIndex = 0;
+    items.forEach((item, index) => {
+        if (item.classList.contains('active')) {
+            currentIndex = index;
+        }
+    });
+
+    if(currentIndex === items.length - 1) {
+        carouselBuilder.navigateCarouselToIndex(this.id, 0)
+    } else {
+        carouselBuilder.navigateCarousel(this.id, 'next');
+    }
+
+};

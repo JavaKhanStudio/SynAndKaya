@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+    <!-- Stem -->
+    <path d="M100 180 Q90 160 100 140 T100 100" stroke="#556B2F" stroke-width="6" fill="none" stroke-linecap="round" />
+
+    <!-- Leaves -->
+    <g fill="#6B8E23">
+        <ellipse cx="100" cy="160" rx="3" ry="8" transform="rotate(45, 100, 160)" />
+        <ellipse cx="100" cy="140" rx="3" ry="8" transform="rotate(-45, 100, 140)" />
+        <ellipse cx="100" cy="120" rx="3" ry="8" transform="rotate(30, 100, 120)" />
+        <ellipse cx="100" cy="110" rx="3" ry="8" transform="rotate(-30, 100, 110)" />
+    </g>
+
+    <!-- Flower Clusters -->
+    <g fill="#8A2BE2">
+        <!-- Main cluster -->
+        <circle cx="100" cy="80" r="4" />
+        <circle cx="90" cy="85" r="4" />
+        <circle cx="110" cy="85" r="4" />
+        <circle cx="95" cy="75" r="4" />
+        <circle cx="105" cy="75" r="4" />
+
+        <!-- Secondary clusters -->
+        <g transform="translate(-20, -10)">
+            <circle cx="100" cy="80" r="4" />
+            <circle cx="90" cy="85" r="4" />
+            <circle cx="110" cy="85" r="4" />
+        </g>
+        <g transform="translate(20, -10)">
+            <circle cx="100" cy="80" r="4" />
+            <circle cx="90" cy="85" r="4" />
+            <circle cx="110" cy="85" r="4" />
+        </g>
+    </g>
+
+    <!-- Flower centers -->
+    <g fill="#FFD700">
+        <circle cx="100" cy="80" r="2" />
+        <circle cx="90" cy="85" r="2" />
+        <circle cx="110" cy="85" r="2" />
+        <circle cx="95" cy="75" r="2" />
+        <circle cx="105" cy="75" r="2" />
+    </g>
+
+    <!-- Additional details -->
+    <g stroke="#6B8E23" stroke-width="1.5" fill="none">
+        <!-- Tiny lines for texture -->
+        <line x1="98" y1="160" x2="98" y2="155" />
+        <line x1="102" y1="160" x2="102" y2="155" />
+        <line x1="98" y1="140" x2="98" y2="135" />
+        <line x1="102" y1="140" x2="102" y2="135" />
+    </g>
+</svg>
