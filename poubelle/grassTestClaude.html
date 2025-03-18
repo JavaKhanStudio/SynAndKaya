@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grass Effect</title>
+    <link rel="stylesheet" href="grass.css">
+</head>
+<body>
+<div class="info">Move your mouse to interact with the grass</div>
+<div class="grass-container" id="grassContainer"></div>
+
+<script>
+    const container = document.getElementById('grassContainer');
+    const grassNum = 600;
+    const grassDelay = 2;
+    const grassTransition = 1 ;
+    let mouseX = 0;
+
+
+    // Create grass blades
+    for (let i = 0; i < grassNum; i++) {
+        const grass = document.createElement('div');
+        grass.className = 'grass';
+
+        // Random properties
+        const height = 40 + Math.random() * 60; // Height between 40-100px
+        const left = Math.random() * 100; // Position across screen
+        const width = 2 + Math.random() * 3; // Width between 2-5px
+        const delay = Math.random() * grassDelay; // Animation delay
+        const green = 120 + Math.floor(Math.random() * 60); // Random green shade
+
+        // Apply styles
+        grass.style.height = `${height}px`;
+        grass.style.left = `${left}%`;
+        grass.style.width = `${width}px`;
+        grass.style.backgroundColor = `hsl(${green}, 70%, 40%)`;
+        grass.style.animationDelay = `${delay}s`;
+        grass.style.transition = `transform ${grassTransition}s ease-out`;
+
+        // Store original position for calculation
+        grass.dataset.xPos = left;
+
+        container.appendChild(grass);
+    }
+
+    // Handle mouse movement
+    document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth) * 100; // Convert to percentage
+
+        const grasses = document.querySelectorAll('.grass');
+        grasses.forEach(grass => {
+            const grassX = parseFloat(grass.dataset.xPos);
+            const distance = mouseX - grassX;
+            const maxDistance = 20; // Max effect distance as percentage of screen width
+
+            if (Math.abs(distance) < maxDistance) {
+                // Calculate lean amount based on distance (closer = more effect)
+                const lean = (distance / maxDistance) * 15; // Max 15 degrees
+                grass.style.transform = `rotate(${-lean}deg)`;
+            } else {
+                // Natural slight sway for distant grass
+                const sway = Math.sin(Date.now() / 1000 + parseFloat(grass.dataset.xPos)) * 2;
+                grass.style.transform = `rotate(${sway}deg)`;
+            }
+        });
+    });
+
+    let grassAnimation = 600 ;
+    function animateGrass() {
+        if (mouseX === 0) { // Only apply if mouse isn't moving
+            const grasses = document.querySelectorAll('.grass');
+            grasses.forEach(grass => {
+                const sway = Math.sin(Date.now() / grassAnimation + parseFloat(grass.dataset.xPos)) * 3;
+                grass.style.transform = `rotate(${sway}deg)`;
+            });
+        }
+        requestAnimationFrame(animateGrass);
+    }
+
+    animateGrass();
+
+    // Handle touch events for mobile
+    document.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        mouseX = (touch.clientX / window.innerWidth) * 100;
+    }, { passive: false });
+
+
+</script>
+</body>
+</html>

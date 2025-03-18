@@ -3,7 +3,7 @@ let doggyData = null;
 let carouselBuilder = null;
 const bubbleMap = new Map() ;
 const timeBetweenPicture= 9000
-export async function loadDoggy() {
+export async function loadDoggy(changeBubbles = false) {
 
     console.log("loadDoggy Ultimate Version!");
 
@@ -11,15 +11,15 @@ export async function loadDoggy() {
         doggyData = await loadJson("./js/doggyData.json");
     }
 
-    await addBubbles(doggyData.puppies, "puppies") ;
-    await addBubbles(doggyData.parents, "parents") ;
-    await addBubbles(doggyData.elders, "elders") ;
+    await addBubbles(doggyData.puppies, "puppies", changeBubbles) ;
+    await addBubbles(doggyData.parents, "parents", changeBubbles) ;
+    await addBubbles(doggyData.elders, "elders", false) ;
 
     const linesModule = await import('./drawings.js');
     await linesModule.initCanvas(doggyData)
 }
 
-async function addBubbles(dogInfos, dogType) {
+async function addBubbles(dogInfos, dogType, changeBubbles) {
     if(!carouselBuilder) {
         carouselBuilder = await import('./carouselBuilder.js');
     }
@@ -31,7 +31,7 @@ async function addBubbles(dogInfos, dogType) {
         let elementID = info.id
         let carouselPart= document.getElementById(`carousel-container-${elementID}`) ;
 
-        let bubble = new Bubble(elementID, carouselPart) ;
+        let bubble = new Bubble(elementID, carouselPart, changeBubbles) ;
         bubbleMap.set(elementID, bubble) ;
 
         carouselPart.addEventListener('mouseenter', () => {
@@ -58,12 +58,13 @@ async function loadJson(path) {
 }
 
 
-function Bubble(id, carouselPart) {
+function Bubble(id, carouselPart, changePicture = false) {
     this.id = id;
     this.carousel = carouselPart;
     this.isHovered = false;
     this.internalTimer = null;
     this.animationFrame = null;
+    this.changePicture = changePicture;
 
     this.startAnimation();
     this.updateFrame(); // Start per-frame update
@@ -79,15 +80,21 @@ function Bubble(id, carouselPart) {
     });
 }
 
-// Function to start the 7-second animation timer
 Bubble.prototype.startAnimation = function () {
     if (this.internalTimer) return;
 
-    this.internalTimer = setInterval(() => {
-        if (!this.isHovered) {
+    const randomDelay = Math.random() * 3000 + 2000;
+
+    if(this.changePicture) {
+        setTimeout(() => {
             this.moveToNextPicture();
-        }
-    }, timeBetweenPicture);
+            this.internalTimer = setInterval(() => {
+                if (!this.isHovered) {
+                    this.moveToNextPicture();
+                }
+            }, timeBetweenPicture);
+        }, randomDelay);
+    }
 };
 
 Bubble.prototype.stopAnimation = function () {

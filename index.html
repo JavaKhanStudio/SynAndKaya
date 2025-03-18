@@ -65,14 +65,19 @@
         </div>
     </div>
 
+    <canvas id="grassCanvas" style="z-index: 30"></canvas>
 
     <script type="module">
         import { loadDoggy } from "./js/initPage.js";
-        loadDoggy(); 
+        loadDoggy(true);
     </script>
     <script type="module" >
         import { initSlider } from "./js/customSlider.js"
-        initSlider(true) ;
+        initSlider(false) ;
+    </script>
+    <script type="module">
+        import { init } from "./js/grassV2GPT.js";
+        init();
     </script>
 </body>
 

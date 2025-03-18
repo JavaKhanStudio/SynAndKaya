@@ -66,7 +66,7 @@
             ]
         },
         {
-            "name": "Daisy",
+            "name": "Da isy",
             "sex": "Femelle",
             "id": "Puppy_5",
             "color" : "100,224,220",
@@ -90,11 +90,14 @@
             "img": [
                 {
                     "name": "Adulte 1 an",
-                    "src" : "img/syn/4 - Adulte.jpg"
+                    "src" : "img/syn/4 - Adulte.jpg",
+                    "decalSmallY" : 1,
+                    "decalLargeY" : -20
                 },
                 {
                     "name": "Bébé",
-                    "src" : "img/syn/1 - Bebe.jpg"
+                    "src" : "img/syn/1 - Bebe.jpg",
+                    "decalLargeY" : -70
                 },
                 {
                     "name": "Jeune",
@@ -117,7 +120,9 @@
             "img": [
                 {
                     "name": "Taya",
-                    "src" : "img/taya/Taya_2.jpg"
+                    "src" : "img/taya/Taya_2.jpg",
+                    "decalSmallY" : -10,
+                    "decalLargeY" : -50
                 },
                 {
                     "name": "Taya Jeune",
@@ -146,7 +151,9 @@
             "img": [
                 {
                     "name": "Maman Syn",
-                    "src" : "img/parents/Syn_Maman.jpg"
+                    "src" : "img/parents/Syn_Maman.jpg",
+                    "decalSmallY" : -10,
+                    "decalLargeY" : -40
                 }
             ]
         },
@@ -174,7 +181,9 @@
             "img": [
                 {
                     "name": "Maman Taia",
-                    "src" : "img/parents/Taia_Maman.jpg"
+                    "src" : "img/parents/Taia_Maman.jpg",
+                    "decalSmallY" : -10,
+                    "decalLargeY" : -10
                 }
             ]
         },
@@ -187,7 +196,9 @@
             "img": [
                 {
                     "name": "Papa Taia",
-                    "src" : "img/parents/Taia_Papa.jpg"
+                    "src" : "img/parents/Taia_Papa.jpg",
+                    "decalSmallY" : -5,
+                    "decalLargeY" : -10
                 }
             ]
         }

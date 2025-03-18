@@ -422,8 +422,6 @@ Line.prototype.update = function() {
     this.x2  = tooPos.x ;
     this.y2 = tooPos.y ;
 
-    console.log("update") ;
-
     if(this.fuseY > 0) {
         this.fuseY = this.fuseY-1 ;
     }

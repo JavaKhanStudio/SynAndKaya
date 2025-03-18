@@ -18,6 +18,7 @@ let currentZoomedCarouselId = null;
 let currentZoomedIndex = 0;
 let carouselsData = [];
 
+let mediaSnapSize = 1100 ;
 let carouselsContainer ;
 
 export async function createCarouselFromJSON(carouselJSON, container, complexDisplay = true) {
@@ -70,8 +71,6 @@ function generateCarousels(carouselsData, complexDisplay) {
             carouselContainer.appendChild(paginationContainer);
         }
 
-
-
         const carousel = document.createElement('div');
         carousel.className = 'carousel';
         carousel.dataset.id = carouselData.id;
@@ -102,6 +101,27 @@ function generateCarousels(carouselsData, complexDisplay) {
             image.className = 'carousel-img';
             image.src = img.src;
             image.alt = img.name;
+
+
+            if(img.decalSmallX || img.decalSmallY ||img.decalLargeX || img.decalLargeY) {
+
+                let decalSmallX = img.decalSmallX ? img.decalSmallX : 0 ;
+                let decalSmallY = img.decalSmallY ? img.decalSmallY : 0 ;
+                let decalLargeX = img.decalLargeX ? img.decalLargeX : 0 ;
+                let decalLargeY = img.decalLargeY ? img.decalLargeY : 0 ;
+
+                function updateDecal() {
+                    if (window.innerWidth <= mediaSnapSize && (decalSmallX || decalSmallY)) {
+
+                        image.style.setProperty("object-position", `${decalSmallX}px ${decalSmallY}px`);
+                    } else if(decalLargeX || decalLargeY) {
+                        image.style.setProperty("object-position", `${decalLargeX}px ${decalLargeY}px`);
+                    }
+                }
+
+                window.addEventListener("resize", updateDecal);
+                updateDecal() ;
+            }
 
             imgContainer.appendChild(image);
             carouselItem.appendChild(imgContainer);
