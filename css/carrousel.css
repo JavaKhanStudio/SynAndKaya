@@ -39,7 +39,7 @@
 .carousel-item {
     min-width: 100%;
     will-change: transform, opacity;
-    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out, opacity 0.5s ease-in-out; /* Add opacity */
+    transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Add opacity */
     position: absolute;
     top: 0;
     left: 0;
@@ -155,7 +155,7 @@
     border-radius: 50%;
     margin: 0 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.5s;
 }
 
 .carousel-dot.active {
@@ -220,8 +220,6 @@
     transform: translateY(20px);
     transition: opacity 0.4s ease-in-out;
 }
-
-
 
 
 /* Close button smooth hover */
@@ -289,5 +287,3 @@
 svg {
     pointer-events: none;
 }
-
-

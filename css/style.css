@@ -80,8 +80,13 @@ canvas {
     margin-top: 1vh ;
 
 }
-
-
+.qrCodeImageContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
 .qrCodeContainer h2 {
     width: 100%;
     text-align: center;
@@ -90,10 +95,11 @@ canvas {
 }
 
 .qrCode {
-    width: 100%;
     max-height: 300px;
     margin: 0;
-    background-color: white;
+
+    padding-bottom: 80px;
+    aspect-ratio: 1 / 1;
 }
 
 @font-face {

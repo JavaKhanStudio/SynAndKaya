@@ -14,7 +14,12 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Cayenne_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Cayenne_03.jpg"
                 }
+
             ]
         },
         {
@@ -30,6 +35,10 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Abby_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Abby_03.jpg"
                 }
             ]
         },
@@ -46,6 +55,10 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Albert_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Albert_03.jpg"
                 }
             ]
         },
@@ -62,6 +75,14 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Chanel_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Chanel_03.jpg"
+                },
+                {
+                    "name": "La petite terreur",
+                    "src" : "img/puppy/Chanel_03_02.jpg"
                 }
             ]
         },
@@ -78,6 +99,10 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Daisy_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Daisy_03.jpg"
                 }
             ]
         }
@@ -110,6 +135,10 @@
                 {
                     "name": "Adulte 2 ans",
                     "src" : "img/syn/5 - Adulte 2 ans.jpg"
+                },
+                {
+                    "name": "Adulte 3 ans",
+                    "src" : "img/syn/6 - Visite.jpg"
                 }
             ]
         },
