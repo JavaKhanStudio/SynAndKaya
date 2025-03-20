@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 60%, #3CB371 60%, #3CB371 100%);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.grass-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15vh;
+    overflow: hidden;
+}
+
+.grass {
+    position: absolute;
+    bottom: 0;
+    width: 10px;
+    background: linear-gradient(to top, #3a9d23, #5dbb38);
+    border-radius: 10px 10px 0 0;
+    transform-origin: bottom center;
+    z-index: 1;
+}
+
+.info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border-radius: 5px;
+    z-index: 100;
+}

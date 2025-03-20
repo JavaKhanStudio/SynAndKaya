@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Grass Animation</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #87CEEB; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<canvas id="grassCanvas"></canvas>
+<script>
+    const canvas = document.getElementById("grassCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const grassBlades = [];
+    const grass_numBlades = 300;
+    const windSpeed = 0.001;
+
+    const grass_Width_Min = 3;
+    const grass_Width_RandomFactor = 3;
+    const grass_Height_Min = 50;
+    const grass_Height_RandomFactor = 50;
+
+    let mouseX = canvas.width / 2;
+
+    class GrassBlade {
+        constructor(x, height, swayAmount) {
+            this.x = x;
+            this.baseHeight = height;
+            this.swayAmount = swayAmount;
+            this.offset = Math.random() * Math.PI * 2;
+            this.width = grass_Width_Min + Math.random() * grass_Width_RandomFactor; // Larger blades
+        }
+
+        draw(time) {
+            const sway = Math.sin(time * windSpeed + this.offset + (mouseX - this.x) * 0.002) * this.swayAmount;
+            const topX = this.x + sway / 2;
+            const topY = canvas.height - this.baseHeight;
+
+            const gradient = ctx.createLinearGradient(this.x, canvas.height, topX, topY);
+            gradient.addColorStop(0, "darkgreen");
+            gradient.addColorStop(1, "lightgreen");
+
+            ctx.beginPath();
+            ctx.moveTo(this.x - this.width / 2, canvas.height);
+            ctx.quadraticCurveTo(this.x + sway, canvas.height - this.baseHeight / 2, topX, topY);
+            ctx.lineTo(this.x + this.width / 2, canvas.height);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+        }
+    }
+
+    function generateGrass() {
+        for (let i = 0; i < grass_numBlades; i++) {
+            let x = Math.random() * canvas.width;
+            let height = grass_Height_Min + Math.random() * grass_Height_RandomFactor;
+            let swayAmount = 8 + Math.random() * 20;
+            grassBlades.push(new GrassBlade(x, height, swayAmount));
+        }
+    }
+
+    function animate(time) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        grassBlades.forEach(blade => blade.draw(time));
+        requestAnimationFrame(animate);
+    }
+
+    canvas.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+    });
+
+    generateGrass();
+    animate(0);
+</script>
+</body>
+</html>

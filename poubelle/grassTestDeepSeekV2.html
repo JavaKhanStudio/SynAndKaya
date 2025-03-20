@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Grass Animation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #87CEEB; /* Sky blue background */
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="grassCanvas"></canvas>
+<script>
+    const canvas = document.getElementById('grassCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas size to fill the window
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Grass blade properties
+    const grassBlades = [];
+    const numBlades = 500; // Number of grass blades
+    const windStrength = 10; // Wind effect strength
+    const windSpeed = 0.005; // Speed of wind animation (slower)
+    const mouseInfluenceRadius = 200; // How far the mouse affects the grass
+    let mouseX = canvas.width / 2; // Default mouse position
+    let mouseY = canvas.height / 2;
+
+    // Create grass blades
+    for (let i = 0; i < numBlades; i++) {
+        grassBlades.push({
+            x: Math.random() * canvas.width, // Random x position
+            y: canvas.height, // Start at the bottom of the canvas
+            height: 100 + Math.random() * 100, // Larger grass blades
+            sway: Math.random() * 2 - 1, // Random sway for wind effect
+            baseColor: `hsl(${Math.random() * 60 + 60}, 70%, 40%)`, // Base green color
+            tipColor: `hsl(${Math.random() * 60 + 60}, 90%, 60%)`, // Lighter tip color
+        });
+    }
+
+    // Draw a single grass blade with gradient color
+    function drawGrassBlade(blade) {
+        const gradient = ctx.createLinearGradient(blade.x, blade.y, blade.x, blade.y - blade.height);
+        gradient.addColorStop(0, blade.baseColor); // Base color
+        gradient.addColorStop(1, blade.tipColor); // Tip color
+
+        ctx.beginPath();
+        ctx.moveTo(blade.x, blade.y);
+        ctx.quadraticCurveTo(
+            blade.x + blade.sway * windStrength, // Control point for sway
+            blade.y - blade.height / 2, // Midpoint of the blade
+            blade.x, // End point x
+            blade.y - blade.height // End point y
+        );
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 3; // Thicker grass blades
+        ctx.stroke();
+    }
+
+    // Animation loop
+    function animate() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw all grass blades
+        grassBlades.forEach((blade) => {
+            // Calculate distance from mouse
+            const dx = blade.x - mouseX;
+            const dy = (blade.y - blade.height) - mouseY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Apply mouse influence
+            if (distance < mouseInfluenceRadius) {
+                const influence = (mouseInfluenceRadius - distance) / mouseInfluenceRadius;
+                blade.sway += (Math.sin(Date.now() * windSpeed + blade.x) * 2 + dx * 0.1) * influence;
+            } else {
+                // Natural wind sway
+                blade.sway = Math.sin(Date.now() * windSpeed + blade.x) * 2;
+            }
+
+            // Draw the grass blade
+            drawGrassBlade(blade);
+        });
+
+        // Request the next frame
+        requestAnimationFrame(animate);
+    }
+
+    // Start the animation
+    animate();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    // Track mouse movement
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+</script>
+</body>
+</html>

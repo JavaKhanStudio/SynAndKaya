@@ -14,7 +14,12 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Cayenne_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Cayenne_03.jpg"
                 }
+
             ]
         },
         {
@@ -30,6 +35,10 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Abby_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Abby_03.jpg"
                 }
             ]
         },
@@ -46,6 +55,10 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Albert_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Albert_03.jpg"
                 }
             ]
         },
@@ -62,11 +75,19 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Chanel_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Chanel_03.jpg"
+                },
+                {
+                    "name": "La petite terreur",
+                    "src" : "img/puppy/Chanel_03_02.jpg"
                 }
             ]
         },
         {
-            "name": "Daisy",
+            "name": "Da isy",
             "sex": "Femelle",
             "id": "Puppy_5",
             "color" : "100,224,220",
@@ -78,6 +99,10 @@
                 {
                     "name": "Age 3 semaines",
                     "src" : "img/puppy/Daisy_02.jpg"
+                },
+                {
+                    "name": "Age 5 semaines",
+                    "src" : "img/puppy/Daisy_03.jpg"
                 }
             ]
         }
@@ -90,11 +115,14 @@
             "img": [
                 {
                     "name": "Adulte 1 an",
-                    "src" : "img/syn/4 - Adulte.jpg"
+                    "src" : "img/syn/4 - Adulte.jpg",
+                    "decalSmallY" : 1,
+                    "decalLargeY" : -20
                 },
                 {
                     "name": "Bébé",
-                    "src" : "img/syn/1 - Bebe.jpg"
+                    "src" : "img/syn/1 - Bebe.jpg",
+                    "decalLargeY" : -70
                 },
                 {
                     "name": "Jeune",
@@ -107,6 +135,10 @@
                 {
                     "name": "Adulte 2 ans",
                     "src" : "img/syn/5 - Adulte 2 ans.jpg"
+                },
+                {
+                    "name": "Adulte 3 ans",
+                    "src" : "img/syn/6 - Visite.jpg"
                 }
             ]
         },
@@ -117,7 +149,9 @@
             "img": [
                 {
                     "name": "Taya",
-                    "src" : "img/taya/Taya_2.jpg"
+                    "src" : "img/taya/Taya_2.jpg",
+                    "decalSmallY" : -10,
+                    "decalLargeY" : -50
                 },
                 {
                     "name": "Taya Jeune",
@@ -146,7 +180,9 @@
             "img": [
                 {
                     "name": "Maman Syn",
-                    "src" : "img/parents/Syn_Maman.jpg"
+                    "src" : "img/parents/Syn_Maman.jpg",
+                    "decalSmallY" : -10,
+                    "decalLargeY" : -40
                 }
             ]
         },
@@ -174,7 +210,9 @@
             "img": [
                 {
                     "name": "Maman Taia",
-                    "src" : "img/parents/Taia_Maman.jpg"
+                    "src" : "img/parents/Taia_Maman.jpg",
+                    "decalSmallY" : -10,
+                    "decalLargeY" : -10
                 }
             ]
         },
@@ -187,7 +225,9 @@
             "img": [
                 {
                     "name": "Papa Taia",
-                    "src" : "img/parents/Taia_Papa.jpg"
+                    "src" : "img/parents/Taia_Papa.jpg",
+                    "decalSmallY" : -5,
+                    "decalLargeY" : -10
                 }
             ]
         }

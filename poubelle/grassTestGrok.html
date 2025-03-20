@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Grass Blades</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #87CEEB; /* Sky blue background */
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="grassCanvas"></canvas>
+<script>
+    const canvas = document.getElementById('grassCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas to full window size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Grass blade properties
+    const bladeCount = 500;
+    const blades = [];
+
+    // Mouse position
+    let mouseX = canvas.width / 2;
+
+    // Grass blade class
+    class GrassBlade {
+        constructor(x, y) {
+            this.baseX = x; // Base position (root)
+            this.baseY = y;
+            this.height = 60 + Math.random() * 40; // Larger blades (60-100px)
+            this.angle = 0; // Current angle for animation
+            this.targetAngle = 0; // Angle influenced by mouse
+            this.colorBase = `hsl(${Math.random() * 30 + 90}, 70%, 40%)`; // Greenish base hue
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.moveTo(this.baseX, this.baseY);
+
+            // Calculate tip position with sway
+            const tipX = this.baseX + Math.sin(this.angle) * this.height * 0.3;
+            const tipY = this.baseY - this.height;
+
+            // Gradient for color variation
+            const gradient = ctx.createLinearGradient(this.baseX, this.baseY, tipX, tipY);
+            gradient.addColorStop(0, this.colorBase); // Darker at base
+            gradient.addColorStop(1, `hsl(${parseInt(this.colorBase.match(/\d+/)[0]) + 10}, 80%, 60%)`); // Lighter at tip
+
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 3;
+            ctx.lineTo(tipX, tipY);
+            ctx.stroke();
+        }
+
+        update() {
+            // Slowly adjust angle toward target (mouse influence)
+            const angleDiff = this.targetAngle - this.angle;
+            this.angle += angleDiff * 0.02; // Very slow animation (damping)
+
+            // Base sway (natural movement)
+            this.targetAngle = Math.sin(Date.now() * 0.001) * 0.1;
+
+            // Mouse influence: blades lean toward mouse
+            const dx = mouseX - this.baseX;
+            const distance = Math.abs(dx);
+            if (distance < 200) { // Only affect blades within 200px of mouse
+                this.targetAngle += (dx / distance) * (200 - distance) * 0.002;
+            }
+        }
+    }
+
+    // Initialize blades
+    for (let i = 0; i < bladeCount; i++) {
+        const x = Math.random() * canvas.width;
+        const y = canvas.height - Math.random() * 20; // Slight variation at ground level
+        blades.push(new GrassBlade(x, y));
+    }
+
+    // Mouse movement handler
+    canvas.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+    });
+
+    // Animation loop
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+        // Update and draw each blade
+        blades.forEach(blade => {
+            blade.update();
+            blade.draw();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
+</body>
+</html>

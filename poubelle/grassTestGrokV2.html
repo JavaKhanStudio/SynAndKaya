@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowing Grass Blades</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #87CEEB; /* Sky blue background */
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="grassCanvas"></canvas>
+<script>
+    const canvas = document.getElementById('grassCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas to full window size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Grass blade properties
+    const bladeCount = 500;
+    const blades = [];
+
+    // Grass blade class
+    class GrassBlade {
+        constructor(x, y) {
+            this.baseX = x; // Base position (root)
+            this.baseY = y;
+            this.height = 100 + Math.random() * 50; // Larger blades (100-150px)
+            this.angle = 0; // Current angle for animation
+            this.windOffset = Math.random() * Math.PI * 2; // Random phase for wind
+            this.colorBase = `hsl(${Math.random() * 10 + 95}, 70%, 40%)`; // Slight green variation (95-105 hue)
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.moveTo(this.baseX, this.baseY);
+
+            // Calculate tip position with sway
+            const tipX = this.baseX + Math.sin(this.angle) * this.height * 0.4;
+            const tipY = this.baseY - this.height;
+
+            // Slight color variation with gradient
+            const gradient = ctx.createLinearGradient(this.baseX, this.baseY, tipX, tipY);
+            gradient.addColorStop(0, this.colorBase); // Base color
+            gradient.addColorStop(1, `hsl(${parseInt(this.colorBase.match(/\d+/)[0]) + 5}, 70%, 50%)`); // Slightly lighter tip
+
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 4; // Thicker blades
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        }
+
+        update() {
+            // Wind-like movement using Perlin-like oscillation
+            const time = Date.now() * 0.001; // Slow time factor
+            this.angle = Math.sin(time + this.windOffset) * 0.2; // Gentle sway, max 0.2 radians
+        }
+    }
+
+    // Initialize blades
+    for (let i = 0; i < bladeCount; i++) {
+        const x = Math.random() * canvas.width;
+        const y = canvas.height - Math.random() * 30; // Slight ground variation
+        console.log("inserting")
+        blades.push(new GrassBlade(x, y));
+    }
+
+    // Animation loop
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+        // Update and draw each blade
+        blades.forEach(blade => {
+            blade.update();
+            blade.draw();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
+</body>
+</html>

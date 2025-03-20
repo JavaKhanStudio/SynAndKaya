@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Grass Animation</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #87CEEB; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<canvas id="grassCanvas"></canvas>
+<script>
+    const canvas = document.getElementById("grassCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const grassBlades = [];
+    const numBlades = 500;
+    const windSpeed = 0.02;
+
+    class GrassBlade {
+        constructor(x, height, swayAmount, color) {
+            this.x = x;
+            this.baseHeight = height;
+            this.swayAmount = swayAmount;
+            this.color = color;
+            this.offset = Math.random() * Math.PI * 2;
+        }
+
+        draw(time) {
+            const sway = Math.sin(time * windSpeed + this.offset) * this.swayAmount;
+            ctx.beginPath();
+            ctx.moveTo(this.x, canvas.height);
+            ctx.quadraticCurveTo(this.x + sway, canvas.height - this.baseHeight / 2, this.x + sway / 2, canvas.height - this.baseHeight);
+            ctx.strokeStyle = this.color;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+    }
+
+    function generateGrass() {
+        for (let i = 0; i < numBlades; i++) {
+            let x = Math.random() * canvas.width;
+            let height = 50 + Math.random() * 100;
+            let swayAmount = 5 + Math.random() * 15;
+            let color = `rgb(34, ${139 + Math.random() * 40}, 34)`; // Random green shades
+            grassBlades.push(new GrassBlade(x, height, swayAmount, color));
+        }
+    }
+
+    function animate(time) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        grassBlades.forEach(blade => blade.draw(time));
+        requestAnimationFrame(animate);
+    }
+
+    generateGrass();
+    animate(0);
+</script>
+</body>
+</html>

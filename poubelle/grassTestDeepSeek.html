@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grass Animation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #87CEEB; /* Sky blue background */
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="grassCanvas"></canvas>
+<script>
+    const canvas = document.getElementById('grassCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas size to fill the window
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Grass blade properties
+    const grassBlades = [];
+    const numBlades = 500; // Number of grass blades
+    const windStrength = 2; // Wind effect strength
+    const windSpeed = 0.02; // Speed of wind animation
+
+    // Create grass blades
+    for (let i = 0; i < numBlades; i++) {
+        grassBlades.push({
+            x: Math.random() * canvas.width, // Random x position
+            y: canvas.height, // Start at the bottom of the canvas
+            height: 50 + Math.random() * 50, // Random height
+            sway: Math.random() * 2 - 1, // Random sway for wind effect
+            color: `hsl(${Math.random() * 60 + 60}, 70%, 40%)`, // Random green color
+        });
+    }
+
+    // Draw a single grass blade
+    function drawGrassBlade(blade) {
+        ctx.beginPath();
+        ctx.moveTo(blade.x, blade.y);
+        ctx.quadraticCurveTo(
+            blade.x + blade.sway * windStrength, // Control point for sway
+            blade.y - blade.height / 2, // Midpoint of the blade
+            blade.x, // End point x
+            blade.y - blade.height // End point y
+        );
+        ctx.strokeStyle = blade.color;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+
+    // Animation loop
+    function animate() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw all grass blades
+        grassBlades.forEach((blade) => {
+            // Update sway for wind effect
+            blade.sway = Math.sin(Date.now() * windSpeed + blade.x) * 2;
+
+            // Draw the grass blade
+            drawGrassBlade(blade);
+        });
+
+        // Request the next frame
+        requestAnimationFrame(animate);
+    }
+
+    // Start the animation
+    animate();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+</script>
+</body>
+</html>
