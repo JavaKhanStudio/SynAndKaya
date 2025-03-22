@@ -206,6 +206,7 @@
 .image-container {
     display: grid;
     justify-items: center;
+    align-items: center;
 }
 
 /* Zoom image with fade effect */
