@@ -71,12 +71,10 @@ function Bubble(id, carouselPart, changePicture = false) {
 
     carouselPart.addEventListener('mouseenter', () => {
         this.isHovered = true;
-        this.stopAnimation();
     });
 
     carouselPart.addEventListener('mouseleave', () => {
         this.isHovered = false;
-        this.startAnimation();
     });
 }
 
