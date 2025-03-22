@@ -7,12 +7,25 @@
 
     <link rel="stylesheet" href="css/slider.css">
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
+<svg viewBox="0 0 100 100" style="width: 200px">
+    <defs>
+        <filter id="svgShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="black" flood-opacity=".5" />
+        </filter>
+    </defs>
+
+    <circle cx="50" cy="50" r="40" fill="#4ade80" filter="url(#svgShadow)" />
+</svg>
 <div class="content">Scroll Down & Use the Slider</div>
-<div class="slider-container" id="slider">
+<div class="slider-container shadow" id="slider">
     <div class="slider-handle" id="handle"></div>
 </div>
-<script src="js/customSlider.js"></script>
+<script type="module" >
+    import { initSlider } from "./js/customSlider.js"
+    initSlider(false) ;
+</script>
 </body>
 </html>

@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+
+    <defs>
+        <style type="text/css">
+            :root {
+            --flower-body: #FFDB58;
+            --flower-body-center: #DBC80A;
+            --flower-body-border: #D9C504;
+            --flower-body-inside: #4C3815;
+            --flower-stigma: #F06D00;
+            --flower-stigma-inside: #FBC004;
+            --flower-filament: #E5ECE5;
+            --flower-filament-size: 0.8;
+            --flower-filament-size-border: 1.0;
+
+            /* Petal colors with left-side shading for 3D effect */
+            --petal-edge: #f7f7f7;
+            --petal-center: #ffffff;
+            --petal-shade: #EBEBEB;  /* Darker shade for left side */
+            --petal-highlight: #ffffff;
+            --petal-border: #A5A5A5;
+            --petal-vein: #D8D8D8;
+            --petal-left-shadow: #d8d8d8; /* Shadow for left-facing effect */
+
+            /* Enhanced joyful center colors */
+            --center-hole: #4A2B21;
+            --center-border: #F5C54C;
+            --inner-border: #CDCF31;
+            --outer-hole: #969624;
+            }
+        </style>
+
+        <linearGradient id="petalGradient" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" style="stop-color:var(--petal-edge)" />
+            <stop offset="50%" style="stop-color:var(--petal-center)" />
+            <stop offset="100%" style="stop-color:var(--petal-edge)" />
+        </linearGradient>
+
+        <!-- Left-side shadow gradient for 3D effect -->
+        <linearGradient id="petalLeftShadow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:var(--petal-left-shadow)" />
+            <stop offset="100%" style="stop-color:var(--petal-center);stop-opacity:0" />
+        </linearGradient>
+
+        <!-- Enhanced radial gradient for deeper hole effect, shifted left -->
+        <radialGradient id="holeGradient" cx="45%" cy="50%" r="50%" fx="40%" fy="45%">
+            <stop offset="0%" style="stop-color:black" />
+            <stop offset="70%" style="stop-color:var(--center-hole)" />
+            <stop offset="100%" style="stop-color:var(--outer-hole)" />
+        </radialGradient>
+
+
+
+        <g id="petal" transform="scale(0.3)">
+            <path
+                    d="M15,5 C25,5 40,15 45,30 C50,50 45,70 35,90 C25,100 15,90 5,70 C0,50 5,30 15,20 C20,10 25,5 15,5 Z"
+                    fill="var(--petal-center)"
+                    stroke="var(--petal-border)"
+                    stroke-width="0.5" />
+
+            <path d="M25,5 C25,30 25,65 25,95"
+                  fill="none"
+                  stroke="var(--petal-vein)"
+                  stroke-width="0.5" />
+
+            <!-- Side veins with more curve to suggest concavity -->
+            <path d="M25,25 C32,35 38,50 40,65"
+                  fill="none"
+                  stroke="var(--petal-vein)"
+                  stroke-width="0.3" />
+
+            <path d="M25,25 C18,35 12,50 10,65"
+                  fill="none"
+                  stroke="var(--petal-vein)"
+                  stroke-width="0.3" />
+        </g>
+
+        <!-- Define a curved stamen element -->
+        <g id="stamen">
+            <!-- Curved filament using path instead of straight line -->
+            <path d="M 0,0 Q 2,-8 0,-16"
+                  stroke="var(--petal-border)"
+                  stroke-width="var(--flower-filament-size-border)"
+                  fill="none" />
+            <path d="M 0,0 Q 2,-8 0,-16"
+                  stroke="var(--flower-filament)"
+                  stroke-width="var(--flower-filament-size)"
+                  fill="none" />
+
+            <!-- Anther/stigma -->
+            <ellipse cx="0" cy="-16" rx="1.5" ry="2.5" fill="var(--flower-stigma)"/>
+            <ellipse cx="0" cy="-15.1" rx="0.9" ry="1.6" opacity="1.0" fill="var(--flower-stigma-inside)"/>
+        </g>
+
+        <g id="stamenSmall">
+            <!-- Curved filament using path instead of straight line (curved inward) -->
+            <path d="M 0,0 Q -1.5,-5 0,-10"
+                  stroke="var(--petal-border)"
+                  stroke-width="calc(var(--flower-filament-size-border) * 0.7)"
+                  fill="none" />
+            <path d="M 0,0 Q -1.5,-5 0,-10"
+                  stroke="var(--flower-filament)"
+                  stroke-width="calc(var(--flower-filament-size) * 0.7)"
+                  fill="none" />
+            <!-- Smaller anther/stigma -->
+            <ellipse cx="0" cy="-10" rx="1" ry="1.8" fill="var(--flower-stigma)"/>
+            <ellipse cx="0" cy="-9.4" rx="0.6" ry="1.1" opacity="1.0" fill="var(--flower-stigma-inside)"/>
+        </g>
+    </defs>
+
+    <g transform="  translate(10, -5) scale(0.8)">
+        <use href="#petal" x="50" y="40" transform="translate(0, -5) rotate(180, 60, 60)" opacity="1"/>
+        skewX(4) skewY(15)
+    </g>
+
+
+
+    <g transform="translate(0, -10)">
+
+        <g>
+            <use href="#stamen" x="60" y="57" transform="rotate(0, 60, 60)" opacity="1"/>
+            <use href="#stamen" x="60" y="60" transform="rotate(15, 60, 60)" opacity="1.8"/>
+            <use href="#stamen" x="60" y="60" transform="rotate(-15, 60, 60)" opacity="0.8"/>
+        </g>
+
+    </g>
+
+    <!-- Central Pedals with skew transformation to create 3D perspective -->
+    <g transform="  translate(10, -5) scale(0.8)">
+        <use href="#petal" x="53" y="44" transform="rotate(170, 60, 60)" opacity="1"/>
+        skewX(4) skewY(15)
+        <use href="#petal" x="47" y="44" transform="rotate(195, 60, 60)" opacity="1"/>
+        skewX(4) skewY(15)
+        <use href="#petal" x="50" y="40" transform="rotate(180, 60, 60)" opacity="1"/>
+        skewX(4) skewY(15)
+
+    </g>
+
+
+</svg>

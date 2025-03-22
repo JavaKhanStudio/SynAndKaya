@@ -22,8 +22,6 @@ export function initSlider(fromDownToUp = true) {
         };
     }
 
-    console.log("handle" + handle) ;
-
     // ** EVENT LISTENERS **
     handle.addEventListener("mousedown", startDrag);
     handle.addEventListener("touchstart", startDrag, { passive: false });
