@@ -1,8 +1,6 @@
 const slider = document.getElementById("slider");
 const handle = document.getElementById("handle");
-let dragging = false;
-let offsetY = 0;
-let autoScrollActive = true;
+let autoScrollActive = false;
 
 const scrolling_stepSize = 6;
 const autoScrolling_stepSize = -1;
@@ -11,6 +9,9 @@ const autoScrolling_stepDelay = 1;
 let scrollMomentum = 0;
 const scrollDamping = 0.92;
 
+
+let dragging = false;
+let offsetY = 0;
 
 export function initSlider(fromDownToUp = true) {
 
@@ -26,7 +27,8 @@ export function initSlider(fromDownToUp = true) {
     handle.addEventListener("mousedown", startDrag);
     handle.addEventListener("touchstart", startDrag, { passive: false });
     document.addEventListener("mousemove", onDragMove);
-    document.addEventListener("touchmove", onDragMove, { passive: false });
+    // Disable normal scrolling on touch devices
+    //document.addEventListener("touchmove", onDragMove, { passive: false });
     document.addEventListener("mouseup", stopDrag);
     document.addEventListener("touchend", stopDrag);
 
@@ -37,7 +39,7 @@ export function initSlider(fromDownToUp = true) {
     document.addEventListener("wheel", (e) => {
         autoScrollActive = false;
         e.preventDefault();
-        scrollMomentum += e.deltaY * 0.5; // Sensitivity
+        scrollMomentum += e.deltaY * 0.5;
         applyScrollMomentum();
     }, { passive: false });
 }
