@@ -23,25 +23,30 @@ export function initSlider(fromDownToUp = true) {
         };
     }
 
+
     // ** EVENT LISTENERS **
     handle.addEventListener("mousedown", startDrag);
     handle.addEventListener("touchstart", startDrag, { passive: false });
     document.addEventListener("mousemove", onDragMove);
     // Disable normal scrolling on touch devices
-    //document.addEventListener("touchmove", onDragMove, { passive: false });
+    document.addEventListener("touchmove", onDragMove, { passive: true });
     document.addEventListener("mouseup", stopDrag);
     document.addEventListener("touchend", stopDrag);
 
+    /*
     document.addEventListener("touchmove", () => {
         autoScrollActive = false;
     }, { passive: false });
+*/
 
     document.addEventListener("wheel", (e) => {
-        autoScrollActive = false;
-        e.preventDefault();
-        scrollMomentum += e.deltaY * 0.5;
-        applyScrollMomentum();
+        if (!autoScrollActive) {
+            e.preventDefault();
+            scrollMomentum += e.deltaY * 0.5;
+            applyScrollMomentum();
+        }
     }, { passive: false });
+
 }
 
 function updateHandlePosition() {
@@ -103,7 +108,10 @@ function stopDrag() {
     dragging = false;
     document.body.style.userSelect = "auto";
     handle.style.transition = "top 0.1s ease-out";
+
+    document.removeEventListener("touchmove", onDragMove);
 }
+
 
 function applyScrollMomentum() {
     if (dragging || Math.abs(scrollMomentum) < 0.1) {
