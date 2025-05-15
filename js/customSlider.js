@@ -23,34 +23,31 @@ export function initSlider(fromDownToUp = true) {
         };
     }
 
-
     // ** EVENT LISTENERS **
     handle.addEventListener("mousedown", startDrag);
     handle.addEventListener("touchstart", startDrag, { passive: false });
     document.addEventListener("mousemove", onDragMove);
-    // Disable normal scrolling on touch devices
-    document.addEventListener("touchmove", onDragMove, { passive: true });
+
+    document.addEventListener("touchmove", onDragMove, { passive: false });
     document.addEventListener("mouseup", stopDrag);
     document.addEventListener("touchend", stopDrag);
 
-    /*
-    document.addEventListener("touchmove", () => {
-        autoScrollActive = false;
-    }, { passive: false });
-*/
+
+
 
     document.addEventListener("wheel", (e) => {
         if (!autoScrollActive) {
-            e.preventDefault();
+            //e.preventDefault();
             scrollMomentum += e.deltaY * 0.5;
             applyScrollMomentum();
         }
-    }, { passive: false });
+    }, { passive: true });
 
 }
 
 function updateHandlePosition() {
     if (dragging || scrollMomentum !== 0) return; // Prevent interference
+
     let scrollRatio = document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight);
     let handleMaxY = slider.clientHeight - handle.clientHeight;
     let newTop = scrollRatio * handleMaxY;
@@ -106,10 +103,6 @@ function onDragMove(e) {
 
 function stopDrag() {
     dragging = false;
-    document.body.style.userSelect = "auto";
-    handle.style.transition = "top 0.1s ease-out";
-
-    document.removeEventListener("touchmove", onDragMove);
 }
 
 
