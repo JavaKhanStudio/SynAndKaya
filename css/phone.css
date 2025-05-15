@@ -34,7 +34,6 @@
 
     #generation-parents {
         height: auto;
-
         margin: 0px;
     }
 
@@ -50,27 +49,28 @@
     }
 
     #generation-puppies .carousel-container {
-        max-width: 44%;
+        width: 60%;
+        height: 60%;
     }
 
     #carousel-container-Puppy_1 {
-        transform: translate(10%, 10%);
+        transform: translate(-15%, 5%);
     }
 
     #carousel-container-Puppy_2 {
-        transform: translate(-10%, 10%);
+        transform: translate(15%, 5%);
     }
 
     #carousel-container-Puppy_3 {
-        transform: translate(-15%, 0%);
+        transform: translate(-15%, 5%);
     }
 
     #carousel-container-Puppy_4 {
-        transform: translate(15%, 0%);
+        transform: translate(15%, 5%);
     }
 
     #carousel-container-Puppy_5 {
-        transform: translate(0, 15%);
+        transform: translate(-15%, 5%);
     }
 
     .carousel-container {

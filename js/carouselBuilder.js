@@ -203,7 +203,6 @@ function generateCarousels(carouselsData, complexDisplay) {
 
             prevArrow.classList.add('carousel-arrow') ;
             prevArrow.classList.add('carousel-arrow-prev') ;
-            prevArrow.classList.add('disabled');
 
             prevArrow.onclick = (e) => {
                 e.stopPropagation();
@@ -218,12 +217,6 @@ function generateCarousels(carouselsData, complexDisplay) {
             const nextArrow = document.createElement('div');
             nextArrow.classList.add('carousel-arrow') ;
             nextArrow.classList.add('carousel-arrow-next') ;
-
-            if (carouselData.img.length <= 1) {
-                nextArrow.classList.add('disabled');
-            } else {
-                nextArrow.classList.remove('disabled');
-            }
 
             nextArrow.onclick = (e) => {
                 e.stopPropagation();
@@ -255,6 +248,7 @@ export function navigateCarouselToIndex(carouselId, targetIndex) {
 
     // Update active class on items
     items.forEach((item, index) => {
+
         if (index === targetIndex) {
             item.classList.add('active');
         } else {
@@ -264,20 +258,8 @@ export function navigateCarouselToIndex(carouselId, targetIndex) {
 
     // Update pagination dots
     dots.forEach((dot, index) => {
-        dot.className = index === targetIndex ? 'carousel-dot active' : 'carousel-dot';
+        dot.className = 'carousel-dot active' ;
     });
-
-    if (targetIndex === 0) {
-        prevArrow.classList.add('disabled');
-    } else {
-        prevArrow.classList.remove('disabled');
-    }
-
-    if (targetIndex === items.length - 1) {
-        nextArrow.classList.add('disabled');
-    } else {
-        nextArrow.classList.remove('disabled');
-    }
 
 }
 
@@ -296,10 +278,19 @@ export function navigateCarousel(carouselId, direction) {
 
     // Calculate target index
     let targetIndex = currentIndex;
-    if (direction === 'next' && currentIndex < items.length - 1) {
-        targetIndex = currentIndex + 1;
-    } else if (direction === 'prev' && currentIndex > 0) {
-        targetIndex = currentIndex - 1;
+    if (direction === 'next') {
+        if(currentIndex === items.length - 1) {
+            targetIndex = 0;
+        } else {
+            targetIndex = currentIndex + 1;
+        }
+
+    } else if (direction === 'prev') {
+        if(currentIndex === 0) {
+            targetIndex = items.length - 1;
+        } else {
+            targetIndex = currentIndex - 1;
+        }
     }
 
     navigateCarouselToIndex(carouselId, targetIndex);
