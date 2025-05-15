@@ -114,7 +114,9 @@
                 },
                 {
                     "name": "3 Mois, Yeux de cockers",
-                    "src" : "img/puppy/Chanel_05.jpg"
+                    "src" : "img/puppy/Chanel_05.jpg",
+                    "decalLargeY" : 5,
+                    "decalLargeX" : -5
                 }
             ]
         },
@@ -146,7 +148,10 @@
                 },
                 {
                     "name": "3 mois, Not impressed",
-                    "src" : "img/puppy/Daisy_06.jpg"
+                    "src" : "img/puppy/Daisy_06.jpg",
+                    "decalLargeY" : 20,
+                    "decalSmallY" : 1,
+                    "decalLargeX" : -30
                 }
             ]
         }
@@ -166,6 +171,7 @@
                 {
                     "name": "Bébé",
                     "src" : "img/syn/1 - Bebe.jpg",
+                    "decalSmallY" : -10,
                     "decalLargeY" : -70
                 },
                 {
