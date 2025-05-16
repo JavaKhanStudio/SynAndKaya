@@ -24,6 +24,7 @@ export function initSlider(fromDownToUp = true) {
     }
 
     // ** EVENT LISTENERS **
+    handle.addEventListener("mousedown", startDrag);
     document.addEventListener("mousedown", startDrag);
     document.addEventListener("mousemove", onDragMove);
     document.addEventListener("mouseup", stopDrag);
@@ -119,35 +120,30 @@ function onDragMove(e) {
     if (!dragging) return;
 
     const isTouch = e.type.startsWith("touch");
-
-    let clientY = 0 ;
-
-    const currentY = e.touches[0].clientY;
+    let clientY = isTouch ? e.touches[0].clientY : e.clientY;
     let newY = 0;
 
-
-    if(isTouch) {
-        if(dragDirection === 1) {
-            clientY = e.touches[0].clientY - offsetY ;
-            newY = clientY - slider.getBoundingClientRect().top ;
+    if (isTouch) {
+        if (dragDirection === 1) {
+            newY = clientY - slider.getBoundingClientRect().top - offsetY;
         } else {
-            const deltaY = currentY - lastTouchY;
-            newY =  parseInt(handle.style.top) - deltaY;
-            console.log(newY)
-            console.log("Delta Y :" + deltaY);
-            lastTouchY = currentY;
+            const deltaY = clientY - lastTouchY;
+            newY = parseInt(handle.style.top, 10) - deltaY;
+            console.log("newY:", newY);
+            console.log("deltaY:", deltaY);
+            lastTouchY = clientY;
         }
     } else {
-        clientY = e.clientY - offsetY ;
-        newY = clientY - slider.getBoundingClientRect().top ;
+        newY = clientY - slider.getBoundingClientRect().top - offsetY;
     }
 
-   const handleMaxY = slider.clientHeight - handle.clientHeight;
-   newY = Math.max(0, Math.min(newY, handleMaxY));
+    const handleMaxY = slider.clientHeight - handle.clientHeight;
+    newY = Math.max(0, Math.min(newY, handleMaxY));
 
     handle.style.top = `${newY}px`;
     document.documentElement.scrollTop = (newY / handleMaxY) * (document.documentElement.scrollHeight - window.innerHeight);
 }
+
 
 
 function stopDrag() {

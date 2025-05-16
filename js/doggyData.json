@@ -9,23 +9,23 @@
             "img": [
                 {
                     "name": "Age 2 semaines",
-                    "src" : "img/puppy/Cayenne_01.jpg"
+                    "src" : "img/puppy/Cayenne_01.avif"
                 },
                 {
                     "name": "Age 3 semaines",
-                    "src" : "img/puppy/Cayenne_02.jpg"
+                    "src" : "img/puppy/Cayenne_02.avif"
                 },
                 {
                     "name": "Age 5 semaines",
-                    "src" : "img/puppy/Cayenne_03.jpg"
+                    "src" : "img/puppy/Cayenne_03.avif"
                 },
                 {
                     "name": "2 mois",
-                    "src" : "img/puppy/Cayenne_04.jpg"
+                    "src" : "img/puppy/Cayenne_04.avif"
                 },
                 {
                     "name": "3 mois, dans le lit",
-                    "src" : "img/puppy/Cayenne_05.jpg"
+                    "src" : "img/puppy/Cayenne_05.avif"
                 }
 
             ]
@@ -38,23 +38,23 @@
             "img": [
                 {
                     "name": "Age 2 semaines",
-                    "src" : "img/puppy/Abby_01.jpg"
+                    "src" : "img/puppy/Abby_01.avif"
                 },
                 {
                     "name": "Age 3 semaines",
-                    "src" : "img/puppy/Abby_02.jpg"
+                    "src" : "img/puppy/Abby_02.avif"
                 },
                 {
                     "name": "Age 5 semaines",
-                    "src" : "img/puppy/Abby_03.jpg"
+                    "src" : "img/puppy/Abby_03.avif"
                 },
                 {
                     "name": "3 Mois - A l'attention",
-                    "src" : "img/puppy/Abby_04.jpg"
+                    "src" : "img/puppy/Abby_04.avif"
                 },
                 {
                     "name": "3 Mois - Fait la mignones ",
-                    "src" : "img/puppy/Abby_05.jpg"
+                    "src" : "img/puppy/Abby_05.avif"
                 }
             ]
         },
@@ -66,23 +66,23 @@
             "img": [
                 {
                     "name": "Age 2 semaines",
-                    "src" : "img/puppy/Albert_01.jpg"
+                    "src" : "img/puppy/Albert_01.avif"
                 },
                 {
                     "name": "Age 3 semaines",
-                    "src" : "img/puppy/Albert_02.jpg"
+                    "src" : "img/puppy/Albert_02.avif"
                 },
                 {
                     "name": "Age 5 semaines",
-                    "src" : "img/puppy/Albert_03.jpg"
+                    "src" : "img/puppy/Albert_03.avif"
                 },
                 {
                     "name": "3 Mois - A la plage",
-                    "src" : "img/puppy/Albert_04.jpg"
+                    "src" : "img/puppy/Albert_04.avif"
                 },
                 {
                     "name": "3 Mois - Le Choupi",
-                    "src" : "img/puppy/Albert_05.jpg"
+                    "src" : "img/puppy/Albert_05.avif"
                 }
             ]
         },
@@ -94,27 +94,27 @@
             "img": [
                 {
                     "name": "Age 2 semaines",
-                    "src" : "img/puppy/Chanel_01.jpg"
+                    "src" : "img/puppy/Chanel_01.avif"
                 },
                 {
                     "name": "Age 3 semaines",
-                    "src" : "img/puppy/Chanel_02.jpg"
+                    "src" : "img/puppy/Chanel_02.avif"
                 },
                 {
                     "name": "Age 5 semaines",
-                    "src" : "img/puppy/Chanel_03.jpg"
+                    "src" : "img/puppy/Chanel_03.avif"
                 },
                 {
                     "name": "La petite terreur",
-                    "src" : "img/puppy/Chanel_03_02.jpg"
+                    "src" : "img/puppy/Chanel_03_02.avif"
                 },
                 {
                     "name": "3 Mois, veux des papouilles",
-                    "src" : "img/puppy/Chanel_04.jpg"
+                    "src" : "img/puppy/Chanel_04.avif"
                 },
                 {
                     "name": "3 Mois, Yeux de cockers",
-                    "src" : "img/puppy/Chanel_05.jpg",
+                    "src" : "img/puppy/Chanel_05.avif",
                     "decalLargeY" : 5,
                     "decalLargeX" : -5
                 }
@@ -128,27 +128,27 @@
             "img": [
                 {
                     "name": "Age 2 semaines",
-                    "src" : "img/puppy/Daisy_01.jpg"
+                    "src" : "img/puppy/Daisy_01.avif"
                 },
                 {
                     "name": "Age 3 semaines",
-                    "src" : "img/puppy/Daisy_02.jpg"
+                    "src" : "img/puppy/Daisy_02.avif"
                 },
                 {
                     "name": "Age 5 semaines",
-                    "src" : "img/puppy/Daisy_03.jpg"
+                    "src" : "img/puppy/Daisy_03.avif"
                 },
                 {
                     "name": "3 mois - Nouveau Jardin",
-                    "src" : "img/puppy/Daisy_04.png"
+                    "src" : "img/puppy/Daisy_04.avif"
                 },
                 {
                     "name": "3 mois, fait dodo",
-                    "src" : "img/puppy/Daisy_05.png"
+                    "src" : "img/puppy/Daisy_05.avif"
                 },
                 {
                     "name": "3 mois, Not impressed",
-                    "src" : "img/puppy/Daisy_06.jpg",
+                    "src" : "img/puppy/Daisy_06.avif",
                     "decalLargeY" : 20,
                     "decalSmallY" : 1,
                     "decalLargeX" : -30
@@ -164,35 +164,35 @@
             "img": [
                 {
                     "name": "Adulte 1 an",
-                    "src" : "img/syn/4 - Adulte.jpg",
+                    "src" : "img/syn/4 - Adulte.avif",
                     "decalSmallY" : 1,
                     "decalLargeY" : -20
                 },
                 {
                     "name": "Bébé",
-                    "src" : "img/syn/1 - Bebe.jpg",
+                    "src" : "img/syn/1 - Bebe.avif",
                     "decalSmallY" : -10,
                     "decalLargeY" : -70
                 },
                 {
                     "name": "Jeune",
-                    "src" : "img/syn/2 - Jeune.jpg"
+                    "src" : "img/syn/2 - Jeune.avif"
                 },
                 {
                     "name": "Ado",
-                    "src" : "img/syn/3 - Ado.png"
+                    "src" : "img/syn/3 - Ado.avif"
                 },
                 {
                     "name": "Adulte 2 ans",
-                    "src" : "img/syn/5 - Adulte 2 ans.jpg"
+                    "src" : "img/syn/5 - Adulte 2 ans.avif"
                 },
                 {
                     "name": "Adulte 3 ans",
-                    "src" : "img/syn/6 - Visite.jpg"
+                    "src" : "img/syn/6 - Visite.avif"
                 },
                 {
                     "name": "Adulte avec Daisy",
-                    "src" : "img/syn/7 - Syn Daisy.png"
+                    "src" : "img/syn/7 - Syn Daisy.avif"
                 }
             ]
         },
@@ -203,21 +203,21 @@
             "img": [
                 {
                     "name": "Taya",
-                    "src" : "img/taya/Taya_2.jpg",
+                    "src" : "img/taya/Taya_2.avif",
                     "decalSmallY" : -10,
                     "decalLargeY" : -50
                 },
                 {
                     "name": "Taya Jeune",
-                    "src" : "img/taya/Taya_Bebe_2.jpg"
+                    "src" : "img/taya/Taya_Bebe_2.avif"
                 },
                 {
                     "name": "Taya Escalade",
-                    "src" : "img/taya/Taya_1.jpg"
+                    "src" : "img/taya/Taya_1.avif"
                 },
                 {
                     "name": "Bébé",
-                    "src" : "img/taya/Taya_Bebe.jpg"
+                    "src" : "img/taya/Taya_Bebe.avif"
                 }
             ]
         }
@@ -234,7 +234,7 @@
             "img": [
                 {
                     "name": "Maman Syn",
-                    "src" : "img/parents/Syn_Maman.jpg",
+                    "src" : "img/parents/Syn_Maman.avif",
                     "decalSmallY" : -10,
                     "decalLargeY" : -40
                 }
@@ -264,7 +264,7 @@
             "img": [
                 {
                     "name": "Maman Taia",
-                    "src" : "img/parents/Taia_Maman.jpg",
+                    "src" : "img/parents/Taia_Maman.avif",
                     "decalSmallY" : -10,
                     "decalLargeY" : -10
                 }
@@ -279,7 +279,7 @@
             "img": [
                 {
                     "name": "Papa Taia",
-                    "src" : "img/parents/Taia_Papa.jpg",
+                    "src" : "img/parents/Taia_Papa.avif",
                     "decalSmallY" : -5,
                     "decalLargeY" : -10
                 }
