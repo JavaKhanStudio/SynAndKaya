@@ -8,7 +8,7 @@ const autoScrolling_stepDelay = 1;
 
 let scrollMomentum = 0;
 const scrollDamping = 0.92;
-
+let dragDirection = 1;
 
 let dragging = false;
 let offsetY = 0;
@@ -24,12 +24,12 @@ export function initSlider(fromDownToUp = true) {
     }
 
     // ** EVENT LISTENERS **
-    handle.addEventListener("mousedown", startDrag);
-    handle.addEventListener("touchstart", startDrag, { passive: false });
+    document.addEventListener("mousedown", startDrag);
     document.addEventListener("mousemove", onDragMove);
-
-    document.addEventListener("touchmove", onDragMove, { passive: false });
     document.addEventListener("mouseup", stopDrag);
+
+    document.addEventListener("touchstart", startDrag, { passive: false }); // allow preventDefault if needed
+    document.addEventListener("touchmove", onDragMove, { passive: false }); // same
     document.addEventListener("touchend", stopDrag);
 
 
@@ -37,8 +37,8 @@ export function initSlider(fromDownToUp = true) {
 
     document.addEventListener("wheel", (e) => {
         if (!autoScrollActive) {
-            //e.preventDefault();
-            scrollMomentum += e.deltaY * 0.5;
+            console.log("scrolling")
+            scrollMomentum += e.deltaY * 0.5 ;
             applyScrollMomentum();
         }
     }, { passive: true });
@@ -48,7 +48,7 @@ export function initSlider(fromDownToUp = true) {
 function updateHandlePosition() {
     if (dragging || scrollMomentum !== 0) return; // Prevent interference
 
-    let scrollRatio = document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight);
+    let scrollRatio = document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight) ;
     let handleMaxY = slider.clientHeight - handle.clientHeight;
     let newTop = scrollRatio * handleMaxY;
 
@@ -82,27 +82,77 @@ function autoScrollToTop() {
 
 // ** DRAG HANDLING **
 function startDrag(e) {
+    console.log("startDrag",e.touches);
+    const target = e.target;
+    const isTouch = e.type.startsWith("touch");
+    const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+
+    // Only start dragging if the handle is touched
+    if (handle.contains(target)) {
+        // / Drag while touching the handle
+        dragDirection = 1 ;
+
+    } else if(!slider.contains(target)) {
+        // Drag while NOT touching the handle
+        dragDirection = -1 ;
+        lastTouchY = e.touches[0].clientY;
+    } else {
+        dragDirection = 0 ;
+        return;
+    }
+
+    offsetY = clientY - handle.getBoundingClientRect().top;
     dragging = true;
     autoScrollActive = false;
-    offsetY = (e.touches ? e.touches[0].clientY : e.clientY) - handle.getBoundingClientRect().top;
+
+
     document.body.style.userSelect = "none";
     handle.style.transition = "none";
+
 }
+
+
+let lastTouchY = null;
+
 
 function onDragMove(e) {
     if (!dragging) return;
 
-    let clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    let handleMaxY = slider.clientHeight - handle.clientHeight;
-    let newY = clientY - slider.getBoundingClientRect().top - offsetY;
-    newY = Math.max(0, Math.min(newY, handleMaxY));
+    const isTouch = e.type.startsWith("touch");
+
+    let clientY = 0 ;
+
+    const currentY = e.touches[0].clientY;
+    let newY = 0;
+
+
+    if(isTouch) {
+        if(dragDirection === 1) {
+            clientY = e.touches[0].clientY - offsetY ;
+            newY = clientY - slider.getBoundingClientRect().top ;
+        } else {
+            const deltaY = currentY - lastTouchY;
+            newY =  parseInt(handle.style.top) - deltaY;
+            console.log(newY)
+            console.log("Delta Y :" + deltaY);
+            lastTouchY = currentY;
+        }
+    } else {
+        clientY = e.clientY - offsetY ;
+        newY = clientY - slider.getBoundingClientRect().top ;
+    }
+
+   const handleMaxY = slider.clientHeight - handle.clientHeight;
+   newY = Math.max(0, Math.min(newY, handleMaxY));
 
     handle.style.top = `${newY}px`;
     document.documentElement.scrollTop = (newY / handleMaxY) * (document.documentElement.scrollHeight - window.innerHeight);
 }
 
+
 function stopDrag() {
     dragging = false;
+    lastTouchY = 0 ;
 }
 
 
