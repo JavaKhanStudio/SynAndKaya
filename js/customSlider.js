@@ -83,7 +83,6 @@ function autoScrollToTop() {
 
 // ** DRAG HANDLING **
 function startDrag(e) {
-    console.log("startDrag",e.touches);
     const target = e.target;
     const isTouch = e.type.startsWith("touch");
     const clientY = isTouch ? e.touches[0].clientY : e.clientY;
@@ -93,8 +92,8 @@ function startDrag(e) {
         // / Drag while touching the handle
         dragDirection = 1 ;
 
-    } else if(!slider.contains(target)) {
-        // Drag while NOT touching the handle
+    } else if(!slider.contains(target) && e.touches) {
+        // Drag while NOT touching the handle on phone
         dragDirection = -1 ;
         lastTouchY = e.touches[0].clientY;
     } else {
@@ -112,9 +111,7 @@ function startDrag(e) {
 
 }
 
-
 let lastTouchY = null;
-
 
 function onDragMove(e) {
     if (!dragging) return;
@@ -129,8 +126,6 @@ function onDragMove(e) {
         } else {
             const deltaY = clientY - lastTouchY;
             newY = parseInt(handle.style.top, 10) - deltaY;
-            console.log("newY:", newY);
-            console.log("deltaY:", deltaY);
             lastTouchY = clientY;
         }
     } else {
@@ -145,12 +140,10 @@ function onDragMove(e) {
 }
 
 
-
 function stopDrag() {
     dragging = false;
     lastTouchY = 0 ;
 }
-
 
 function applyScrollMomentum() {
     if (dragging || Math.abs(scrollMomentum) < 0.1) {
