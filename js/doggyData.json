@@ -218,6 +218,10 @@
                 {
                     "name": "Bébé",
                     "src" : "img/taya/Taya_Bebe.avif"
+                },
+                {
+                    "name": "En Famille",
+                    "src" : "img/taya/Taya_Daisy.avif"
                 }
             ]
         }

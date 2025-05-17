@@ -30,7 +30,8 @@ class GrassBlade {
         this.offset = Math.random() * Math.PI * 2;
         this.width = grass_Width_Min + Math.random() * grass_Width_RandomFactor;
 
-        // Precompute gradient once per blade
+        this.currentSwayForce = 0; // ← NEW: smooth force
+
         this.gradient = ctx.createLinearGradient(this.x, canvas.height, this.x, canvas.height - this.baseHeight);
         this.gradient.addColorStop(0, "darkgreen");
         this.gradient.addColorStop(1, "lightgreen");
@@ -40,9 +41,13 @@ class GrassBlade {
         const dx = this.x - mouseX;
         const distanceSquared = dx * dx;
         const distanceFactor = Math.max(0, 1 - distanceSquared / influenceRadiusSquared);
-        const swayForce = distanceFactor * maxPush * Math.sign(dx);
+        const targetSwayForce = distanceFactor * maxPush * Math.sign(dx);
+
+        // Smooth sway force (lerp)
+        this.currentSwayForce += (targetSwayForce - this.currentSwayForce) * 0.025;
+
         const naturalSway = Math.sin(time * windSpeed + this.offset) * this.swayAmount;
-        const sway = naturalSway + swayForce;
+        const sway = naturalSway + this.currentSwayForce;
         const topX = this.x + sway;
         const topY = canvas.height - this.baseHeight;
 
@@ -55,6 +60,7 @@ class GrassBlade {
         ctx.fill();
     }
 }
+
 
 function updateVisuals() {
     canvas.width = window.innerWidth;
